@@ -1,5 +1,5 @@
 {
-    "name": "nfse/nfse",
+    "name": "nfse-nacional/nfse-php",
     "description": "This is my package nfse",
     "keywords": [
         "Nfse",
@@ -35,7 +35,7 @@
     },
     "scripts": {
         "test": "vendor/bin/pest",
-            "test-coverage": "vendor/bin/pest --coverage",
+        "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint"
     },
     "config": {
