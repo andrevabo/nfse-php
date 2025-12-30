@@ -5,6 +5,11 @@ Para serviços de construção civil, é obrigatório informar os dados da obra.
 ## Regras de Negócio
 
 -   **Obrigatoriedade**: O grupo `obra` é obrigatório para códigos de tributação como `07.02.01`, `07.02.02`, `07.04.01`, `07.05.01`, etc.
+-   **Identificação da Obra**: Deve ser informada através de **pelo menos um** dos seguintes campos (Choice):
+    -   `cObra`: Código da Obra (CIB - Cadastro Imobiliário Brasileiro / antigo CNO).
+    -   `inscImobFisc`: Inscrição Imobiliária Fiscal.
+    -   `end`: Endereço da Obra (se não houver CIB ou Inscrição).
+-   **CIB (Cadastro Imobiliário Brasileiro)**: O CIB será de preenchimento obrigatório a partir de **2027**. Até lá, caso a obra não possua CIB, deve-se utilizar a Inscrição Imobiliária ou o Endereço da Obra.
 -   **Endereço da Obra**: O CEP da obra deve pertencer ao município informado em `localPrestacao`.
 
 ## Exemplo de Código
