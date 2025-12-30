@@ -1,16 +1,16 @@
 <?php
 
-namespace Nfse\Nfse\Xml;
+namespace Nfse\Xml;
 
 use DOMDocument;
 use DOMElement;
-use Nfse\Nfse\Dto\DpsData;
-use Nfse\Nfse\Dto\InfDpsData;
-use Nfse\Nfse\Dto\PrestadorData;
-use Nfse\Nfse\Dto\TomadorData;
-use Nfse\Nfse\Dto\ServicoData;
-use Nfse\Nfse\Dto\ValoresData;
-use Nfse\Nfse\Dto\EnderecoData;
+use Nfse\Dto\DpsData;
+use Nfse\Dto\InfDpsData;
+use Nfse\Dto\PrestadorData;
+use Nfse\Dto\TomadorData;
+use Nfse\Dto\ServicoData;
+use Nfse\Dto\ValoresData;
+use Nfse\Dto\EnderecoData;
 
 class DpsXmlBuilder
 {

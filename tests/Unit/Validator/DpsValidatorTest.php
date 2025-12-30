@@ -1,12 +1,12 @@
 <?php
 
-use Nfse\Nfse\Dto\DpsData;
-use Nfse\Nfse\Dto\EnderecoData;
-use Nfse\Nfse\Dto\EnderecoExteriorData;
-use Nfse\Nfse\Dto\InfDpsData;
-use Nfse\Nfse\Dto\PrestadorData;
-use Nfse\Nfse\Dto\TomadorData;
-use Nfse\Nfse\Validator\DpsValidator;
+use Nfse\Dto\DpsData;
+use Nfse\Dto\EnderecoData;
+use Nfse\Dto\EnderecoExteriorData;
+use Nfse\Dto\InfDpsData;
+use Nfse\Dto\PrestadorData;
+use Nfse\Dto\TomadorData;
+use Nfse\Validator\DpsValidator;
 
 it('validates a valid DPS', function () {
     $dps = new DpsData(

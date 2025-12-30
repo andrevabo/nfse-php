@@ -1,15 +1,15 @@
 <?php
 
-use Nfse\Nfse\Dto\DpsData;
-use Nfse\Nfse\Dto\EmitenteData;
-use Nfse\Nfse\Dto\EnderecoEmitenteData;
-use Nfse\Nfse\Dto\InfDpsData;
-use Nfse\Nfse\Dto\InfNfseData;
-use Nfse\Nfse\Dto\NfseData;
+use Nfse\Dto\DpsData;
+use Nfse\Dto\EmitenteData;
+use Nfse\Dto\EnderecoEmitenteData;
+use Nfse\Dto\InfDpsData;
+use Nfse\Dto\InfNfseData;
+use Nfse\Dto\NfseData;
 
-use Nfse\Nfse\Dto\DfeData;
-use Nfse\Nfse\Dto\ValoresNfseData;
-use Nfse\Nfse\Enums\DfeType;
+use Nfse\Dto\DfeData;
+use Nfse\Dto\ValoresNfseData;
+use Nfse\Enums\DfeType;
 
 it('can instantiate nfse data with full structure', function () {
     $nfse = new NfseData(

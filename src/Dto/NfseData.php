@@ -1,8 +1,8 @@
 <?php
 
-namespace Nfse\Nfse\Dto;
+namespace Nfse\Dto;
 
-use Nfse\Nfse\Enums\DfeType;
+use Nfse\Enums\DfeType;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;

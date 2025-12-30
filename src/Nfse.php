@@ -1,5 +1,5 @@
 <?php
 
-namespace Nfse\Nfse;
+namespace Nfse;
 
 class Nfse {}

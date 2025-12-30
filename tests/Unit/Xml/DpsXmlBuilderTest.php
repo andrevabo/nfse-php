@@ -2,17 +2,17 @@
 
 namespace Nfse\Tests\Unit\Xml;
 
-use Nfse\Nfse\Dto\DpsData;
-use Nfse\Nfse\Dto\InfDpsData;
-use Nfse\Nfse\Dto\PrestadorData;
-use Nfse\Nfse\Dto\TomadorData;
-use Nfse\Nfse\Dto\ServicoData;
-use Nfse\Nfse\Dto\ValoresData;
-use Nfse\Nfse\Dto\LocalPrestacaoData;
-use Nfse\Nfse\Dto\CodigoServicoData;
-use Nfse\Nfse\Dto\ValorServicoPrestadoData;
-use Nfse\Nfse\Dto\TributacaoData;
-use Nfse\Nfse\Xml\DpsXmlBuilder;
+use Nfse\Dto\DpsData;
+use Nfse\Dto\InfDpsData;
+use Nfse\Dto\PrestadorData;
+use Nfse\Dto\TomadorData;
+use Nfse\Dto\ServicoData;
+use Nfse\Dto\ValoresData;
+use Nfse\Dto\LocalPrestacaoData;
+use Nfse\Dto\CodigoServicoData;
+use Nfse\Dto\ValorServicoPrestadoData;
+use Nfse\Dto\TributacaoData;
+use Nfse\Xml\DpsXmlBuilder;
 
 it('can build xml from dps data', function () {
     $infDps = new InfDpsData(
@@ -87,7 +87,7 @@ it('can build xml from dps data', function () {
                 tipoRetencaoIssqn: 1,
                 tipoSuspensao: 1,
                 numeroProcessoSuspensao: '123456',
-                beneficioMunicipal: new \Nfse\Nfse\Dto\BeneficioMunicipalData(
+                beneficioMunicipal: new \Nfse\Dto\BeneficioMunicipalData(
                     percentualReducaoBcBm: 10.0,
                     valorReducaoBcBm: 100.0
                 ),

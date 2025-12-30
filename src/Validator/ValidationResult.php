@@ -1,6 +1,6 @@
 <?php
 
-namespace Nfse\Nfse\Validator;
+namespace Nfse\Validator;
 
 class ValidationResult
 {

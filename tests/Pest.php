@@ -27,7 +27,9 @@ if (!function_exists('app')) {
         }
 
         if ($abstract === \Spatie\LaravelData\Support\DataConfig::class) {
-            return $container[$abstract] = new \Spatie\LaravelData\Support\DataConfig();
+            return $container[$abstract] = new \Spatie\LaravelData\Support\DataConfig(
+                ruleInferrers: array_map(fn($class) => app($class), config('data.rule_inferrers'))
+            );
         }
 
         if (class_exists($abstract)) {
@@ -83,6 +85,13 @@ if (!function_exists('config')) {
                 'casts' => [],
                 'mappers' => [],
                 'rules' => [],
+                'rule_inferrers' => [
+                    \Spatie\LaravelData\RuleInferrers\RequiredRuleInferrer::class,
+                    \Spatie\LaravelData\RuleInferrers\BuiltInTypesRuleInferrer::class,
+                    \Spatie\LaravelData\RuleInferrers\AttributesRuleInferrer::class,
+                    \Spatie\LaravelData\RuleInferrers\NullableRuleInferrer::class,
+                    \Spatie\LaravelData\RuleInferrers\SometimesRuleInferrer::class,
+                ],
                 'normalizers' => [
                     \Spatie\LaravelData\Normalizers\ArrayNormalizer::class,
                     \Spatie\LaravelData\Normalizers\ObjectNormalizer::class,

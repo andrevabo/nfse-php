@@ -2,19 +2,19 @@
 
 namespace Nfse\Tests\Unit\Dto;
 
-use Nfse\Nfse\Dto\DpsData;
-use Nfse\Nfse\Dto\InfDpsData;
-use Nfse\Nfse\Dto\PrestadorData;
-use Nfse\Nfse\Dto\TomadorData;
-use Nfse\Nfse\Dto\ServicoData;
-use Nfse\Nfse\Dto\ValoresData;
-use Nfse\Nfse\Dto\EnderecoData;
-use Nfse\Nfse\Dto\RegimeTributarioData;
-use Nfse\Nfse\Dto\TributacaoData;
-use Nfse\Nfse\Dto\LocalPrestacaoData;
-use Nfse\Nfse\Dto\CodigoServicoData;
-use Nfse\Nfse\Dto\ValorServicoPrestadoData;
-use Nfse\Nfse\Dto\DescontoData;
+use Nfse\Dto\DpsData;
+use Nfse\Dto\InfDpsData;
+use Nfse\Dto\PrestadorData;
+use Nfse\Dto\TomadorData;
+use Nfse\Dto\ServicoData;
+use Nfse\Dto\ValoresData;
+use Nfse\Dto\EnderecoData;
+use Nfse\Dto\RegimeTributarioData;
+use Nfse\Dto\TributacaoData;
+use Nfse\Dto\LocalPrestacaoData;
+use Nfse\Dto\CodigoServicoData;
+use Nfse\Dto\ValorServicoPrestadoData;
+use Nfse\Dto\DescontoData;
 
 it('can instantiate dps data with full structure', function () {
     $infDps = new InfDpsData(

@@ -1,9 +1,9 @@
 <?php
 
-namespace Nfse\Nfse\Validator;
+namespace Nfse\Validator;
 
-use Nfse\Nfse\Dto\DpsData;
-use Nfse\Nfse\Dto\InfDpsData;
+use Nfse\Dto\DpsData;
+use Nfse\Dto\InfDpsData;
 
 class DpsValidator
 {

@@ -4,8 +4,8 @@
     "keywords": [
         "Nfse",
         "nfse"
-    ],
-    "homepage": "https://github.com/nfse/nfse",
+    ],  
+    "homepage": "https://github.com/nfse-nacional/nfse-php",
     "license": "MIT",
     "authors": [
         {
@@ -25,16 +25,16 @@
         "laravel/pint": "^1.0",
         "pestphp/pest": "^4.0",
         "spatie/ray": "^1.28",
-        "spatie/typescript-transformer": "*"
+        "spatie/typescript-transformer": "dev-main"
     },
     "autoload": {
         "psr-4": {
-            "Nfse\\Nfse\\": "src"
+            "Nfse\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Nfse\\Nfse\\Tests\\": "tests"
+            "Nfse\\Tests\\": "tests"
         }
     },
     "scripts": {

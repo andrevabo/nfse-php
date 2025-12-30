@@ -1,6 +1,6 @@
 <?php
 
-namespace Nfse\Nfse\Enums;
+namespace Nfse\Enums;
 
 enum DfeType: string
 {
