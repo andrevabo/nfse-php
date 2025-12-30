@@ -1,6 +1,6 @@
 # Assinatura Digital
 
-O pacote oferece suporte completo para assinatura digital de documentos XML (DPS e NFS-e) utilizando certificados A1 (PKCS#12), conforme exigido pelo padrão nacional.
+O pacote oferece suporte completo para assinatura digital de documentos XML DPS utilizando certificados A1 (PKCS#12), conforme exigido pelo padrão nacional.
 
 ## Requisitos
 
@@ -40,7 +40,7 @@ $signer = new XmlSigner($certificado);
 $xmlContent = file_get_contents('dps-gerada.xml');
 
 // 3. Assine o documento
-// O segundo parâmetro é a tag que será assinada (ex: 'infDPS' para DPS, 'infNFSe' para NFS-e)
+// O segundo parâmetro é a tag que será assinada (ex: 'infDPS' para DPS)
 try {
     $xmlAssinado = $signer->sign($xmlContent, 'infDPS');
 

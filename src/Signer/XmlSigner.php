@@ -18,31 +18,56 @@ class XmlSigner implements SignerInterface
         $this->certificate = $certificate;
     }
 
-    public function sign(string $xmlContent, string $tagToSign): string
-    {
-        if (empty($xmlContent)) {
+    /**
+     * Sign XML content
+     * 
+     * @param string $content XML content to sign
+     * @param string $tagname Tag name to sign (e.g., 'infDPS')
+     * @param string $mark Attribute name for ID (default: 'Id')
+     * @param int $algorithm OpenSSL algorithm (default: OPENSSL_ALGO_SHA1)
+     * @param array $canonical Canonicalization options [exclusive, withComments, xpath, nsPrefixes]
+     * @param string $rootname Root element name for validation (optional)
+     * @param array $options Additional options (reserved for future use)
+     * @return string Signed XML content
+     */
+    public function sign(
+        string $content,
+        string $tagname,
+        string $mark = 'Id',
+        int $algorithm = OPENSSL_ALGO_SHA1,
+        array $canonical = self::CANONICAL,
+        string $rootname = '',
+        array $options = []
+    ): string {
+        if (empty($content)) {
             throw new Exception("Conteúdo XML vazio.");
         }
 
         $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = false;
-        $dom->loadXML($xmlContent);
+        $dom->loadXML($content);
 
         $root = $dom->documentElement;
-        $node = $dom->getElementsByTagName($tagToSign)->item(0);
-
-        if (empty($node)) {
-            throw new Exception("Tag {$tagToSign} não encontrada para assinatura.");
+        
+        // Validate root element if specified
+        if (!empty($rootname) && $root->nodeName !== $rootname) {
+            throw new Exception("Elemento raiz esperado: {$rootname}, encontrado: {$root->nodeName}");
         }
 
-        // Check if already signed (optional, but good practice)
-        // For now, we assume we are signing a fresh document or adding a signature.
-        
+        $node = $dom->getElementsByTagName($tagname)->item(0);
+
+        if (empty($node)) {
+            throw new Exception("Tag {$tagname} não encontrada para assinatura.");
+        }
+
         $this->createSignature(
             $dom,
             $root,
-            $node
+            $node,
+            $mark,
+            $algorithm,
+            $canonical
         );
 
         return $dom->saveXML($dom->documentElement, LIBXML_NOXMLDECL);
@@ -52,7 +77,9 @@ class XmlSigner implements SignerInterface
         DOMDocument $dom,
         DOMNode $root,
         DOMElement $node,
-        int $algorithm = OPENSSL_ALGO_SHA1
+        string $mark,
+        int $algorithm,
+        array $canonical
     ): void {
         $nsDSIG = 'http://www.w3.org/2000/09/xmldsig#';
         $nsCannonMethod = 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315';
@@ -69,21 +96,18 @@ class XmlSigner implements SignerInterface
         $nsTransformMethod1 = 'http://www.w3.org/2000/09/xmldsig#enveloped-signature';
         $nsTransformMethod2 = 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315';
 
-        // Get ID attribute
-        $idSigned = $node->getAttribute('Id');
+        // Get ID attribute using the specified mark
+        $idSigned = $node->getAttribute($mark);
         if (empty($idSigned)) {
-             throw new Exception("Tag a ser assinada deve possuir um atributo 'Id'.");
+             throw new Exception("Tag a ser assinada deve possuir um atributo '{$mark}'.");
         }
 
         // Calculate Digest
-        $digestValue = $this->makeDigest($node, $digestAlgorithm);
+        $digestValue = $this->makeDigest($node, $digestAlgorithm, $canonical);
 
         // Create Signature Node
         $signatureNode = $dom->createElementNS($nsDSIG, 'Signature');
-        // Append to parent of the node being signed, or root? 
-        // In NFSe, usually it's a sibling of infDPS (child of DPS) or child of NFSe.
-        // The provided example code appends to $root. 
-        // In our case, if we sign 'infDPS', the parent is 'DPS'. We should append to 'DPS'.
+        // Append to parent of the node being signed
         $node->parentNode->appendChild($signatureNode);
 
         $signedInfoNode = $dom->createElement('SignedInfo');
@@ -127,7 +151,7 @@ class XmlSigner implements SignerInterface
         $referenceNode->appendChild($digestValueNode);
 
         // Calculate Signature
-        $c14n = $this->canonize($signedInfoNode);
+        $c14n = $this->canonize($signedInfoNode, $canonical);
         $signature = $this->certificate->sign($c14n, $algorithm);
         $signatureValue = base64_encode($signature);
 
@@ -149,20 +173,20 @@ class XmlSigner implements SignerInterface
         $x509DataNode->appendChild($x509CertificateNode);
     }
 
-    private function makeDigest(DOMNode $node, string $algorithm): string
+    private function makeDigest(DOMNode $node, string $algorithm, array $canonical): string
     {
-        $c14n = $this->canonize($node);
+        $c14n = $this->canonize($node, $canonical);
         $hashValue = hash($algorithm, $c14n, true);
         return base64_encode($hashValue);
     }
 
-    private function canonize(DOMNode $node): string
+    private function canonize(DOMNode $node, array $canonical): string
     {
         return $node->C14N(
-            self::CANONICAL[0],
-            self::CANONICAL[1],
-            self::CANONICAL[2],
-            self::CANONICAL[3]
+            $canonical[0] ?? true,
+            $canonical[1] ?? false,
+            $canonical[2] ?? null,
+            $canonical[3] ?? null
         );
     }
 }

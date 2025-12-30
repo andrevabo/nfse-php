@@ -35,6 +35,7 @@ const sidebars: SidebarsConfig = {
         "validations",
         "xml-serialization",
         "digital-signature",
+        "signing-dps",
         {
             type: "category",
             label: "Utilitários",
