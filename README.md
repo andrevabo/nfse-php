@@ -82,7 +82,7 @@ Se você descobrir alguma vulnerabilidade de segurança, por favor, envie um e-m
 
 ## Credits
 
--   [Danvizera](https://github.com/danvizera)
+-   [A21ns1g4ts](https://github.com/a21ns1g4ts)
 -   [All Contributors](../../contributors)
 
 ## License

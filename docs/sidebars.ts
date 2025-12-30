@@ -35,7 +35,16 @@ const sidebars: SidebarsConfig = {
         "validations",
         "xml-serialization",
         "digital-signature",
-        "utilities",
+        {
+            type: "category",
+            label: "Utilitários",
+            items: [
+                "utilities/document-formatter",
+                "utilities/tax-calculator",
+                "utilities/id-generator",
+                "utilities/document-generator",
+            ],
+        },
         "typescript",
         "schema-rules",
     ],
