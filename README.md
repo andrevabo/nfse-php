@@ -37,10 +37,10 @@ Este projeto está em desenvolvimento ativo. Abaixo estão as fases planejadas:
 ### Fase 1: Estrutura de Dados (DTOs) 🚧
 
 -   [x] Implementar DTOs usando `spatie/laravel-data`.
--   [ ] Mapear campos do Excel (`ANEXO_I...`) usando atributos `#[MapInputName]`.
--   [ ] Implementar `Dps`, `Prestador`, `Tomador`, `Servico`, `Valores`.
--   [ ] Adicionar validações (Constraints) nos DTOs.
--   [ ] Testes unitários de validação.
+-   [x] Mapear campos do Excel (`ANEXO_I...`) usando atributos `#[MapInputName]`.
+-   [x] Implementar `Dps`, `Prestador`, `Tomador`, `Servico`, `Valores`.
+-   [x] Adicionar validações (Constraints) nos DTOs.
+-   [x] Testes unitários de validação.
 
 ### Fase 2: Serialização 📅
 
