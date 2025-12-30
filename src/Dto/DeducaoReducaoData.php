@@ -2,6 +2,7 @@
 
 namespace Nfse\Dto;
 
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;
@@ -28,9 +29,9 @@ class DeducaoReducaoData extends Data
 
         /**
          * Documentos comprobatórios da dedução/redução.
-         * TODO: Mapear array de documentos.
+         * @var DocumentoDeducaoData[]|null
          */
-        #[MapInputName('documentos')]
+        #[MapInputName('documentos'), DataCollectionOf(DocumentoDeducaoData::class)]
         public ?array $documentos,
     ) {}
 }

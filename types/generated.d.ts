@@ -32,13 +32,22 @@ mdic: string | null;
 export type DeducaoReducaoData = {
 percentualDeducaoReducao: number | null;
 valorDeducaoReducao: number | null;
-documentos: Array<any> | null;
+documentos: Array<Nfse.Dto.DocumentoDeducaoData> | null;
 };
 export type DescontoData = {
 valorDescontoIncondicionado: number | null;
 valorDescontoCondicionado: number | null;
 };
 export type DfeData = {
+};
+export type DocumentoDeducaoData = {
+chaveNfse: string | null;
+chaveNfe: string | null;
+tipoDeducaoReducao: number | null;
+descricaoOutrasDeducoes: string | null;
+dataEmissaoDocumento: string | null;
+valorDedutivelRedutivel: number | null;
+valorDeducaoReducao: number | null;
 };
 export type EmitenteData = {
 cnpj: string | null;
