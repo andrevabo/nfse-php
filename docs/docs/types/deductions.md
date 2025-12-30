@@ -22,12 +22,15 @@ Identifica o documento que comprova a dedução ou redução.
 
 ### Propriedades
 
-| Propriedade           | Tipo     | Mapeamento XML    | Descrição                                |
-| :-------------------- | :------- | :---------------- | :--------------------------------------- |
-| `chaveNfse`           | `string` | `chNFSe`          | Chave de uma NFS-e.                      |
-| `chaveNfe`            | `string` | `chNFe`           | Chave de uma NF-e.                       |
-| `tipoDeducaoReducao`  | `int`    | `tpDedRed`        | Tipo da dedução conforme tabela oficial. |
-| `valorDeducaoReducao` | `float`  | `vDeducaoReducao` | Valor da dedução comprovada.             |
+| Propriedade               | Tipo     | Mapeamento XML        | Descrição                                |
+| :------------------------ | :------- | :-------------------- | :--------------------------------------- |
+| `chaveNfse`               | `string` | `chNFSe`              | Chave de uma NFS-e.                      |
+| `chaveNfe`                | `string` | `chNFe`               | Chave de uma NF-e.                       |
+| `tipoDeducaoReducao`      | `int`    | `tpDedRed`            | Tipo da dedução conforme tabela oficial. |
+| `descricaoOutrasDeducoes` | `string` | `xDescOutDed`         | Descrição de outras deduções.            |
+| `dataEmissaoDocumento`    | `string` | `dEmiDoc`             | Data de emissão do documento.            |
+| `valorDedutivelRedutivel` | `float`  | `vDedutivelRedutivel` | Valor dedutível/redutível.               |
+| `valorDeducaoReducao`     | `float`  | `vDeducaoReducao`     | Valor da dedução comprovada.             |
 
 ---
 

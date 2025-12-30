@@ -8,13 +8,17 @@ Agrupa todas as informações relativas ao serviço prestado.
 
 ### Propriedades
 
-| Propriedade                 | Tipo                  | Mapeamento XML | Descrição                             |
-| :-------------------------- | :-------------------- | :------------- | :------------------------------------ |
-| `localPrestacao`            | `LocalPrestacaoData`  | `locPrest`     | Onde o serviço foi prestado.          |
-| `codigoServico`             | `CodigoServicoData`   | `cServ`        | Classificação e descrição do serviço. |
-| `informacoesComplementares` | `string`              | `infoComplem`  | Observações gerais sobre o serviço.   |
-| `obra`                      | `ObraData`            | `obra`         | Dados da obra (se aplicável).         |
-| `atividadeEvento`           | `AtividadeEventoData` | `atvEvento`    | Dados do evento (se aplicável).       |
+| Propriedade                          | Tipo                   | Mapeamento XML | Descrição                                  |
+| :----------------------------------- | :--------------------- | :------------- | :----------------------------------------- |
+| `localPrestacao`                     | `LocalPrestacaoData`   | `locPrest`     | Onde o serviço foi prestado.               |
+| `codigoServico`                      | `CodigoServicoData`    | `cServ`        | Classificação e descrição do serviço.      |
+| `comercioExterior`                   | `ComercioExteriorData` | `comExt`       | Dados de comércio exterior (se aplicável). |
+| `obra`                               | `ObraData`             | `obra`         | Dados da obra (se aplicável).              |
+| `atividadeEvento`                    | `AtividadeEventoData`  | `atvEvento`    | Dados do evento (se aplicável).            |
+| `informacoesComplementares`          | `string`               | `infoComplem`  | Observações gerais sobre o serviço.        |
+| `idDocumentoTecnico`                 | `string`               | `idDocTec`     | Identificador do documento técnico.        |
+| `documentoReferencia`                | `string`               | `docRef`       | Documento de referência.                   |
+| `descricaoInformacoesComplementares` | `string`               | `xInfComp`     | Outras informações complementares.         |
 
 ---
 
@@ -43,6 +47,7 @@ Define a classificação fiscal do serviço.
 | `codigoTributacaoMunicipal` | `string` | `cTribMun`     | Código do serviço no município.      |
 | `descricaoServico`          | `string` | `xDescServ`    | Descrição detalhada do serviço.      |
 | `codigoNbs`                 | `string` | `cNBS`         | Nomenclatura Brasileira de Serviços. |
+| `codigoInternoContribuinte` | `string` | `cIntContrib`  | Código interno do serviço.           |
 
 ---
 
@@ -57,6 +62,20 @@ Estrutura universal para endereços na biblioteca.
 | `logradouro`       | `string`               | `xLgr`         | Nome da rua, avenida, etc.              |
 | `numero`           | `string`               | `nro`          | Número do endereço.                     |
 | `bairro`           | `string`               | `xBairro`      | Bairro.                                 |
+| `complemento`      | `string`               | `xCpl`         | Complemento.                            |
 | `codigoMunicipio`  | `string`               | `endNac.cMun`  | Código IBGE do município.               |
 | `cep`              | `string`               | `endNac.CEP`   | CEP (8 dígitos).                        |
 | `enderecoExterior` | `EnderecoExteriorData` | `endExt`       | Dados se o endereço for fora do Brasil. |
+
+---
+
+## EnderecoExteriorData
+
+Estrutura para endereços no exterior.
+
+### Propriedades
+
+| Propriedade        | Tipo     | Mapeamento XML | Descrição                      |
+| :----------------- | :------- | :------------- | :----------------------------- |
+| `codigoPais`       | `string` | `cPais`        | Código ISO2 do país.           |
+| `enderecoCompleto` | `string` | `endCompleto`  | Endereço completo no exterior. |

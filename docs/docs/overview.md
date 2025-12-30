@@ -4,7 +4,7 @@ O `nfse-php` é uma biblioteca agnóstica de framework que fornece os blocos de 
 
 ## Responsabilidades
 
-1.  **Modelagem de Dados**: Define as classes que representam o domínio (Nota Fiscal, DPS, Pessoas) através de DTOs robustos.
+1.  **Modelagem de Dados**: Define as classes que representam o domínio (Nota Fiscal, DPS, Pessoas) através de DTOs robustos. Veja a seção **[Tipos (DTOs)](./types/main-documents)**.
 2.  **Validação**: Garante que os dados estejam em conformidade com as regras de negócio básicas e o schema nacional antes do envio.
 3.  **Geração de Tipos**: Facilita a integração com o frontend através da geração automática de tipos TypeScript.
 

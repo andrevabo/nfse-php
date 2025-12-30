@@ -21,13 +21,19 @@ Consolida todos os valores financeiros da operação.
 
 Define como o serviço será tributado.
 
-### Propriedades de ISSQN
+### Propriedades
 
-| Propriedade         | Tipo  | Mapeamento XML            | Descrição                                                  |
-| :------------------ | :---- | :------------------------ | :--------------------------------------------------------- |
-| `tributacaoIssqn`   | `int` | `tribMun.tribISSQN`       | 1-Tributável, 2-Imunidade, 3-Exportação, 4-Não Incidência. |
-| `tipoRetencaoIssqn` | `int` | `tribMun.tpRetISSQN`      | 1-Não Retido, 2-Retido Tomador, 3-Retido Intermediário.    |
-| `tipoSuspensao`     | `int` | `tribMun.exigSusp.tpSusp` | 1-Judicial, 2-Administrativa.                              |
+| Propriedade                 | Tipo                     | Mapeamento XML               | Descrição                                                  |
+| :-------------------------- | :----------------------- | :--------------------------- | :--------------------------------------------------------- |
+| `tributacaoIssqn`           | `int`                    | `tribMun.tribISSQN`          | 1-Tributável, 2-Imunidade, 3-Exportação, 4-Não Incidência. |
+| `tipoImunidade`             | `int`                    | `tribMun.tpImunidade`        | Tipo de imunidade (se tribISSQN = 2).                      |
+| `tipoRetencaoIssqn`         | `int`                    | `tribMun.tpRetISSQN`         | 1-Não Retido, 2-Retido Tomador, 3-Retido Intermediário.    |
+| `tipoSuspensao`             | `int`                    | `tribMun.exigSusp.tpSusp`    | 1-Judicial, 2-Administrativa.                              |
+| `numeroProcessoSuspensao`   | `string`                 | `tribMun.exigSusp.nProcesso` | Número do processo de suspensão.                           |
+| `beneficioMunicipal`        | `BeneficioMunicipalData` | `tribMun.BM`                 | Informações de benefício municipal.                        |
+| `cstPisCofins`              | `string`                 | `tribFed.piscofins.CST`      | Código da Situação Tributária do PIS/COFINS.               |
+| `percentualTotalTributosSN` | `float`                  | `totTrib.pTotTribSN`         | Percentual total aproximado dos tributos.                  |
+| `indicadorTotalTributos`    | `int`                    | `totTrib.indTotTrib`         | Indicador de informação de valor total de tributos.        |
 
 ---
 
@@ -37,10 +43,26 @@ Identifica o enquadramento fiscal do prestador.
 
 ### Propriedades
 
-| Propriedade                | Tipo  | Mapeamento XML | Descrição                                       |
-| :------------------------- | :---- | :------------- | :---------------------------------------------- |
-| `opcaoSimplesNacional`     | `int` | `opSimpNac`    | 1-Não, 2-MEI, 3-ME/EPP.                         |
-| `regimeEspecialTributacao` | `int` | `regEspTrib`   | 1-Estimativa, 3-Soc. Profissionais, 5-MEI, etc. |
+| Propriedade                  | Tipo  | Mapeamento XML | Descrição                                       |
+| :--------------------------- | :---- | :------------- | :---------------------------------------------- |
+| `opcaoSimplesNacional`       | `int` | `opSimpNac`    | 1-Não, 2-MEI, 3-ME/EPP.                         |
+| `regimeApuracaoTributariaSN` | `int` | `regApTribSN`  | 1-Pelo SN, 2-Pelo Município.                    |
+| `regimeEspecialTributacao`   | `int` | `regEspTrib`   | 1-Estimativa, 3-Soc. Profissionais, 5-MEI, etc. |
+
+---
+
+## BeneficioMunicipalData
+
+Detalha benefícios fiscais concedidos pelo município.
+
+### Propriedades
+
+| Propriedade         | Tipo     | Mapeamento XML | Descrição                                 |
+| :------------------ | :------- | :------------- | :---------------------------------------- |
+| `tipoBeneficio`     | `int`    | `tpBM`         | Tipo do benefício.                        |
+| `numeroProcesso`    | `string` | `nProcesso`    | Número do processo.                       |
+| `valorReducao`      | `float`  | `vRedBCBM`     | Valor da redução da base de cálculo.      |
+| `percentualReducao` | `float`  | `pRedBCBM`     | Percentual de redução da base de cálculo. |
 
 ---
 
