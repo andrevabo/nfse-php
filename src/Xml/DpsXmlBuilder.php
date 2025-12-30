@@ -288,11 +288,28 @@ class DpsXmlBuilder
 
             $trib->appendChild($tribMun);
 
-            if ($data->tributacao->cstPisCofins) {
+            $hasPiscofins = $data->tributacao->cstPisCofins !== null;
+            $hasRetencoesFed = $data->tributacao->valorRetidoIrrf !== null || $data->tributacao->valorRetidoCsll !== null;
+
+            if ($hasPiscofins || $hasRetencoesFed) {
                 $tribFed = $this->dom->createElement('tribFed');
-                $piscofins = $this->dom->createElement('piscofins');
-                $this->appendElement($piscofins, 'CST', $data->tributacao->cstPisCofins);
-                $tribFed->appendChild($piscofins);
+                
+                if ($hasPiscofins) {
+                    $piscofins = $this->dom->createElement('piscofins');
+                    $this->appendElement($piscofins, 'CST', $data->tributacao->cstPisCofins);
+                    $this->appendElement($piscofins, 'vBCPisCofins', $data->tributacao->baseCalculoPisCofins !== null ? number_format($data->tributacao->baseCalculoPisCofins, 2, '.', '') : null);
+                    $this->appendElement($piscofins, 'pAliqPis', $data->tributacao->aliquotaPis !== null ? number_format($data->tributacao->aliquotaPis, 2, '.', '') : null);
+                    $this->appendElement($piscofins, 'pAliqCofins', $data->tributacao->aliquotaCofins !== null ? number_format($data->tributacao->aliquotaCofins, 2, '.', '') : null);
+                    $this->appendElement($piscofins, 'vPis', $data->tributacao->valorPis !== null ? number_format($data->tributacao->valorPis, 2, '.', '') : null);
+                    $this->appendElement($piscofins, 'vCofins', $data->tributacao->valorCofins !== null ? number_format($data->tributacao->valorCofins, 2, '.', '') : null);
+                    $this->appendElement($piscofins, 'tpRetPisCofins', (string)$data->tributacao->tipoRetencaoPisCofins);
+                    $tribFed->appendChild($piscofins);
+                }
+
+                $this->appendElement($tribFed, 'vRetIRRF', $data->tributacao->valorRetidoIrrf !== null ? number_format($data->tributacao->valorRetidoIrrf, 2, '.', '') : null);
+                $this->appendElement($tribFed, 'vRetCSLL', $data->tributacao->valorRetidoCsll !== null ? number_format($data->tributacao->valorRetidoCsll, 2, '.', '') : null);
+                $this->appendElement($tribFed, 'vRetContPrev', null); // Placeholder if needed in future
+
                 $trib->appendChild($tribFed);
             }
 
@@ -303,6 +320,14 @@ class DpsXmlBuilder
             } elseif ($data->tributacao->indicadorTotalTributos !== null) {
                 $totTrib = $this->dom->createElement('totTrib');
                 $this->appendElement($totTrib, 'indTotTrib', (string)$data->tributacao->indicadorTotalTributos);
+                $trib->appendChild($totTrib);
+            } elseif ($data->tributacao->valorTotalTributosFederais !== null || $data->tributacao->valorTotalTributosEstaduais !== null || $data->tributacao->valorTotalTributosMunicipais !== null) {
+                $totTrib = $this->dom->createElement('totTrib');
+                $vTotTrib = $this->dom->createElement('vTotTrib');
+                $this->appendElement($vTotTrib, 'vTotTribFed', $data->tributacao->valorTotalTributosFederais !== null ? number_format($data->tributacao->valorTotalTributosFederais, 2, '.', '') : null);
+                $this->appendElement($vTotTrib, 'vTotTribEst', $data->tributacao->valorTotalTributosEstaduais !== null ? number_format($data->tributacao->valorTotalTributosEstaduais, 2, '.', '') : null);
+                $this->appendElement($vTotTrib, 'vTotTribMun', $data->tributacao->valorTotalTributosMunicipais !== null ? number_format($data->tributacao->valorTotalTributosMunicipais, 2, '.', '') : null);
+                $totTrib->appendChild($vTotTrib);
                 $trib->appendChild($totTrib);
             }
 
@@ -315,7 +340,8 @@ class DpsXmlBuilder
     private function appendElement(DOMElement $parent, string $name, ?string $value): void
     {
         if ($value !== null) {
-            $element = $this->dom->createElement($name, $value);
+            $element = $this->dom->createElement($name);
+            $element->appendChild($this->dom->createTextNode($value));
             $parent->appendChild($element);
         }
     }

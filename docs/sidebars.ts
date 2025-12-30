@@ -13,6 +13,7 @@ const sidebars: SidebarsConfig = {
                 "examples/tomador-exterior",
                 "examples/construcao-civil",
                 "examples/retencoes",
+                "examples/pis-cofins",
                 "examples/exportacao",
                 "advanced-scenarios",
             ],

@@ -44,8 +44,9 @@ class NfseXmlBuilder
         $this->appendElement($parent, 'nDFSe', $data->numeroDfse);
         $this->appendElement($parent, 'cVerif', $data->codigoVerificacao);
         $this->appendElement($parent, 'dhProc', $data->dataProcessamento);
-        $this->appendElement($parent, 'ambGer', (string)$data->ambienteGerador);
         $this->appendElement($parent, 'verAplic', $data->versaoAplicativo);
+        $this->appendElement($parent, 'ambGer', (string)$data->ambienteGerador);
+        $this->appendElement($parent, 'tpEmis', (string)$data->tipoEmissao);
         $this->appendElement($parent, 'procEmi', (string)$data->processoEmissao);
         $this->appendElement($parent, 'xLocEmi', $data->localEmissao);
         $this->appendElement($parent, 'xLocPrestacao', $data->localPrestacao);
@@ -53,6 +54,7 @@ class NfseXmlBuilder
         $this->appendElement($parent, 'xLocIncid', $data->nomeLocalIncidencia);
         $this->appendElement($parent, 'xTribNac', $data->descricaoTributacaoNacional);
         $this->appendElement($parent, 'xTribMun', $data->descricaoTributacaoMunicipal);
+        $this->appendElement($parent, 'xNBS', $data->descricaoNbs);
         $this->appendElement($parent, 'cStat', (string)$data->codigoStatus);
 
         if ($data->dps) {
@@ -97,12 +99,13 @@ class NfseXmlBuilder
     private function buildEndereco(DOMElement $parent, EnderecoEmitenteData $data): void
     {
         $enderNac = $this->dom->createElement('enderNac');
-        $this->appendElement($enderNac, 'cMun', $data->codigoMunicipio);
-        $this->appendElement($enderNac, 'CEP', $data->cep);
         $this->appendElement($enderNac, 'xLgr', $data->logradouro);
         $this->appendElement($enderNac, 'nro', $data->numero);
         $this->appendElement($enderNac, 'xCpl', $data->complemento);
         $this->appendElement($enderNac, 'xBairro', $data->bairro);
+        $this->appendElement($enderNac, 'cMun', $data->codigoMunicipio);
+        $this->appendElement($enderNac, 'UF', $data->uf);
+        $this->appendElement($enderNac, 'CEP', $data->cep);
         $parent->appendChild($enderNac);
     }
 
@@ -112,6 +115,7 @@ class NfseXmlBuilder
         $this->appendElement($valores, 'vBC', $data->baseCalculo !== null ? number_format($data->baseCalculo, 2, '.', '') : null);
         $this->appendElement($valores, 'pAliqAplic', $data->aliquotaAplicada !== null ? number_format($data->aliquotaAplicada, 2, '.', '') : null);
         $this->appendElement($valores, 'vISSQN', $data->valorIssqn !== null ? number_format($data->valorIssqn, 2, '.', '') : null);
+        $this->appendElement($valores, 'vTotalRet', $data->valorTotalRetido !== null ? number_format($data->valorTotalRetido, 2, '.', '') : null);
         $this->appendElement($valores, 'vLiq', $data->valorLiquido !== null ? number_format($data->valorLiquido, 2, '.', '') : null);
         $parent->appendChild($valores);
     }
@@ -119,7 +123,8 @@ class NfseXmlBuilder
     private function appendElement(DOMElement $parent, string $name, ?string $value): void
     {
         if ($value !== null) {
-            $element = $this->dom->createElement($name, $value);
+            $element = $this->dom->createElement($name);
+            $element->appendChild($this->dom->createTextNode($value));
             $parent->appendChild($element);
         }
     }

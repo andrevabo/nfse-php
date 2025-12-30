@@ -72,6 +72,74 @@ class TributacaoData extends Data
         public ?string $cstPisCofins,
 
         /**
+         * Base de cálculo PIS/COFINS.
+         */
+        #[MapInputName('tribFed.piscofins.vBCPisCofins')]
+        public ?float $baseCalculoPisCofins,
+
+        /**
+         * Alíquota PIS.
+         */
+        #[MapInputName('tribFed.piscofins.pAliqPis')]
+        public ?float $aliquotaPis,
+
+        /**
+         * Alíquota COFINS.
+         */
+        #[MapInputName('tribFed.piscofins.pAliqCofins')]
+        public ?float $aliquotaCofins,
+
+        /**
+         * Valor PIS.
+         */
+        #[MapInputName('tribFed.piscofins.vPis')]
+        public ?float $valorPis,
+
+        /**
+         * Valor COFINS.
+         */
+        #[MapInputName('tribFed.piscofins.vCofins')]
+        public ?float $valorCofins,
+
+        /**
+         * Tipo de Retenção PIS/COFINS.
+         * 1 - Não Retido
+         * 2 - Retido
+         */
+        #[MapInputName('tribFed.piscofins.tpRetPisCofins')]
+        public ?int $tipoRetencaoPisCofins,
+
+        /**
+         * Valor retido de IRRF.
+         */
+        #[MapInputName('tribFed.vRetIRRF')]
+        public ?float $valorRetidoIrrf,
+
+        /**
+         * Valor retido de CSLL.
+         */
+        #[MapInputName('tribFed.vRetCSLL')]
+        public ?float $valorRetidoCsll,
+
+        /**
+         * Valor total dos tributos federais.
+         */
+        #[MapInputName('totTrib.vTotTrib.vTotTribFed')]
+        public ?float $valorTotalTributosFederais,
+
+        /**
+         * Valor total dos tributos estaduais.
+         */
+        #[MapInputName('totTrib.vTotTrib.vTotTribEst')]
+        public ?float $valorTotalTributosEstaduais,
+
+        /**
+         * Valor total dos tributos municipais.
+         */
+        #[MapInputName('totTrib.vTotTrib.vTotTribMun')]
+        public ?float $valorTotalTributosMunicipais,
+
+        /**
          * Valor percentual total aproximado dos tributos federais, estaduais e municipais.
          */
         #[MapInputName('totTrib.pTotTribSN')]
