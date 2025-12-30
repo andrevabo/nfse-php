@@ -1,21 +1,21 @@
 # Visão Geral: nfse-php
 
-O `nfse-php` é uma biblioteca agnóstica de framework que fornece os blocos de construção para interagir com a NFSe Nacional.
+O `nfse-php` é uma biblioteca agnóstica de framework que fornece os blocos de construção para interagir com a NFS-e Nacional.
 
 ## Responsabilidades
 
-1.  **Modelagem de Dados**: Define as classes que representam o domínio (Nota Fiscal, DPS, Pessoas).
-2.  **Contratos**: Define interfaces para comunicação (`ProviderInterface`) e assinatura (`SignerInterface`).
-3.  **Validação**: Garante que os dados estejam em conformidade com as regras de negócio básicas antes do envio.
+1.  **Modelagem de Dados**: Define as classes que representam o domínio (Nota Fiscal, DPS, Pessoas) através de DTOs robustos.
+2.  **Validação**: Garante que os dados estejam em conformidade com as regras de negócio básicas e o schema nacional antes do envio.
+3.  **Geração de Tipos**: Facilita a integração com o frontend através da geração automática de tipos TypeScript.
 
 ## Tecnologia de DTOs
 
-Utilizamos a biblioteca `spatie/laravel-data` para definição de DTOs robustos. Isso nos permite mapear os nomes complexos do layout nacional (ex: `endNac.cMun`) para propriedades PHP legíveis.
+Utilizamos a biblioteca `spatie/laravel-data` para definição de DTOs. Isso nos permite mapear os nomes complexos do layout nacional (ex: `endNac.cMun`) para propriedades PHP legíveis e tipadas.
 
-### Exemplo de Implementação
+### Exemplo de DTO
 
 ```php
-namespace Nfse\Models\Common;
+namespace Nfse\Dto;
 
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
@@ -31,12 +31,7 @@ class EnderecoData extends Data
 
         #[MapInputName('xLgr')]
         public ?string $logradouro,
-
-        #[MapInputName('nro')]
-        public ?string $numero,
-
-        #[MapInputName('xBairro')]
-        public ?string $bairro,
+        // ...
     ) {}
 }
 ```
@@ -49,10 +44,20 @@ composer require nfse-nacional/nfse-php
 
 ## Uso Básico
 
-```php
-use Nfse\Models\Dps;
+A biblioteca permite criar e validar documentos de forma simples:
 
-$dps = new Dps();
-$dps->setSerie('E');
-// ...
+```php
+use Nfse\Dto\DpsData;
+
+// Criando a partir de um array de dados
+$dps = DpsData::from([
+    'infDps' => [
+        'tpAmb' => 2,
+        'dhEmi' => '2023-10-27T10:00:00',
+        // ...
+    ]
+]);
+
+// Validando os dados
+DpsData::validate($dps->toArray());
 ```
