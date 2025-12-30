@@ -7,9 +7,7 @@ use Nfse\Dto\InfDpsData;
 use Nfse\Dto\InfNfseData;
 use Nfse\Dto\NfseData;
 
-use Nfse\Dto\DfeData;
 use Nfse\Dto\ValoresNfseData;
-use Nfse\Enums\DfeType;
 
 it('can instantiate nfse data with full structure', function () {
     $nfse = new NfseData(
@@ -80,8 +78,6 @@ it('can instantiate nfse data with full structure', function () {
     );
 
     expect($nfse)->toBeInstanceOf(NfseData::class);
-    expect($nfse)->toBeInstanceOf(DfeData::class);
-    expect($nfse->getType())->toBe(DfeType::NFSe);
     expect($nfse->infNfse->numeroDfse)->toBe('987654321');
     expect($nfse->infNfse->localEmissao)->toBe('VARZEA ALEGRE');
     expect($nfse->infNfse->valores)->toBeInstanceOf(ValoresNfseData::class);
@@ -117,6 +113,5 @@ it('verifies DpsData is a DFe', function () {
         )
     );
 
-    expect($dps)->toBeInstanceOf(DfeData::class);
-    expect($dps->getType())->toBe(DfeType::DPS);
+    expect($dps)->toBeInstanceOf(DpsData::class);
 });

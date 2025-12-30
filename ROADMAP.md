@@ -14,9 +14,9 @@ Este pacote é a fundação do ecossistema. O foco é garantir contratos sólido
 
 ### Fase 2: Serialização
 
--   [ ] Implementar Serializer para XML (padrão ABRASF/Nacional).
+-   [x] Implementar Serializer para XML (padrão ABRASF/Nacional).
 -   [ ] Implementar Serializer para JSON.
--   [ ] Garantir que a serialização respeite os XSDs oficiais.
+-   [x] Garantir que a serialização respeite os XSDs oficiais.
 
 ### Fase 3: Assinatura Digital
 

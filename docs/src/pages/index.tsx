@@ -4,6 +4,7 @@ import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import HomepageFeatures from "@site/src/components/HomepageFeatures";
+import RoadmapStepper from "@site/src/components/RoadmapStepper";
 import Heading from "@theme/Heading";
 
 import styles from "./index.module.css";
@@ -56,6 +57,7 @@ export default function Home(): ReactNode {
             <HomepageHeader />
             <main>
                 <HomepageFeatures />
+                <RoadmapStepper />
             </main>
             {isVisible && (
                 <div className="devBanner">
