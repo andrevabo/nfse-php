@@ -58,3 +58,24 @@
     height: 200px;
     width: 200px;
 }
+
+.devBanner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff3cd;
+    color: #856404;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9rem;
+    z-index: 1000;
+    border-top: 1px solid #ffeeba;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .devBanner {
+    background-color: #332701;
+    color: #ffcd39;
+    border-top: 1px solid #4d3d02;
+}

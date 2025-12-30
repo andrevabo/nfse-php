@@ -41,6 +41,11 @@ export default function Home(): ReactNode {
             <main>
                 <HomepageFeatures />
             </main>
+            <div className={styles.devBanner}>
+                🚧 Este projeto está em <strong>desenvolvimento ativo</strong>.
+                Algumas funcionalidades podem estar incompletas ou sujeitas a
+                alterações.
+            </div>
         </Layout>
     );
 }
