@@ -3,6 +3,7 @@ import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 const sidebars: SidebarsConfig = {
     docsSidebar: [
         "overview",
+        "como-se-integrar",
         {
             type: "category",
             label: "Exemplos Práticos",
