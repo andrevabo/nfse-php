@@ -65,6 +65,7 @@ const sidebars: SidebarsConfig = {
             ],
         },
         "typescript",
+        "tests",
         "schema-rules",
     ],
 };
