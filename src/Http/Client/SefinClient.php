@@ -61,7 +61,14 @@ class SefinClient implements SefinNacionalInterface
                 RequestOptions::JSON => $data,
             ]);
 
-            return json_decode($response->getBody()->getContents(), true);
+            $body = $response->getBody()->getContents();
+            $decoded = json_decode($body, true);
+
+            if (! is_array($decoded)) {
+                throw NfseApiException::responseError('Resposta inválida da API: não foi possível decodificar JSON.');
+            }
+
+            return $decoded;
         } catch (GuzzleException $e) {
             throw NfseApiException::requestError($e->getMessage(), $e->getCode());
         }
