@@ -32,12 +32,11 @@ function HomepageHeader() {
                         <strong>Município</strong> (prefeituras).
                     </p>
                     <p className={styles.heroDescription}>
-                        Um único pacote para todas as suas necessidades de
-                        integração com a NFS-e Nacional. Emita, consulte e
-                        cancele notas fiscais de serviço (API Contribuinte) ou
-                        gerencie documentos fiscais do seu município (API
-                        Município) — tudo com validação automática de DTOs,
-                        assinatura digital integrada e tipagem completa.
+                        Emita, consulte e cancele notas fiscais de serviço (API
+                        Contribuinte) ou gerencie documentos fiscais do seu
+                        município (API Município) — tudo com validação
+                        automática de DTOs, assinatura digital integrada e
+                        tipagem completa.
                     </p>
                     <div className={styles.buttons}>
                         <Link
