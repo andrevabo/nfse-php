@@ -9,7 +9,7 @@ A maneira mais moderna e eficiente de integrar PHP com a NFS-e Nacional.
 
 Este pacote é a fundação do ecossistema para integração com a NFS-e Nacional. O foco é garantir contratos sólidos, modelos de dados ricos (DTOs) e facilidade de uso para desenvolvedores PHP. Ele fornece um conjunto robusto de DTOs que simplificam a criação e validação dos XMLs, oferecendo uma interface fluida e uma documentação alinhada à realidade do desenvolvedor.
 
-📚 **Documentação Técnica:** [nfse.netlify.app](https://nfse.netlify.app/)
+📚 **Documentação Técnica:** [nfse-php.netlify.app](https://nfse-php.netlify.app/)
 
 ## Instalação
 
@@ -21,7 +21,7 @@ composer require nfse-nacional/nfse-php
 
 ## Nota Fical Service `Nfse`
 
-`Nfse`  _facade_ (fachada) que centraliza e simplifica o acesso aos diferentes serviços disponíveis:
+`Nfse` _facade_ (fachada) que centraliza e simplifica o acesso aos diferentes serviços disponíveis:
 
 -   **`ContribuinteService`**: Para empresas que emitem notas fiscais de serviço
 -   **`MunicipioService`**: Para prefeituras e órgãos municipais que gerenciam a arrecadação
