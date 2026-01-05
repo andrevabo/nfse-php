@@ -26,6 +26,11 @@ class MunicipioService
         return $this->adnClient->baixarDfeMunicipio($nsu, $tipoNSU, $lote);
     }
 
+    public function downloadDanfse(string $chaveAcesso): string
+    {
+        return $this->adnClient->obterDanfse($chaveAcesso);
+    }
+
     /**
      * ADN Recepção - Envio de lote de documentos XML (DPS, Eventos)
      */

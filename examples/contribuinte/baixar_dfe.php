@@ -6,9 +6,9 @@ $nfse = require_once __DIR__.'/../bootstrap.php';
 try {
     $nsu = 23;
 
-    echo "Baixando DF-e para o contribuinte (NSU: $nsu)...\n";
+    echo "Baixando DF-e para o municipio (NSU: $nsu)...\n";
 
-    $response = $nfse->contribuinte()->baixarDfe($nsu);
+    $response = $nfse->municipio()->baixarDfe($nsu);
 
     echo 'NSU Final: '.$response->ultimoNsu."\n";
     echo 'Quantidade de documentos: '.count($response->listaNsu)."\n";
