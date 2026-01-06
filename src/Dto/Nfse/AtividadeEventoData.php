@@ -2,48 +2,40 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class AtividadeEventoData extends Data
+class AtividadeEventoData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Nome do evento ou atividade.
-         */
-        #[MapInputName('xNome')]
-        public ?string $nome,
+    /**
+     * Nome do evento ou atividade.
+     */
+    #[MapFrom('xNome')]
+    public ?string $nome = null;
 
-        /**
-         * Data de início do evento.
-         * Formato: AAAA-MM-DD
-         */
-        #[MapInputName('dtIni')]
-        public ?string $dataInicio,
+    /**
+     * Data de início do evento.
+     * Formato: AAAA-MM-DD
+     */
+    #[MapFrom('dtIni')]
+    public ?string $dataInicio = null;
 
-        /**
-         * Data de fim do evento.
-         * Formato: AAAA-MM-DD
-         */
-        #[MapInputName('dtFim')]
-        public ?string $dataFim,
+    /**
+     * Data de fim do evento.
+     * Formato: AAAA-MM-DD
+     */
+    #[MapFrom('dtFim')]
+    public ?string $dataFim = null;
 
-        /**
-         * Identificador da atividade ou evento.
-         */
-        #[MapInputName('idAtvEvt')]
-        public ?string $idAtividadeEvento,
+    /**
+     * Identificador da atividade ou evento.
+     */
+    #[MapFrom('idAtvEvt')]
+    public ?string $idAtividadeEvento = null;
 
-        /**
-         * Endereço do evento.
-         */
-        #[MapInputName('end')]
-        public ?EnderecoData $endereco,
-    ) {}
+    /**
+     * Endereço do evento.
+     */
+    #[MapFrom('end')]
+    public ?EnderecoData $endereco = null;
 }

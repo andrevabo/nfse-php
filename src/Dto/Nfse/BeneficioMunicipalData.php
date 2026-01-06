@@ -2,28 +2,20 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class BeneficioMunicipalData extends Data
+class BeneficioMunicipalData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Percentual de redução da base de cálculo referente ao benefício municipal.
-         */
-        #[MapInputName('pRedBCBM')]
-        public ?float $percentualReducaoBcBm,
+    /**
+     * Percentual de redução da base de cálculo referente ao benefício municipal.
+     */
+    #[MapFrom('pRedBCBM')]
+    public ?float $percentualReducaoBcBm = null;
 
-        /**
-         * Valor monetário de redução da base de cálculo referente ao benefício municipal.
-         */
-        #[MapInputName('vRedBCBM')]
-        public ?float $valorReducaoBcBm,
-    ) {}
+    /**
+     * Valor monetário de redução da base de cálculo referente ao benefício municipal.
+     */
+    #[MapFrom('vRedBCBM')]
+    public ?float $valorReducaoBcBm = null;
 }

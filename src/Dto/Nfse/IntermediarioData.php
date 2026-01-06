@@ -2,79 +2,71 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class IntermediarioData extends Data
+class IntermediarioData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * CNPJ do intermediário.
-         * Obrigatório se pessoa jurídica.
-         */
-        #[MapInputName('CNPJ')]
-        public ?string $cnpj = null,
+    /**
+     * CNPJ do intermediário.
+     * Obrigatório se pessoa jurídica.
+     */
+    #[MapFrom('CNPJ')]
+    public ?string $cnpj = null;
 
-        /**
-         * CPF do intermediário.
-         * Obrigatório se pessoa física.
-         */
-        #[MapInputName('CPF')]
-        public ?string $cpf = null,
+    /**
+     * CPF do intermediário.
+     * Obrigatório se pessoa física.
+     */
+    #[MapFrom('CPF')]
+    public ?string $cpf = null;
 
-        /**
-         * Número de Identificação Fiscal (NIF) do intermediário.
-         * Não permitido se tpEmit=3.
-         */
-        #[MapInputName('NIF')]
-        public ?string $nif = null,
+    /**
+     * Número de Identificação Fiscal (NIF) do intermediário.
+     * Não permitido se tpEmit=3.
+     */
+    #[MapFrom('NIF')]
+    public ?string $nif = null;
 
-        /**
-         * Código do motivo de não informar o NIF.
-         */
-        #[MapInputName('cNaoNIF')]
-        public ?string $codigoNaoNif = null,
+    /**
+     * Código do motivo de não informar o NIF.
+     */
+    #[MapFrom('cNaoNIF')]
+    public ?string $codigoNaoNif = null;
 
-        /**
-         * Cadastro de Atividade Econômica da Pessoa Física.
-         */
-        #[MapInputName('CAEPF')]
-        public ?string $caepf = null,
+    /**
+     * Cadastro de Atividade Econômica da Pessoa Física.
+     */
+    #[MapFrom('CAEPF')]
+    public ?string $caepf = null;
 
-        /**
-         * Inscrição Municipal do intermediário.
-         */
-        #[MapInputName('IM')]
-        public ?string $inscricaoMunicipal = null,
+    /**
+     * Inscrição Municipal do intermediário.
+     */
+    #[MapFrom('IM')]
+    public ?string $inscricaoMunicipal = null;
 
-        /**
-         * Razão Social ou Nome do intermediário.
-         */
-        #[MapInputName('xNome')]
-        public ?string $nome = null,
+    /**
+     * Razão Social ou Nome do intermediário.
+     */
+    #[MapFrom('xNome')]
+    public ?string $nome = null;
 
-        /**
-         * Endereço do intermediário.
-         */
-        #[MapInputName('end')]
-        public ?EnderecoData $endereco = null,
+    /**
+     * Endereço do intermediário.
+     */
+    #[MapFrom('end')]
+    public ?EnderecoData $endereco = null;
 
-        /**
-         * Telefone do intermediário.
-         */
-        #[MapInputName('fone')]
-        public ?string $telefone = null,
+    /**
+     * Telefone do intermediário.
+     */
+    #[MapFrom('fone')]
+    public ?string $telefone = null;
 
-        /**
-         * Email do intermediário.
-         */
-        #[MapInputName('email')]
-        public ?string $email = null,
-    ) {}
+    /**
+     * Email do intermediário.
+     */
+    #[MapFrom('email')]
+    public ?string $email = null;
 }

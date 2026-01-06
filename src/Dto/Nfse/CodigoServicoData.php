@@ -2,52 +2,44 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class CodigoServicoData extends Data
+class CodigoServicoData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Código de tributação nacional (LC 116/03).
-         */
-        #[MapInputName('cTribNac')]
-        public ?string $codigoTributacaoNacional = null,
+    /**
+     * Código de tributação nacional (LC 116/03).
+     */
+    #[MapFrom('cTribNac')]
+    public ?string $codigoTributacaoNacional = null;
 
-        /**
-         * Código de tributação municipal.
-         */
-        #[MapInputName('cTribMun')]
-        public ?string $codigoTributacaoMunicipal = null,
+    /**
+     * Código de tributação municipal.
+     */
+    #[MapFrom('cTribMun')]
+    public ?string $codigoTributacaoMunicipal = null;
 
-        /**
-         * Descrição do serviço.
-         */
-        #[MapInputName('xDescServ')]
-        public ?string $descricaoServico = null,
+    /**
+     * Descrição do serviço.
+     */
+    #[MapFrom('xDescServ')]
+    public ?string $descricaoServico = null;
 
-        /**
-         * Código NBS (Nomenclatura Brasileira de Serviços).
-         */
-        #[MapInputName('cNBS')]
-        public ?string $codigoNbs = null,
+    /**
+     * Código NBS (Nomenclatura Brasileira de Serviços).
+     */
+    #[MapFrom('cNBS')]
+    public ?string $codigoNbs = null;
 
-        /**
-         * Código CNAE (Classificação Nacional de Atividades Econômicas).
-         */
-        #[MapInputName('cCNAE')]
-        public ?string $codigoCnae = null,
+    /**
+     * Código CNAE (Classificação Nacional de Atividades Econômicas).
+     */
+    #[MapFrom('cCNAE')]
+    public ?string $codigoCnae = null;
 
-        /**
-         * Código interno do serviço no sistema do contribuinte.
-         */
-        #[MapInputName('cIntContrib')]
-        public ?string $codigoInternoContribuinte = null,
-    ) {}
+    /**
+     * Código interno do serviço no sistema do contribuinte.
+     */
+    #[MapFrom('cIntContrib')]
+    public ?string $codigoInternoContribuinte = null;
 }

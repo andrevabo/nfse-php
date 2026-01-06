@@ -2,144 +2,114 @@
 
 namespace Nfse\Tests\Unit\Xml;
 
-use Nfse\Dto\Nfse\AtividadeEventoData;
-use Nfse\Dto\Nfse\ComercioExteriorData;
-use Nfse\Dto\Nfse\DeducaoReducaoData;
-use Nfse\Dto\Nfse\DescontoData;
-use Nfse\Dto\Nfse\DocumentoDeducaoData;
 use Nfse\Dto\Nfse\DpsData;
-use Nfse\Dto\Nfse\EnderecoData;
-use Nfse\Dto\Nfse\InfDpsData;
-use Nfse\Dto\Nfse\IntermediarioData;
-use Nfse\Dto\Nfse\ObraData;
-use Nfse\Dto\Nfse\PrestadorData;
-use Nfse\Dto\Nfse\RegimeTributarioData;
-use Nfse\Dto\Nfse\SubstituicaoData;
-use Nfse\Dto\Nfse\TributacaoData;
-use Nfse\Dto\Nfse\ValoresData;
 use Nfse\Xml\DpsXmlBuilder;
 
 it('can build xml with complex structures', function () {
-    $infDps = new InfDpsData(
-        id: 'DPS123',
-        tipoAmbiente: 2,
-        dataEmissao: '2023-10-27T10:00:00',
-        versaoAplicativo: '1.0',
-        serie: '1',
-        numeroDps: '1',
-        dataCompetencia: '2023-10-27',
-        tipoEmitente: 1,
-        codigoLocalEmissao: '3550308',
-        substituicao: new SubstituicaoData(
-            chaveNfseSubstituida: '12345678901234567890123456789012345678901234',
-            codigoMotivo: '1',
-            descricaoMotivo: 'Erro no valor'
-        ),
-        prestador: new PrestadorData(
-            cnpj: '12345678000199',
-            nome: 'Prestador',
-            regimeTributario: new RegimeTributarioData(
-                opcaoSimplesNacional: 1,
-                regimeApuracaoTributosSn: 1,
-                regimeEspecialTributacao: 1
-            )
-        ),
-        intermediario: new IntermediarioData(
-            cnpj: '88888888000188',
-            nome: 'Intermediario',
-            endereco: new EnderecoData(
-                logradouro: 'Rua Inter',
-                numero: '100',
-                bairro: 'Centro',
-                codigoMunicipio: '3550308',
-                cep: '01001000'
-            )
-        ),
-        servico: new \Nfse\Dto\Nfse\ServicoData(
-            comercioExterior: new ComercioExteriorData(
-                modoPrestacao: 1,
-                vinculoPrestacao: 1,
-                tipoPessoaExportador: 1,
-                nifExportador: null,
-                codigoPaisExportador: null,
-                codigoMecanismoApoioFomento: null,
-                numeroEnquadramento: null,
-                numeroProcesso: null,
-                indicadorIncentivo: null,
-                descricaoIncentivo: null,
-                tipoMoeda: 'USD',
-                valorServicoMoeda: 100.00,
-                mecanismoApoioComexPrestador: null,
-                mecanismoApoioComexTomador: null,
-                movimentacaoTemporariaBens: null,
-                numeroDeclaracaoImportacao: null,
-                numeroRegistroExportacao: null,
-                mdic: null
-            ),
-            obra: new ObraData(
-                inscricaoImobiliariaFiscal: '123',
-                codigoObra: '456',
-                endereco: new EnderecoData(
-                    logradouro: 'Rua Obra',
-                    numero: '200',
-                    bairro: 'Obra',
-                    codigoMunicipio: '3550308',
-                    cep: '01001000'
-                )
-            ),
-            atividadeEvento: new AtividadeEventoData(
-                nome: 'Evento',
-                dataInicio: '2023-10-27',
-                dataFim: '2023-10-28',
-                idAtividadeEvento: 'EVT123',
-                endereco: null
-            )
-        ),
-        valores: new ValoresData(
-            valorServicoPrestado: new \Nfse\Dto\Nfse\ValorServicoPrestadoData(100.0, 100.0),
-            desconto: new DescontoData(
-                valorDescontoIncondicionado: 10.0,
-                valorDescontoCondicionado: 5.0
-            ),
-            deducaoReducao: new DeducaoReducaoData(
-                percentualDeducaoReducao: 20.0,
-                valorDeducaoReducao: 200.0,
-                documentos: [
-                    new DocumentoDeducaoData(
-                        chaveNfse: '12345678901234567890123456789012345678901234',
-                        chaveNfe: null,
-                        tipoDeducaoReducao: 1,
-                        descricaoOutrasDeducoes: null,
-                        dataEmissaoDocumento: null,
-                        valorDedutivelRedutivel: 100.0,
-                        valorDeducaoReducao: 100.0
-                    ),
-                ]
-            ),
-            tributacao: new TributacaoData(
-                tributacaoIssqn: 1,
-                tipoImunidade: null,
-                tipoRetencaoIssqn: 1,
-                tipoSuspensao: null,
-                numeroProcessoSuspensao: null,
-                beneficioMunicipal: null,
-                cstPisCofins: '01',
-                baseCalculoPisCofins: 1000.0,
-                aliquotaPis: 0.65,
-                aliquotaCofins: 3.0,
-                valorPis: 6.5,
-                valorCofins: 30.0,
-                tipoRetencaoPisCofins: 1,
-                valorRetidoIrrf: 15.0,
-                valorRetidoCsll: 10.0,
-                valorTotalTributosFederais: 50.0,
-                valorTotalTributosEstaduais: 20.0,
-                valorTotalTributosMunicipais: 30.0
-            )
-        )
-    );
+    $dpsData = new DpsData([
+        '@versao' => '1.0',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-10-27T10:00:00',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '1',
+            'dCompet' => '2023-10-27',
+            'tpEmit' => 1,
+            'cLocEmi' => '3550308',
+            'subst' => [
+                'chSubstda' => '12345678901234567890123456789012345678901234',
+                'cMotivo' => '1',
+                'xMotivo' => 'Erro no valor',
+            ],
+            'prest' => [
+                'CNPJ' => '12345678000199',
+                'xNome' => 'Prestador',
+                'regTrib' => [
+                    'opSimpNac' => 1,
+                    'regApTribSN' => 1,
+                    'regEspTrib' => 1,
+                ],
+            ],
+            'interm' => [
+                'CNPJ' => '88888888000188',
+                'xNome' => 'Intermediario',
+                'end' => [
+                    'xLgr' => 'Rua Inter',
+                    'nro' => '100',
+                    'xBairro' => 'Centro',
+                    'endNac.cMun' => '3550308',
+                    'endNac.CEP' => '01001000',
+                ],
+            ],
+            'serv' => [
+                'comExt' => [
+                    'mdPrest' => 1,
+                    'vincPrest' => 1,
+                    'tpPessoaExp' => 1,
+                    'monExp' => 'USD',
+                    'vServMonExp' => 100.00,
+                ],
+                'obra' => [
+                    'inscImobFisc' => '123',
+                    'cObra' => '456',
+                    'end' => [
+                        'xLgr' => 'Rua Obra',
+                        'nro' => '200',
+                        'xBairro' => 'Obra',
+                        'endNac.cMun' => '3550308',
+                        'endNac.CEP' => '01001000',
+                    ],
+                ],
+                'atvEvento' => [
+                    'xNome' => 'Evento',
+                    'dIni' => '2023-10-27',
+                    'dFim' => '2023-10-28',
+                    'idAtividadeEvento' => 'EVT123',
+                ],
+            ],
+            'valores' => [
+                'vServPrest' => [
+                    'vServ' => 100.0,
+                    'vReceb' => 100.0,
+                ],
+                'vDescCondIncond' => [
+                    'vDescIncond' => 10.0,
+                    'vDescCond' => 5.0,
+                ],
+                'vDedRed' => [
+                    'pDR' => 20.0,
+                    'vDR' => 200.0,
+                    'documentos' => [
+                        [
+                            'chNFSe' => '12345678901234567890123456789012345678901234',
+                            'tpDedRed' => 1,
+                            'vDedRedutivel' => 100.0,
+                            'vDedRed' => 100.0,
+                        ],
+                    ],
+                ],
+                'trib' => [
+                    'tribMun.tribISSQN' => 1,
+                    'tribMun.tpRetISSQN' => 1,
+                    'tribFed.piscofins.CST' => '01',
+                    'tribFed.piscofins.vBCPisCofins' => 1000.0,
+                    'tribFed.piscofins.pAliqPis' => 0.65,
+                    'tribFed.piscofins.pAliqCofins' => 3.0,
+                    'tribFed.piscofins.vPis' => 6.5,
+                    'tribFed.piscofins.vCofins' => 30.0,
+                    'tribFed.piscofins.tpRetPisCofins' => 1,
+                    'tribFed.vRetIRRF' => 15.0,
+                    'tribFed.vRetCSLL' => 10.0,
+                    'totTrib.vTotTrib.vTotTribFed' => 50.0,
+                    'totTrib.vTotTrib.vTotTribEst' => 20.0,
+                    'totTrib.vTotTrib.vTotTribMun' => 30.0,
+                ],
+            ],
+        ],
+    ]);
 
-    $dpsData = new DpsData(versao: '1.0', infDps: $infDps);
     $builder = new DpsXmlBuilder;
     $xml = $builder->build($dpsData);
 
@@ -160,32 +130,31 @@ it('can build xml with complex structures', function () {
 });
 
 it('can build xml with indicadorTotalTributos', function () {
-    $infDps = new InfDpsData(
-        id: 'DPS123',
-        tipoAmbiente: 2,
-        dataEmissao: '2023-10-27T10:00:00',
-        versaoAplicativo: '1.0',
-        serie: '1',
-        numeroDps: '1',
-        dataCompetencia: '2023-10-27',
-        tipoEmitente: 1,
-        codigoLocalEmissao: '3550308',
-        valores: new ValoresData(
-            valorServicoPrestado: new \Nfse\Dto\Nfse\ValorServicoPrestadoData(100.0, 100.0),
-            tributacao: new TributacaoData(
-                tributacaoIssqn: 1,
-                tipoImunidade: null,
-                tipoRetencaoIssqn: null,
-                tipoSuspensao: null,
-                numeroProcessoSuspensao: null,
-                beneficioMunicipal: null,
-                cstPisCofins: null,
-                indicadorTotalTributos: 1
-            )
-        )
-    );
+    $dpsData = new DpsData([
+        '@versao' => '1.0',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-10-27T10:00:00',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '1',
+            'dCompet' => '2023-10-27',
+            'tpEmit' => 1,
+            'cLocEmi' => '3550308',
+            'valores' => [
+                'vServPrest' => [
+                    'vServ' => 100.0,
+                    'vReceb' => 100.0,
+                ],
+                'trib' => [
+                    'tribMun.tribISSQN' => 1,
+                    'totTrib.indTotTrib' => 1,
+                ],
+            ],
+        ],
+    ]);
 
-    $dpsData = new DpsData(versao: '1.0', infDps: $infDps);
     $builder = new DpsXmlBuilder;
     $xml = $builder->build($dpsData);
 
@@ -193,32 +162,31 @@ it('can build xml with indicadorTotalTributos', function () {
 });
 
 it('can build xml with percentualTotalTributosSN', function () {
-    $infDps = new InfDpsData(
-        id: 'DPS123',
-        tipoAmbiente: 2,
-        dataEmissao: '2023-10-27T10:00:00',
-        versaoAplicativo: '1.0',
-        serie: '1',
-        numeroDps: '1',
-        dataCompetencia: '2023-10-27',
-        tipoEmitente: 1,
-        codigoLocalEmissao: '3550308',
-        valores: new ValoresData(
-            valorServicoPrestado: new \Nfse\Dto\Nfse\ValorServicoPrestadoData(100.0, 100.0),
-            tributacao: new TributacaoData(
-                tributacaoIssqn: 1,
-                tipoImunidade: null,
-                tipoRetencaoIssqn: null,
-                tipoSuspensao: null,
-                numeroProcessoSuspensao: null,
-                beneficioMunicipal: null,
-                cstPisCofins: null,
-                percentualTotalTributosSN: 5.0
-            )
-        )
-    );
+    $dpsData = new DpsData([
+        '@versao' => '1.0',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-10-27T10:00:00',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '1',
+            'dCompet' => '2023-10-27',
+            'tpEmit' => 1,
+            'cLocEmi' => '3550308',
+            'valores' => [
+                'vServPrest' => [
+                    'vServ' => 100.0,
+                    'vReceb' => 100.0,
+                ],
+                'trib' => [
+                    'tribMun.tribISSQN' => 1,
+                    'totTrib.pTotTribSN' => 5.0,
+                ],
+            ],
+        ],
+    ]);
 
-    $dpsData = new DpsData(versao: '1.0', infDps: $infDps);
     $builder = new DpsXmlBuilder;
     $xml = $builder->build($dpsData);
 

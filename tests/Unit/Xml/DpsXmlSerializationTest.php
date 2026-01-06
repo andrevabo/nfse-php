@@ -2,129 +2,115 @@
 
 namespace Nfse\Tests\Unit\Xml;
 
-use Nfse\Dto\Nfse\CodigoServicoData;
-use Nfse\Dto\Nfse\DescontoData;
 use Nfse\Dto\Nfse\DpsData;
-use Nfse\Dto\Nfse\EnderecoData;
-use Nfse\Dto\Nfse\InfDpsData;
-use Nfse\Dto\Nfse\LocalPrestacaoData;
-use Nfse\Dto\Nfse\PrestadorData;
-use Nfse\Dto\Nfse\RegimeTributarioData;
-use Nfse\Dto\Nfse\ServicoData;
-use Nfse\Dto\Nfse\TomadorData;
-use Nfse\Dto\Nfse\TributacaoData;
-use Nfse\Dto\Nfse\ValoresData;
-use Nfse\Dto\Nfse\ValorServicoPrestadoData;
 use Nfse\Xml\DpsXmlBuilder;
 
 it('serializes dps data to xml correctly', function () {
-    $infDps = new InfDpsData(
-        id: 'DPS123',
-        tipoAmbiente: 2,
-        dataEmissao: '2023-10-27T10:00:00',
-        versaoAplicativo: '1.0',
-        serie: '1',
-        numeroDps: '1001',
-        dataCompetencia: '2023-10-27',
-        tipoEmitente: 1,
-        codigoLocalEmissao: '3550308',
-        motivoEmissaoTomadorIntermediario: null,
-        chaveNfseRejeitada: null,
-        substituicao: null,
-        prestador: new PrestadorData(
-            cnpj: '12345678000199',
-            cpf: null,
-            nif: null,
-            codigoNaoNif: null,
-            caepf: null,
-            inscricaoMunicipal: '12345',
-            nome: 'Prestador Exemplo Ltda',
-            endereco: new EnderecoData(
-                codigoMunicipio: '3550308',
-                cep: '01001000',
-                logradouro: 'Exemplo',
-                numero: '100',
-                bairro: 'Centro',
-                complemento: 'Apto 1',
-                enderecoExterior: null
-            ),
-            telefone: '11999999999',
-            email: 'prestador@example.com',
-            regimeTributario: new RegimeTributarioData(
-                opcaoSimplesNacional: 1,
-                regimeApuracaoTributosSn: 0,
-                regimeEspecialTributacao: 0
-            )
-        ),
-        tomador: new TomadorData(
-            cpf: '11122233344',
-            cnpj: null,
-            nif: null,
-            codigoNaoNif: null,
-            caepf: null,
-            inscricaoMunicipal: null,
-            nome: 'Tomador Exemplo',
-            endereco: new EnderecoData(
-                codigoMunicipio: '3550308',
-                cep: '01002000',
-                logradouro: 'Brasil',
-                numero: '200',
-                bairro: 'Jardins',
-                complemento: null,
-                enderecoExterior: null
-            ),
-            telefone: '11888888888',
-            email: 'tomador@example.com'
-        ),
-        intermediario: null,
-        servico: new ServicoData(
-            localPrestacao: new LocalPrestacaoData(
-                codigoLocalPrestacao: '3550308',
-                codigoPaisPrestacao: 'BR'
-            ),
-            codigoServico: new CodigoServicoData(
-                codigoTributacaoNacional: '1.01',
-                codigoTributacaoMunicipal: '1010',
-                descricaoServico: 'Analise de sistemas',
-                codigoNbs: '1234',
-                codigoInternoContribuinte: 'SERV001'
-            ),
-            comercioExterior: null,
-            obra: null,
-            atividadeEvento: null,
-            informacoesComplementares: 'Serviço prestado com excelência',
-            idDocumentoTecnico: null,
-            documentoReferencia: null,
-            descricaoInformacoesComplementares: null
-        ),
-        valores: new ValoresData(
-            valorServicoPrestado: new ValorServicoPrestadoData(
-                valorRecebido: 1000.00,
-                valorServico: 1000.00
-            ),
-            desconto: new DescontoData(
-                valorDescontoIncondicionado: 0.0,
-                valorDescontoCondicionado: 0.0
-            ),
-            deducaoReducao: null,
-            tributacao: new TributacaoData(
-                tributacaoIssqn: 1,
-                tipoImunidade: null,
-                tipoRetencaoIssqn: 1,
-                tipoSuspensao: null,
-                numeroProcessoSuspensao: null,
-                beneficioMunicipal: null,
-                cstPisCofins: null,
-                percentualTotalTributosSN: null,
-                indicadorTotalTributos: null
-            )
-        )
-    );
-
-    $dpsData = new DpsData(
-        versao: '1.0',
-        infDps: $infDps
-    );
+    $dpsData = new DpsData([
+        '@versao' => '1.0',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-10-27T10:00:00',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '1001',
+            'dCompet' => '2023-10-27',
+            'tpEmit' => 1,
+            'cLocEmi' => '3550308',
+            'cMotivoEmisTI' => null,
+            'chNFSeRej' => null,
+            'subst' => null,
+            'prest' => [
+                'CNPJ' => '12345678000199',
+                'CPF' => null,
+                'NIF' => null,
+                'cNaoNIF' => null,
+                'CAEPF' => null,
+                'IM' => '12345',
+                'xNome' => 'Prestador Exemplo Ltda',
+                'end' => [
+                    'endNac.cMun' => '3550308',
+                    'endNac.CEP' => '01001000',
+                    'xLgr' => 'Exemplo',
+                    'nro' => '100',
+                    'xBairro' => 'Centro',
+                    'xCpl' => 'Apto 1',
+                    'endExt' => null,
+                ],
+                'fone' => '11999999999',
+                'email' => 'prestador@example.com',
+                'regTrib' => [
+                    'opSimpNac' => 1,
+                    'regApTribSN' => 0,
+                    'regEspTrib' => 0,
+                ],
+            ],
+            'toma' => [
+                'CPF' => '11122233344',
+                'CNPJ' => null,
+                'NIF' => null,
+                'cNaoNIF' => null,
+                'CAEPF' => null,
+                'IM' => null,
+                'xNome' => 'Tomador Exemplo',
+                'end' => [
+                    'endNac.cMun' => '3550308',
+                    'endNac.CEP' => '01002000',
+                    'xLgr' => 'Brasil',
+                    'nro' => '200',
+                    'xBairro' => 'Jardins',
+                    'xCpl' => null,
+                    'endExt' => null,
+                ],
+                'fone' => '11888888888',
+                'email' => 'tomador@example.com',
+            ],
+            'interm' => null,
+            'serv' => [
+                'locPrest' => [
+                    'cLocPrestacao' => '3550308',
+                    'cPaisPrestacao' => 'BR',
+                ],
+                'cServ' => [
+                    'cTribNac' => '1.01',
+                    'cTribMun' => '1010',
+                    'xDescServ' => 'Analise de sistemas',
+                    'cNBS' => '1234',
+                    'cIntContrib' => 'SERV001',
+                ],
+                'comExt' => null,
+                'obra' => null,
+                'atvEvento' => null,
+                'infoComplem' => 'Serviço prestado with excellence',
+                'idDocTec' => null,
+                'docRef' => null,
+                'xInfComp' => null,
+            ],
+            'valores' => [
+                'vServPrest' => [
+                    'vReceb' => 1000.00,
+                    'vServ' => 1000.00,
+                ],
+                'vDescCondIncond' => [
+                    'vDescIncond' => 0.0,
+                    'vDescCond' => 0.0,
+                ],
+                'vDedRed' => null,
+                'trib' => [
+                    'tribMun.tribISSQN' => 1,
+                    'tribMun.tpImun' => null,
+                    'tribMun.tpRetISSQN' => 1,
+                    'tribMun.tpSusp' => null,
+                    'tribMun.nProcesso' => null,
+                    'tribMun.bm' => null,
+                    'trib.cstPisCofins' => null,
+                    'totTrib.pTotalTribSN' => null,
+                    'totTrib.indTotTrib' => null,
+                ],
+            ],
+        ],
+    ]);
 
     $builder = new DpsXmlBuilder;
     $xml = $builder->build($dpsData);

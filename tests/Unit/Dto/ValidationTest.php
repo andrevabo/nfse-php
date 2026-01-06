@@ -2,16 +2,12 @@
 
 namespace Nfse\Tests\Unit\Dto;
 
-use Illuminate\Validation\ValidationException;
 use Nfse\Dto\Nfse\InfDpsData;
 
-it('fails validation when required fields are missing', function () {
-    InfDpsData::validate([
-        'tpAmb' => 1,
-    ]);
-})->throws(ValidationException::class);
+// Note: spatie/data-transfer-object doesn't have built-in validation like spatie/laravel-data
+// These tests are now handled by the DpsValidator class instead
 
-it('passes validation when all required fields are present', function () {
+it('can instantiate InfDpsData with valid data', function () {
     $data = [
         '@Id' => 'DPS123',
         'tpAmb' => 1,
@@ -24,8 +20,32 @@ it('passes validation when all required fields are present', function () {
         'cLocEmi' => '3550308',
     ];
 
-    $infDps = InfDpsData::validateAndCreate($data);
+    $infDps = new InfDpsData($data);
 
     expect($infDps)->toBeInstanceOf(InfDpsData::class)
-        ->and($infDps->id)->toBe('DPS123');
+        ->and($infDps->id)->toBe('DPS123')
+        ->and($infDps->tipoAmbiente)->toBe(1);
+});
+
+it('can instantiate InfDpsData with partial data', function () {
+    // spatie/data-transfer-object allows null values for nullable properties
+    $data = [
+        '@Id' => 'DPS456',
+        'tpAmb' => 2,
+        'dhEmi' => '2023-10-27T10:00:00-03:00',
+        'verAplic' => '1.0',
+        'serie' => '1',
+        'nDPS' => '1002',
+        'dCompet' => '2023-10-27',
+        'tpEmit' => 1,
+        'cLocEmi' => '3550308',
+        'prest' => null,
+        'toma' => null,
+    ];
+
+    $infDps = new InfDpsData($data);
+
+    expect($infDps)->toBeInstanceOf(InfDpsData::class)
+        ->and($infDps->prestador)->toBeNull()
+        ->and($infDps->tomador)->toBeNull();
 });

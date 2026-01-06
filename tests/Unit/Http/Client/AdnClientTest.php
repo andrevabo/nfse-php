@@ -136,7 +136,7 @@ class AdnClientTest extends TestCase
             'mensagem' => 'Sucesso',
             'aliquotas' => [
                 '01.01.00.001' => [
-                    ['Incidencia' => 1, 'Aliq' => 5.0, 'DtIni' => '2023-01-01'],
+                    ['Incidencia' => '1', 'Aliq' => 5.0, 'DtIni' => '2023-01-01'],
                 ],
             ],
         ];

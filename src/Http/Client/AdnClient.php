@@ -163,19 +163,19 @@ class AdnClient implements AdnDanfseInterface
     {
         $response = $this->get("/parametrizacao/{$codigoMunicipio}/convenio");
 
-        return new ResultadoConsultaConfiguracoesConvenioResponse(
-            mensagem: $response['mensagem'] ?? null,
-            parametrosConvenio: isset($response['parametrosConvenio'])
-                ? new ParametrosConfiguracaoConvenioDto(
-                    tipoConvenio: $response['parametrosConvenio']['tipoConvenio'] ?? null,
-                    aderenteAmbienteNacional: $response['parametrosConvenio']['aderenteAmbienteNacional'] ?? null,
-                    aderenteEmissorNacional: $response['parametrosConvenio']['aderenteEmissorNacional'] ?? null,
-                    situacaoEmissaoPadraoContribuintesRFB: $response['parametrosConvenio']['situacaoEmissaoPadraoContribuintesRFB'] ?? null,
-                    aderenteMAN: $response['parametrosConvenio']['aderenteMAN'] ?? null,
-                    permiteAproveitametoDeCreditos: $response['parametrosConvenio']['permiteAproveitametoDeCreditos'] ?? null,
-                )
-                : null
-        );
+        return new ResultadoConsultaConfiguracoesConvenioResponse([
+            'mensagem' => $response['mensagem'] ?? null,
+            'parametrosConvenio' => isset($response['parametrosConvenio'])
+                ? new ParametrosConfiguracaoConvenioDto([
+                    'tpConv' => $response['parametrosConvenio']['tipoConvenio'] ?? null,
+                    'aderenteAmbienteNacional' => $response['parametrosConvenio']['aderenteAmbienteNacional'] ?? null,
+                    'aderenteEmissorNacional' => $response['parametrosConvenio']['aderenteEmissorNacional'] ?? null,
+                    'situacaoEmissaoPadraoContribuintesRFB' => $response['parametrosConvenio']['situacaoEmissaoPadraoContribuintesRFB'] ?? null,
+                    'aderenteMAN' => $response['parametrosConvenio']['aderenteMAN'] ?? null,
+                    'permiteAproveitametoDeCreditos' => $response['parametrosConvenio']['permiteAproveitametoDeCreditos'] ?? null,
+                ])
+                : null,
+        ]);
     }
 
     public function consultarAliquota(string $codigoMunicipio, string $codigoServico, string $competencia): ResultadoConsultaAliquotasResponse
@@ -239,11 +239,11 @@ class AdnClient implements AdnDanfseInterface
 
     private function mapDistribuicaoResponse(array $response): DistribuicaoDfeResponse
     {
-        $listaNsu = array_map(fn ($item) => new DistribuicaoNsuDto(
-            nsu: $item['NSU'] ?? null,
-            chaveAcesso: $item['ChaveAcesso'] ?? null,
-            dfeXmlGZipB64: $item['ArquivoXml'] ?? null
-        ), $response['LoteDFe'] ?? []);
+        $listaNsu = array_map(fn ($item) => new DistribuicaoNsuDto([
+            'NSU' => $item['NSU'] ?? null,
+            'chAcesso' => $item['ChaveAcesso'] ?? null,
+            'dfeXmlGZipB64' => $item['ArquivoXml'] ?? null,
+        ]), $response['LoteDFe'] ?? []);
 
         $ultimoNsu = $response['UltimoNSU'] ?? null;
         $maiorNsu = $response['MaiorNSU'] ?? null;
@@ -255,44 +255,44 @@ class AdnClient implements AdnDanfseInterface
             $maiorNsu = $maxNsu;
         }
 
-        return new DistribuicaoDfeResponse(
-            tipoAmbiente: $response['TipoAmbiente'] ?? null,
-            versaoAplicativo: $response['VersaoAplicativo'] ?? null,
-            dataHoraProcessamento: $response['DataHoraProcessamento'] ?? null,
-            ultimoNsu: $ultimoNsu,
-            maiorNsu: $maiorNsu,
-            alertas: $this->mapMensagens($response['Alertas'] ?? []),
-            erros: $this->mapMensagens($response['Erros'] ?? []),
-            listaNsu: $listaNsu
-        );
+        return new DistribuicaoDfeResponse([
+            'tpAmb' => $response['TipoAmbiente'] ?? null,
+            'verAplic' => $response['VersaoAplicativo'] ?? null,
+            'dhProc' => $response['DataHoraProcessamento'] ?? null,
+            'ultNSU' => $ultimoNsu,
+            'maiorNSU' => $maiorNsu,
+            'alertas' => $this->mapMensagens($response['Alertas'] ?? []),
+            'erros' => $this->mapMensagens($response['Erros'] ?? []),
+            'lNSU' => $listaNsu,
+        ]);
     }
 
     private function mapAliquotaResponse(array $response): ResultadoConsultaAliquotasResponse
     {
         $aliquotas = [];
         foreach ($response['aliquotas'] ?? [] as $servico => $lista) {
-            $aliquotas[$servico] = array_map(fn ($item) => new AliquotaDto(
-                incidencia: $item['Incidencia'] ?? null,
-                aliquota: $item['Aliq'] ?? null,
-                dataInicio: $item['DtIni'] ?? null,
-                dataFim: $item['DtFim'] ?? null
-            ), $lista);
+            $aliquotas[$servico] = array_map(fn ($item) => new AliquotaDto([
+                'incid' => $item['Incidencia'] ?? null,
+                'aliq' => $item['Aliq'] ?? null,
+                'DtIni' => $item['DtIni'] ?? null,
+                'DtFim' => $item['DtFim'] ?? null,
+            ]), $lista);
         }
 
-        return new ResultadoConsultaAliquotasResponse(
-            mensagem: $response['mensagem'] ?? null,
-            aliquotas: $aliquotas
-        );
+        return new ResultadoConsultaAliquotasResponse([
+            'mensagem' => $response['mensagem'] ?? null,
+            'aliquotas' => $aliquotas,
+        ]);
     }
 
     private function mapMensagens(array $mensagens): array
     {
-        return array_map(fn ($m) => new MensagemProcessamentoDto(
-            mensagem: $m['Mensagem'] ?? null,
-            parametros: $m['Parametros'] ?? null,
-            codigo: $m['Codigo'] ?? null,
-            descricao: $m['Descricao'] ?? null,
-            complemento: $m['Complemento'] ?? null
-        ), $mensagens);
+        return array_map(fn ($m) => new MensagemProcessamentoDto([
+            'mensagem' => $m['Mensagem'] ?? null,
+            'parametros' => $m['Parametros'] ?? null,
+            'codigo' => $m['Codigo'] ?? null,
+            'descricao' => $m['Descricao'] ?? null,
+            'complemento' => $m['Complemento'] ?? null,
+        ]), $mensagens);
     }
 }

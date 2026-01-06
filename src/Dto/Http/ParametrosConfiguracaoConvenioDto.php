@@ -2,14 +2,20 @@
 
 namespace Nfse\Dto\Http;
 
-class ParametrosConfiguracaoConvenioDto
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
+
+class ParametrosConfiguracaoConvenioDto extends DataTransferObject
 {
-    public function __construct(
-        public ?int $tipoConvenio = null,
-        public ?int $aderenteAmbienteNacional = null,
-        public ?int $aderenteEmissorNacional = null,
-        public ?int $situacaoEmissaoPadraoContribuintesRFB = null,
-        public ?int $aderenteMAN = null,
-        public ?bool $permiteAproveitametoDeCreditos = null,
-    ) {}
+    #[MapFrom('tpConv')]
+    public ?int $tipoConvenio = null;
+
+    #[MapFrom('tpInsc')]
+    public ?int $tipoInscricao = null;
+
+    #[MapFrom('nInsc')]
+    public ?string $numeroInscricao = null;
+
+    #[MapFrom('vinc')]
+    public ?int $vinculo = null;
 }

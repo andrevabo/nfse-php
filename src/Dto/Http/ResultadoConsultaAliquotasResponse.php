@@ -2,13 +2,14 @@
 
 namespace Nfse\Dto\Http;
 
-class ResultadoConsultaAliquotasResponse
+use Spatie\DataTransferObject\DataTransferObject;
+
+class ResultadoConsultaAliquotasResponse extends DataTransferObject
 {
+    public ?string $mensagem = null;
+
     /**
-     * @param  array<string, AliquotaDto[]>  $aliquotas
+     * @var AliquotaDto[]
      */
-    public function __construct(
-        public ?string $mensagem = null,
-        public array $aliquotas = [],
-    ) {}
+    public array $aliquotas = [];
 }

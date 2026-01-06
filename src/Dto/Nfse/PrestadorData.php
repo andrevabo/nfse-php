@@ -2,96 +2,77 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Attributes\Validation\Email;
-use Spatie\LaravelData\Attributes\Validation\Max;
-use Spatie\LaravelData\Attributes\Validation\Nullable;
-use Spatie\LaravelData\Attributes\Validation\Size;
-use Spatie\LaravelData\Attributes\Validation\StringType;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class PrestadorData extends Data
+class PrestadorData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * CNPJ do prestador.
-         * Obrigatório se não for pessoa física.
-         */
-        #[MapInputName('CNPJ')]
-        #[Nullable, StringType, Size(14)]
-        public ?string $cnpj = null,
+    /**
+     * CNPJ do prestador.
+     * Obrigatório se não for pessoa física.
+     */
+    #[MapFrom('CNPJ')]
+    public ?string $cnpj = null;
 
-        /**
-         * CPF do prestador.
-         * Obrigatório se pessoa física.
-         */
-        #[MapInputName('CPF')]
-        #[Nullable, StringType, Size(11)]
-        public ?string $cpf = null,
+    /**
+     * CPF do prestador.
+     * Obrigatório se pessoa física.
+     */
+    #[MapFrom('CPF')]
+    public ?string $cpf = null;
 
-        /**
-         * Número de Identificação Fiscal (NIF) do prestador.
-         * Não permitido se tpEmit=1.
-         */
-        #[MapInputName('NIF')]
-        #[Nullable, StringType, Max(15)]
-        public ?string $nif = null,
+    /**
+     * Número de Identificação Fiscal (NIF) do prestador.
+     * Não permitido se tpEmit=1.
+     */
+    #[MapFrom('NIF')]
+    public ?string $nif = null;
 
-        /**
-         * Código do motivo de não informar o NIF.
-         */
-        #[MapInputName('cNaoNIF')]
-        public ?string $codigoNaoNif = null,
+    /**
+     * Código do motivo de não informar o NIF.
+     */
+    #[MapFrom('cNaoNIF')]
+    public ?string $codigoNaoNif = null;
 
-        /**
-         * Cadastro de Atividade Econômica da Pessoa Física.
-         */
-        #[MapInputName('CAEPF')]
-        public ?string $caepf = null,
+    /**
+     * Cadastro de Atividade Econômica da Pessoa Física.
+     */
+    #[MapFrom('CAEPF')]
+    public ?string $caepf = null;
 
-        /**
-         * Inscrição Municipal do prestador.
-         */
-        #[MapInputName('IM')]
-        #[Nullable, StringType, Max(15)]
-        public ?string $inscricaoMunicipal = null,
+    /**
+     * Inscrição Municipal do prestador.
+     */
+    #[MapFrom('IM')]
+    public ?string $inscricaoMunicipal = null;
 
-        /**
-         * Razão Social ou Nome do prestador.
-         */
-        #[MapInputName('xNome')]
-        #[Nullable, StringType, Max(255)]
-        public ?string $nome = null,
+    /**
+     * Razão Social ou Nome do prestador.
+     */
+    #[MapFrom('xNome')]
+    public ?string $nome = null;
 
-        /**
-         * Endereço do prestador.
-         */
-        #[MapInputName('end')]
-        public ?EnderecoData $endereco = null,
+    /**
+     * Endereço do prestador.
+     */
+    #[MapFrom('end')]
+    public ?EnderecoData $endereco = null;
 
-        /**
-         * Telefone do prestador.
-         */
-        #[MapInputName('fone')]
-        public ?string $telefone = null,
+    /**
+     * Telefone do prestador.
+     */
+    #[MapFrom('fone')]
+    public ?string $telefone = null;
 
-        /**
-         * Email do prestador.
-         */
-        #[MapInputName('email')]
-        #[Nullable, Email, Max(80)]
-        public ?string $email = null,
+    /**
+     * Email do prestador.
+     */
+    #[MapFrom('email')]
+    public ?string $email = null;
 
-        /**
-         * Regime tributário do prestador.
-         */
-        #[MapInputName('regTrib')]
-        public ?RegimeTributarioData $regimeTributario = null,
-    ) {}
+    /**
+     * Regime tributário do prestador.
+     */
+    #[MapFrom('regTrib')]
+    public ?RegimeTributarioData $regimeTributario = null;
 }

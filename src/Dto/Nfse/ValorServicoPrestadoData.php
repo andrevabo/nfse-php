@@ -2,29 +2,21 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class ValorServicoPrestadoData extends Data
+class ValorServicoPrestadoData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Valor recebido pelo intermediário.
-         * Obrigatório se tpEmit = 3.
-         */
-        #[MapInputName('vReceb')]
-        public ?float $valorRecebido = null,
+    /**
+     * Valor recebido pelo intermediário.
+     * Obrigatório se tpEmit = 3.
+     */
+    #[MapFrom('vReceb')]
+    public ?float $valorRecebido = null;
 
-        /**
-         * Valor do serviço prestado.
-         */
-        #[MapInputName('vServ')]
-        public ?float $valorServico = null,
-    ) {}
+    /**
+     * Valor do serviço prestado.
+     */
+    #[MapFrom('vServ')]
+    public ?float $valorServico = null;
 }

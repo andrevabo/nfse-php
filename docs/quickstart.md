@@ -36,17 +36,17 @@ $service = $nfse->contribuinte();
 ```php
 use Nfse\Dto\Nfse\DpsData;
 
-$dps = new DpsData(
-    versao: '1.00',
-    infDps: [
-        'id' => 'DPS123',
-        'tipoAmbiente' => 2,
-        'prestador' => ['cnpj' => '12345678000199'],
-        'tomador' => ['cpf' => '11122233344'],
-        'servico' => ['codigoServico' => ['codigoTributacaoNacional' => '01.01']],
-        'valores' => ['valorServicoPrestado' => ['valorServico' => 100.00]]
+$dps = new DpsData([
+    '@versao' => '1.00',
+    'infDPS' => [
+        '@Id' => 'DPS123',
+        'tpAmb' => 2,
+        'prest' => ['CNPJ' => '12345678000199'],
+        'toma' => ['CPF' => '11122233344'],
+        'serv' => ['cServ' => ['cTribNac' => '01.01']],
+        'valores' => ['vServPrest' => ['vServ' => 100.00]]
     ]
-);
+]);
 
 $nfse = $service->emitir($dps);
 // Note: atualmente o parser de retorno ainda está em desenvolvimento —

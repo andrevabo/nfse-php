@@ -1,55 +1,35 @@
 <?php
 
 use Nfse\Dto\Nfse\DpsData;
-use Nfse\Dto\Nfse\EnderecoData;
-use Nfse\Dto\Nfse\InfDpsData;
-use Nfse\Dto\Nfse\PrestadorData;
-use Nfse\Dto\Nfse\TomadorData;
 use Nfse\Validator\DpsValidator;
 
 it('validates a valid DPS', function () {
-    $dps = new DpsData(
-        versao: '1.00',
-        infDps: new InfDpsData(
-            id: 'DPS123',
-            tipoAmbiente: 2,
-            dataEmissao: '2023-01-01',
-            versaoAplicativo: '1.0',
-            serie: '1',
-            numeroDps: '100',
-            dataCompetencia: '2023-01-01',
-            tipoEmitente: 1, // Prestador
-            codigoLocalEmissao: '1234567',
-            motivoEmissaoTomadorIntermediario: null,
-            chaveNfseRejeitada: null,
-            substituicao: null,
-            prestador: new PrestadorData(
-                cnpj: '12345678000199',
-                cpf: null,
-                nif: null,
-                codigoNaoNif: null,
-                caepf: null,
-                inscricaoMunicipal: '12345',
-                nome: 'Prestador Teste',
-                endereco: new EnderecoData(
-                    codigoMunicipio: '1234567',
-                    cep: '12345678',
-                    logradouro: 'Rua Teste',
-                    numero: '100',
-                    bairro: 'Centro',
-                    complemento: null,
-                    enderecoExterior: null
-                ),
-                telefone: null,
-                email: null,
-                regimeTributario: null
-            ),
-            tomador: null,
-            intermediario: null,
-            servico: null,
-            valores: null
-        )
-    );
+    $dps = new DpsData([
+        '@versao' => '1.00',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-01-01',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '100',
+            'dCompet' => '2023-01-01',
+            'tpEmit' => 1, // Prestador
+            'cLocEmi' => '1234567',
+            'prest' => [
+                'CNPJ' => '12345678000199',
+                'IM' => '12345',
+                'xNome' => 'Prestador Teste',
+                'end' => [
+                    'endNac.cMun' => '1234567',
+                    'endNac.CEP' => '12345678',
+                    'xLgr' => 'Rua Teste',
+                    'nro' => '100',
+                    'xBairro' => 'Centro',
+                ],
+            ],
+        ],
+    ]);
 
     $validator = new DpsValidator;
     $result = $validator->validate($dps);
@@ -59,28 +39,21 @@ it('validates a valid DPS', function () {
 });
 
 it('fails when Prestador is missing', function () {
-    $dps = new DpsData(
-        versao: '1.00',
-        infDps: new InfDpsData(
-            id: 'DPS123',
-            tipoAmbiente: 2,
-            dataEmissao: '2023-01-01',
-            versaoAplicativo: '1.0',
-            serie: '1',
-            numeroDps: '100',
-            dataCompetencia: '2023-01-01',
-            tipoEmitente: 1,
-            codigoLocalEmissao: '1234567',
-            motivoEmissaoTomadorIntermediario: null,
-            chaveNfseRejeitada: null,
-            substituicao: null,
-            prestador: null, // Missing
-            tomador: null,
-            intermediario: null,
-            servico: null,
-            valores: null
-        )
-    );
+    $dps = new DpsData([
+        '@versao' => '1.00',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-01-01',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '100',
+            'dCompet' => '2023-01-01',
+            'tpEmit' => 1,
+            'cLocEmi' => '1234567',
+            'prest' => null, // Missing
+        ],
+    ]);
 
     $validator = new DpsValidator;
     $result = $validator->validate($dps);
@@ -90,40 +63,26 @@ it('fails when Prestador is missing', function () {
 });
 
 it('fails when Prestador address is missing and not emitter', function () {
-    $dps = new DpsData(
-        versao: '1.00',
-        infDps: new InfDpsData(
-            id: 'DPS123',
-            tipoAmbiente: 2,
-            dataEmissao: '2023-01-01',
-            versaoAplicativo: '1.0',
-            serie: '1',
-            numeroDps: '100',
-            dataCompetencia: '2023-01-01',
-            tipoEmitente: 2, // Tomador is emitter
-            codigoLocalEmissao: '1234567',
-            motivoEmissaoTomadorIntermediario: null,
-            chaveNfseRejeitada: null,
-            substituicao: null,
-            prestador: new PrestadorData(
-                cnpj: '12345678000199',
-                cpf: null,
-                nif: null,
-                codigoNaoNif: null,
-                caepf: null,
-                inscricaoMunicipal: '12345',
-                nome: 'Prestador Teste',
-                endereco: null, // Missing address
-                telefone: null,
-                email: null,
-                regimeTributario: null
-            ),
-            tomador: null,
-            intermediario: null,
-            servico: null,
-            valores: null
-        )
-    );
+    $dps = new DpsData([
+        '@versao' => '1.00',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-01-01',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '100',
+            'dCompet' => '2023-01-01',
+            'tpEmit' => 2, // Tomador is emitter
+            'cLocEmi' => '1234567',
+            'prest' => [
+                'CNPJ' => '12345678000199',
+                'IM' => '12345',
+                'xNome' => 'Prestador Teste',
+                'end' => null, // Missing address
+            ],
+        ],
+    ]);
 
     $validator = new DpsValidator;
     $result = $validator->validate($dps);
@@ -133,59 +92,37 @@ it('fails when Prestador address is missing and not emitter', function () {
 });
 
 it('fails when Tomador is identified but address is missing', function () {
-    $dps = new DpsData(
-        versao: '1.00',
-        infDps: new InfDpsData(
-            id: 'DPS123',
-            tipoAmbiente: 2,
-            dataEmissao: '2023-01-01',
-            versaoAplicativo: '1.0',
-            serie: '1',
-            numeroDps: '100',
-            dataCompetencia: '2023-01-01',
-            tipoEmitente: 1,
-            codigoLocalEmissao: '1234567',
-            motivoEmissaoTomadorIntermediario: null,
-            chaveNfseRejeitada: null,
-            substituicao: null,
-            prestador: new PrestadorData(
-                cnpj: '12345678000199',
-                cpf: null,
-                nif: null,
-                codigoNaoNif: null,
-                caepf: null,
-                inscricaoMunicipal: '12345',
-                nome: 'Prestador Teste',
-                endereco: new EnderecoData(
-                    codigoMunicipio: '1234567',
-                    cep: '12345678',
-                    logradouro: 'Rua Teste',
-                    numero: '100',
-                    bairro: 'Centro',
-                    complemento: null,
-                    enderecoExterior: null
-                ),
-                telefone: null,
-                email: null,
-                regimeTributario: null
-            ),
-            tomador: new TomadorData(
-                cpf: '12345678901', // Identified
-                cnpj: null,
-                nif: null,
-                codigoNaoNif: null,
-                caepf: null,
-                inscricaoMunicipal: null,
-                nome: 'Tomador Teste',
-                endereco: null, // Missing address
-                telefone: null,
-                email: null
-            ),
-            intermediario: null,
-            servico: null,
-            valores: null
-        )
-    );
+    $dps = new DpsData([
+        '@versao' => '1.00',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-01-01',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '100',
+            'dCompet' => '2023-01-01',
+            'tpEmit' => 1,
+            'cLocEmi' => '1234567',
+            'prest' => [
+                'CNPJ' => '12345678000199',
+                'IM' => '12345',
+                'xNome' => 'Prestador Teste',
+                'end' => [
+                    'endNac.cMun' => '1234567',
+                    'endNac.CEP' => '12345678',
+                    'xLgr' => 'Rua Teste',
+                    'nro' => '100',
+                    'xBairro' => 'Centro',
+                ],
+            ],
+            'toma' => [
+                'CPF' => '12345678901', // Identified
+                'xNome' => 'Tomador Teste',
+                'end' => null, // Missing address
+            ],
+        ],
+    ]);
 
     $validator = new DpsValidator;
     $result = $validator->validate($dps);
@@ -195,67 +132,39 @@ it('fails when Tomador is identified but address is missing', function () {
 });
 
 it('fails when Tomador has NIF but missing foreign address', function () {
-    $dps = new DpsData(
-        versao: '1.00',
-        infDps: new InfDpsData(
-            id: 'DPS123',
-            tipoAmbiente: 2,
-            dataEmissao: '2023-01-01',
-            versaoAplicativo: '1.0',
-            serie: '1',
-            numeroDps: '100',
-            dataCompetencia: '2023-01-01',
-            tipoEmitente: 1,
-            codigoLocalEmissao: '1234567',
-            motivoEmissaoTomadorIntermediario: null,
-            chaveNfseRejeitada: null,
-            substituicao: null,
-            prestador: new PrestadorData(
-                cnpj: '12345678000199',
-                cpf: null,
-                nif: null,
-                codigoNaoNif: null,
-                caepf: null,
-                inscricaoMunicipal: '12345',
-                nome: 'Prestador Teste',
-                endereco: new EnderecoData(
-                    codigoMunicipio: '1234567',
-                    cep: '12345678',
-                    logradouro: 'Rua Teste',
-                    numero: '100',
-                    bairro: 'Centro',
-                    complemento: null,
-                    enderecoExterior: null
-                ),
-                telefone: null,
-                email: null,
-                regimeTributario: null
-            ),
-            tomador: new TomadorData(
-                cpf: null,
-                cnpj: null,
-                nif: 'NIF123', // Foreign
-                codigoNaoNif: null,
-                caepf: null,
-                inscricaoMunicipal: null,
-                nome: 'Tomador Estrangeiro',
-                endereco: new EnderecoData(
-                    codigoMunicipio: null,
-                    cep: null,
-                    logradouro: null,
-                    numero: null,
-                    bairro: null,
-                    complemento: null,
-                    enderecoExterior: null // Missing foreign address
-                ),
-                telefone: null,
-                email: null
-            ),
-            intermediario: null,
-            servico: null,
-            valores: null
-        )
-    );
+    $dps = new DpsData([
+        '@versao' => '1.00',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-01-01',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '100',
+            'dCompet' => '2023-01-01',
+            'tpEmit' => 1,
+            'cLocEmi' => '1234567',
+            'prest' => [
+                'CNPJ' => '12345678000199',
+                'IM' => '12345',
+                'xNome' => 'Prestador Teste',
+                'end' => [
+                    'endNac.cMun' => '1234567',
+                    'endNac.CEP' => '12345678',
+                    'xLgr' => 'Rua Teste',
+                    'nro' => '100',
+                    'xBairro' => 'Centro',
+                ],
+            ],
+            'toma' => [
+                'NIF' => 'NIF123', // Foreign
+                'xNome' => 'Tomador Estrangeiro',
+                'end' => [
+                    'endExt' => null, // Missing foreign address
+                ],
+            ],
+        ],
+    ]);
 
     $validator = new DpsValidator;
     $result = $validator->validate($dps);
@@ -265,67 +174,39 @@ it('fails when Tomador has NIF but missing foreign address', function () {
 });
 
 it('fails when Tomador has CPF but missing national address', function () {
-    $dps = new DpsData(
-        versao: '1.00',
-        infDps: new InfDpsData(
-            id: 'DPS123',
-            tipoAmbiente: 2,
-            dataEmissao: '2023-01-01',
-            versaoAplicativo: '1.0',
-            serie: '1',
-            numeroDps: '100',
-            dataCompetencia: '2023-01-01',
-            tipoEmitente: 1,
-            codigoLocalEmissao: '1234567',
-            motivoEmissaoTomadorIntermediario: null,
-            chaveNfseRejeitada: null,
-            substituicao: null,
-            prestador: new PrestadorData(
-                cnpj: '12345678000199',
-                cpf: null,
-                nif: null,
-                codigoNaoNif: null,
-                caepf: null,
-                inscricaoMunicipal: '12345',
-                nome: 'Prestador Teste',
-                endereco: new EnderecoData(
-                    codigoMunicipio: '1234567',
-                    cep: '12345678',
-                    logradouro: 'Rua Teste',
-                    numero: '100',
-                    bairro: 'Centro',
-                    complemento: null,
-                    enderecoExterior: null
-                ),
-                telefone: null,
-                email: null,
-                regimeTributario: null
-            ),
-            tomador: new TomadorData(
-                cpf: '12345678901', // National
-                cnpj: null,
-                nif: null,
-                codigoNaoNif: null,
-                caepf: null,
-                inscricaoMunicipal: null,
-                nome: 'Tomador Nacional',
-                endereco: new EnderecoData(
-                    codigoMunicipio: null, // Missing cMun
-                    cep: null,
-                    logradouro: null,
-                    numero: null,
-                    bairro: null,
-                    complemento: null,
-                    enderecoExterior: null
-                ),
-                telefone: null,
-                email: null
-            ),
-            intermediario: null,
-            servico: null,
-            valores: null
-        )
-    );
+    $dps = new DpsData([
+        '@versao' => '1.00',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-01-01',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '100',
+            'dCompet' => '2023-01-01',
+            'tpEmit' => 1,
+            'cLocEmi' => '1234567',
+            'prest' => [
+                'CNPJ' => '12345678000199',
+                'IM' => '12345',
+                'xNome' => 'Prestador Teste',
+                'end' => [
+                    'endNac.cMun' => '1234567',
+                    'endNac.CEP' => '12345678',
+                    'xLgr' => 'Rua Teste',
+                    'nro' => '100',
+                    'xBairro' => 'Centro',
+                ],
+            ],
+            'toma' => [
+                'CPF' => '12345678901', // National
+                'xNome' => 'Tomador Nacional',
+                'end' => [
+                    'endNac.cMun' => null, // Missing cMun
+                ],
+            ],
+        ],
+    ]);
 
     $validator = new DpsValidator;
     $result = $validator->validate($dps);

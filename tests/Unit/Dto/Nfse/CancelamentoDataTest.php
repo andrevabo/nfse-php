@@ -3,7 +3,7 @@
 use Nfse\Dto\Nfse\CancelamentoData;
 
 it('can be instantiated from array-like input and maps names', function () {
-    $data = CancelamentoData::from([
+    $data = new CancelamentoData([
         'xDesc' => 'Desc',
         'cMotivo' => '1',
         'xMotivo' => 'Teste motivo',

@@ -83,10 +83,10 @@ echo "=== Testando diferentes formatos ===\n\n";
 $gzipped1 = gzencode($xml);
 $payload1 = base64_encode($gzipped1);
 echo "1. Original (com formatação):\n";
-echo "   Tamanho XML: " . strlen($xml) . " bytes\n";
-echo "   Tamanho GZIP: " . strlen($gzipped1) . " bytes\n";
-echo "   Tamanho Base64: " . strlen($payload1) . " bytes\n";
-echo "   Primeiros bytes do GZIP (hex): " . bin2hex(substr($gzipped1, 0, 20)) . "\n\n";
+echo '   Tamanho XML: '.strlen($xml)." bytes\n";
+echo '   Tamanho GZIP: '.strlen($gzipped1)." bytes\n";
+echo '   Tamanho Base64: '.strlen($payload1)." bytes\n";
+echo '   Primeiros bytes do GZIP (hex): '.bin2hex(substr($gzipped1, 0, 20))."\n\n";
 
 // Test 2: Without formatting
 $dom = new DOMDocument('1.0', 'UTF-8');
@@ -97,23 +97,23 @@ $xmlNoFormat = $dom->saveXML();
 $gzipped2 = gzencode($xmlNoFormat);
 $payload2 = base64_encode($gzipped2);
 echo "2. Sem formatação:\n";
-echo "   Tamanho XML: " . strlen($xmlNoFormat) . " bytes\n";
-echo "   Tamanho GZIP: " . strlen($gzipped2) . " bytes\n";
-echo "   Tamanho Base64: " . strlen($payload2) . " bytes\n";
-echo "   Primeiros bytes do GZIP (hex): " . bin2hex(substr($gzipped2, 0, 20)) . "\n\n";
+echo '   Tamanho XML: '.strlen($xmlNoFormat)." bytes\n";
+echo '   Tamanho GZIP: '.strlen($gzipped2)." bytes\n";
+echo '   Tamanho Base64: '.strlen($payload2)." bytes\n";
+echo '   Primeiros bytes do GZIP (hex): '.bin2hex(substr($gzipped2, 0, 20))."\n\n";
 
 // Test 3: Force UTF-8 encoding
 $xmlUtf8 = mb_convert_encoding($xml, 'UTF-8', 'UTF-8');
 $gzipped3 = gzencode($xmlUtf8);
 $payload3 = base64_encode($gzipped3);
 echo "3. Com mb_convert_encoding:\n";
-echo "   Tamanho XML: " . strlen($xmlUtf8) . " bytes\n";
-echo "   Tamanho GZIP: " . strlen($gzipped3) . " bytes\n";
-echo "   Tamanho Base64: " . strlen($payload3) . " bytes\n";
-echo "   Primeiros bytes do GZIP (hex): " . bin2hex(substr($gzipped3, 0, 20)) . "\n\n";
+echo '   Tamanho XML: '.strlen($xmlUtf8)." bytes\n";
+echo '   Tamanho GZIP: '.strlen($gzipped3)." bytes\n";
+echo '   Tamanho Base64: '.strlen($payload3)." bytes\n";
+echo '   Primeiros bytes do GZIP (hex): '.bin2hex(substr($gzipped3, 0, 20))."\n\n";
 
 // Verify decompression
 echo "=== Verificando descompressão ===\n";
 $decompressed = gzdecode($gzipped1);
-echo "Descompressão OK: " . ($decompressed === $xml ? "SIM" : "NÃO") . "\n";
-echo "Encoding após descompressão: " . mb_detect_encoding($decompressed, ['UTF-8', 'ISO-8859-1', 'ASCII'], true) . "\n";
+echo 'Descompressão OK: '.($decompressed === $xml ? 'SIM' : 'NÃO')."\n";
+echo 'Encoding após descompressão: '.mb_detect_encoding($decompressed, ['UTF-8', 'ISO-8859-1', 'ASCII'], true)."\n";

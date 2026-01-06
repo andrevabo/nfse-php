@@ -2,58 +2,50 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class DocumentoDeducaoData extends Data
+class DocumentoDeducaoData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Chave de NFS-e.
-         */
-        #[MapInputName('chNFSe')]
-        public ?string $chaveNfse,
+    /**
+     * Chave de NFS-e.
+     */
+    #[MapFrom('chNFSe')]
+    public ?string $chaveNfse = null;
 
-        /**
-         * Chave de NF-e.
-         */
-        #[MapInputName('chNFe')]
-        public ?string $chaveNfe,
+    /**
+     * Chave de NF-e.
+     */
+    #[MapFrom('chNFe')]
+    public ?string $chaveNfe = null;
 
-        /**
-         * Tipo de dedução/redução.
-         */
-        #[MapInputName('tpDedRed')]
-        public ?int $tipoDeducaoReducao,
+    /**
+     * Tipo de dedução/redução.
+     */
+    #[MapFrom('tpDedRed')]
+    public ?int $tipoDeducaoReducao = null;
 
-        /**
-         * Descrição de outras deduções.
-         */
-        #[MapInputName('xDescOutDed')]
-        public ?string $descricaoOutrasDeducoes,
+    /**
+     * Descrição de outras deduções.
+     */
+    #[MapFrom('xDescOutDed')]
+    public ?string $descricaoOutrasDeducoes = null;
 
-        /**
-         * Data de emissão do documento.
-         */
-        #[MapInputName('dEmiDoc')]
-        public ?string $dataEmissaoDocumento,
+    /**
+     * Data de emissão do documento.
+     */
+    #[MapFrom('dEmiDoc')]
+    public ?string $dataEmissaoDocumento = null;
 
-        /**
-         * Valor dedutível/redutível.
-         */
-        #[MapInputName('vDedutivelRedutivel')]
-        public ?float $valorDedutivelRedutivel,
+    /**
+     * Valor dedutível/redutível.
+     */
+    #[MapFrom('vDedutivelRedutivel')]
+    public ?float $valorDedutivelRedutivel = null;
 
-        /**
-         * Valor de dedução/redução.
-         */
-        #[MapInputName('vDeducaoReducao')]
-        public ?float $valorDeducaoReducao,
-    ) {}
+    /**
+     * Valor de dedução/redução.
+     */
+    #[MapFrom('vDeducaoReducao')]
+    public ?float $valorDeducaoReducao = null;
 }

@@ -2,25 +2,17 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class CancelamentoData extends Data
+class CancelamentoData extends DataTransferObject
 {
-    public function __construct(
-        #[MapInputName('xDesc')]
-        public ?string $descricao,
+    #[MapFrom('xDesc')]
+    public ?string $descricao = null;
 
-        #[MapInputName('cMotivo')]
-        public ?string $codigoMotivo,
+    #[MapFrom('cMotivo')]
+    public ?string $codigoMotivo = null;
 
-        #[MapInputName('xMotivo')]
-        public ?string $motivo
-    ) {}
+    #[MapFrom('xMotivo')]
+    public ?string $motivo = null;
 }

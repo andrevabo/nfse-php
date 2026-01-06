@@ -2,28 +2,20 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class DescontoData extends Data
+class DescontoData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Valor do desconto incondicionado.
-         */
-        #[MapInputName('vDescIncond')]
-        public ?float $valorDescontoIncondicionado,
+    /**
+     * Valor do desconto incondicionado.
+     */
+    #[MapFrom('vDescIncond')]
+    public ?float $valorDescontoIncondicionado = null;
 
-        /**
-         * Valor do desconto condicionado.
-         */
-        #[MapInputName('vDescCond')]
-        public ?float $valorDescontoCondicionado,
-    ) {}
+    /**
+     * Valor do desconto condicionado.
+     */
+    #[MapFrom('vDescCond')]
+    public ?float $valorDescontoCondicionado = null;
 }

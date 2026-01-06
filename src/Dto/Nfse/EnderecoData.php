@@ -2,69 +2,50 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Attributes\Validation\Max;
-use Spatie\LaravelData\Attributes\Validation\Nullable;
-use Spatie\LaravelData\Attributes\Validation\Required;
-use Spatie\LaravelData\Attributes\Validation\Size;
-use Spatie\LaravelData\Attributes\Validation\StringType;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class EnderecoData extends Data
+class EnderecoData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Código do município (IBGE).
-         */
-        #[MapInputName('endNac.cMun')]
-        #[Nullable, StringType, Size(7)]
-        public ?string $codigoMunicipio = null,
+    /**
+     * Código do município (IBGE).
+     */
+    #[MapFrom('endNac.cMun')]
+    public ?string $codigoMunicipio = null;
 
-        /**
-         * CEP.
-         */
-        #[MapInputName('endNac.CEP')]
-        #[Nullable, StringType, Size(8)]
-        public ?string $cep = null,
+    /**
+     * CEP.
+     */
+    #[MapFrom('endNac.CEP')]
+    public ?string $cep = null;
 
-        /**
-         * Logradouro.
-         */
-        #[MapInputName('xLgr')]
-        #[Required, StringType, Max(255)]
-        public ?string $logradouro = null,
+    /**
+     * Logradouro.
+     */
+    #[MapFrom('xLgr')]
+    public ?string $logradouro = null;
 
-        /**
-         * Número.
-         */
-        #[MapInputName('nro')]
-        #[Required, StringType, Max(60)]
-        public ?string $numero = null,
+    /**
+     * Número.
+     */
+    #[MapFrom('nro')]
+    public ?string $numero = null;
 
-        /**
-         * Bairro.
-         */
-        #[MapInputName('xBairro')]
-        #[Required, StringType, Max(60)]
-        public ?string $bairro = null,
+    /**
+     * Bairro.
+     */
+    #[MapFrom('xBairro')]
+    public ?string $bairro = null;
 
-        /**
-         * Complemento.
-         */
-        #[MapInputName('xCpl')]
-        #[Nullable, StringType, Max(60)]
-        public ?string $complemento = null,
+    /**
+     * Complemento.
+     */
+    #[MapFrom('xCpl')]
+    public ?string $complemento = null;
 
-        /**
-         * Endereço no exterior.
-         */
-        #[MapInputName('endExt')]
-        public ?EnderecoExteriorData $enderecoExterior = null,
-    ) {}
+    /**
+     * Endereço no exterior.
+     */
+    #[MapFrom('endExt')]
+    public ?EnderecoExteriorData $enderecoExterior = null;
 }

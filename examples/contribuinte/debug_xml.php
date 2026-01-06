@@ -90,14 +90,14 @@ $signedXml = $signer->sign($xml, 'infDPS');
 echo "=== XML Assinado ===\n";
 echo $signedXml;
 echo "\n\n=== Encoding ===\n";
-echo "mb_detect_encoding: " . mb_detect_encoding($signedXml, ['UTF-8', 'ISO-8859-1', 'ASCII'], true) . "\n";
-echo "strlen: " . strlen($xml) . "\n";
-echo "mb_strlen: " . mb_strlen($xml, 'UTF-8') . "\n";
+echo 'mb_detect_encoding: '.mb_detect_encoding($signedXml, ['UTF-8', 'ISO-8859-1', 'ASCII'], true)."\n";
+echo 'strlen: '.strlen($xml)."\n";
+echo 'mb_strlen: '.mb_strlen($xml, 'UTF-8')."\n";
 
 echo "\n=== Primeiros 200 bytes ===\n";
-echo substr($xml, 0, 200) . "\n";
+echo substr($xml, 0, 200)."\n";
 
 echo "\n=== Após GZIP + Base64 ===\n";
 $payload = base64_encode(gzencode($xml));
-echo "Tamanho do payload: " . strlen($payload) . "\n";
-echo "Primeiros 100 caracteres: " . substr($payload, 0, 100) . "\n";
+echo 'Tamanho do payload: '.strlen($payload)."\n";
+echo 'Primeiros 100 caracteres: '.substr($payload, 0, 100)."\n";

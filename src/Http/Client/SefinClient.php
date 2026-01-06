@@ -35,7 +35,7 @@ class SefinClient implements SefinNacionalInterface
             : self::URL_HOMOLOGATION;
 
         return new Client([
-            'base_uri' => rtrim($baseUrl, '/') . '/',
+            'base_uri' => rtrim($baseUrl, '/').'/',
             'curl' => [
                 CURLOPT_SSLCERTTYPE => 'P12',
                 CURLOPT_SSLCERT => $this->context->certificatePath,
@@ -75,8 +75,8 @@ class SefinClient implements SefinNacionalInterface
             if ($e instanceof \GuzzleHttp\Exception\RequestException && $e->getResponse()) {
                 $errorBody = $e->getResponse()->getBody()->getContents();
             }
-            
-            throw NfseApiException::requestError($e->getMessage() . ($errorBody ? "\nResposta: " . $errorBody : ''), $e->getCode());
+
+            throw NfseApiException::requestError($e->getMessage().($errorBody ? "\nResposta: ".$errorBody : ''), $e->getCode());
         }
     }
 

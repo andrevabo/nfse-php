@@ -334,6 +334,10 @@ class DpsXmlBuilder
                 $this->appendElement($vTotTrib, 'vTotTribMun', $data->tributacao->valorTotalTributosMunicipais !== null ? number_format($data->tributacao->valorTotalTributosMunicipais, 2, '.', '') : null);
                 $totTrib->appendChild($vTotTrib);
                 $trib->appendChild($totTrib);
+            } else {
+                $totTrib = $this->dom->createElement('totTrib');
+                $this->appendElement($totTrib, 'indTotTrib', '0');
+                $trib->appendChild($totTrib);
             }
 
             $valores->appendChild($trib);

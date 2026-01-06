@@ -2,13 +2,17 @@
 
 namespace Nfse\Dto\Http;
 
-use Spatie\LaravelData\Data;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-class DistribuicaoNsuDto extends Data
+class DistribuicaoNsuDto extends DataTransferObject
 {
-    public function __construct(
-        public ?int $nsu = null,
-        public ?string $chaveAcesso = null,
-        public ?string $dfeXmlGZipB64 = null,
-    ) {}
+    #[MapFrom('NSU')]
+    public ?int $nsu = null;
+
+    #[MapFrom('chAcesso')]
+    public ?string $chaveAcesso = null;
+
+    #[MapFrom('dfeXmlGZipB64')]
+    public ?string $dfeXmlGZipB64 = null;
 }

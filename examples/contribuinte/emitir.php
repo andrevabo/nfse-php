@@ -1,17 +1,6 @@
 <?php
 
-use Nfse\Dto\Nfse\CodigoServicoData;
 use Nfse\Dto\Nfse\DpsData;
-use Nfse\Dto\Nfse\InfDpsData;
-use Nfse\Dto\Nfse\LocalPrestacaoData;
-use Nfse\Dto\Nfse\PrestadorData;
-use Nfse\Dto\Nfse\ServicoData;
-use Nfse\Dto\Nfse\TomadorData;
-use Nfse\Dto\Nfse\TributacaoData;
-use Nfse\Dto\Nfse\ValoresData;
-use Nfse\Dto\Nfse\ValorServicoPrestadoData;
-use Nfse\Dto\Nfse\RegimeTributarioData;
-use Nfse\Dto\Nfse\EnderecoData;
 use Nfse\Http\NfseContext;
 use Nfse\Nfse;
 use Nfse\Support\IdGenerator;
@@ -44,71 +33,65 @@ try {
         numDps: $numero
     );
 
-    $dps = new DpsData(
-        versao: '1.01',
-        infDps: new InfDpsData(
-            id: $idDps,
-            tipoAmbiente: 2, // Homologação
-            dataEmissao: date('c'),
-            versaoAplicativo: 'SDK-PHP-1.0',
-            serie: $serie,
-            numeroDps: $numero,
-            dataCompetencia: date('Y-m-d'),
-            tipoEmitente: 1, // Prestador
-            codigoLocalEmissao: $codigoMunicipio,
+    $dps = new DpsData([
+        '@versao' => '1.01',
+        'infDPS' => [
+            '@Id' => $idDps,
+            'tpAmb' => 2, // Homologação
+            'dhEmi' => date('c'),
+            'verAplic' => 'SDK-PHP-1.0',
+            'serie' => $serie,
+            'nDPS' => $numero,
+            'dCompet' => date('Y-m-d'),
+            'tpEmit' => 1, // Prestador
+            'cLocEmi' => $codigoMunicipio,
 
-
-            prestador: new PrestadorData(
-                cnpj: $cnpjPrestador,
-                // inscricaoMunicipal: '123456',
-                nome: 'Empresa de Teste',
-                endereco: new EnderecoData(
-                    logradouro: 'Rua Teste',
-                    numero: '123',
-                    complemento: 'Sala 1',
-                    bairro: 'Centro',
-                    codigoMunicipio: $codigoMunicipio,
-                    cep: '60000000'
-                ),
-                telefone: '85999999999',
-                email: 'teste@empresa.com.br',
-                regimeTributario: new RegimeTributarioData(
-                    opcaoSimplesNacional: 1, // Não Optante
-                    regimeApuracaoTributosSn: null,
-                    regimeEspecialTributacao: 0 // Nenhum
-                )
-            ),
-            tomador: new TomadorData(
-                cnpj: '44827692000111',
-                nome: 'Cliente de Teste'
-            ),
-            servico: new ServicoData(
-                localPrestacao: new LocalPrestacaoData(
-                    codigoLocalPrestacao: $codigoMunicipio,
-                    codigoPaisPrestacao: 'BR'
-                ),
-                codigoServico: new CodigoServicoData(
-                    codigoTributacaoNacional: '010101',
-                    descricaoServico: 'Desenvolvimento de Software'
-                )
-            ),
-            valores: new ValoresData(
-                valorServicoPrestado: new ValorServicoPrestadoData(
-                    valorServico: 100.00
-                ),
-                tributacao: new TributacaoData(
-                    tributacaoIssqn: 1,
-                    tipoImunidade: null,
-                    tipoRetencaoIssqn: 1,
-                    tipoSuspensao: null,
-                    numeroProcessoSuspensao: null,
-                    indicadorTotalTributos: 0,
-                    beneficioMunicipal: null,
-                    cstPisCofins: '08'
-                )
-            )
-        )
-    );
+            'prest' => [
+                'CNPJ' => $cnpjPrestador,
+                'xNome' => 'Empresa de Teste',
+                'end' => [
+                    'xLgr' => 'Rua Teste',
+                    'nro' => '123',
+                    'xCpl' => 'Sala 1',
+                    'xBairro' => 'Centro',
+                    'endNac.cMun' => $codigoMunicipio,
+                    'endNac.CEP' => '60000000',
+                ],
+                'fone' => '85999999999',
+                'email' => 'teste@empresa.com.br',
+                'regTrib' => [
+                    'opSimpNac' => 1, // Não Optante
+                    'regApTribSN' => null,
+                    'regEspTrib' => 0, // Nenhum
+                ],
+            ],
+            'toma' => [
+                'CNPJ' => '44827692000111',
+                'xNome' => 'Cliente de Teste',
+            ],
+            'serv' => [
+                'locPrest' => [
+                    'cLocPrestacao' => $codigoMunicipio,
+                    'cPaisPrestacao' => 'BR',
+                ],
+                'cServ' => [
+                    'cTribNac' => '010101',
+                    'xDescServ' => 'Desenvolvimento de Software',
+                ],
+            ],
+            'valores' => [
+                'vServPrest' => [
+                    'vServ' => 100.00,
+                ],
+                'trib' => [
+                    'tribMun.tribISSQN' => 1,
+                    'tribMun.tpRetISSQN' => 1,
+                    'tribFed.piscofins.CST' => '08',
+                    'totTrib.indTotTrib' => 0,
+                ],
+            ],
+        ],
+    ]);
 
     echo "Emitindo NFS-e para a DPS: $idDps...\n";
 

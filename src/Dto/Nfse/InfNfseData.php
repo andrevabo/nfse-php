@@ -2,142 +2,134 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class InfNfseData extends Data
+class InfNfseData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Identificador da NFS-e.
-         */
-        #[MapInputName('id')]
-        public ?string $id = null,
+    /**
+     * Identificador da NFS-e.
+     */
+    #[MapFrom('id')]
+    public ?string $id = null;
 
-        /**
-         * Número da NFS-e.
-         */
-        #[MapInputName('nNFSe')]
-        public ?string $numeroNfse = null,
+    /**
+     * Número da NFS-e.
+     */
+    #[MapFrom('nNFSe')]
+    public ?string $numeroNfse = null;
 
-        /**
-         * Número do DFe.
-         */
-        #[MapInputName('nDFe')]
-        public ?string $numeroDfse = null,
+    /**
+     * Número do DFe.
+     */
+    #[MapFrom('nDFe')]
+    public ?string $numeroDfse = null;
 
-        /**
-         * Código de verificação.
-         */
-        #[MapInputName('cVerif')]
-        public ?string $codigoVerificacao = null,
+    /**
+     * Código de verificação.
+     */
+    #[MapFrom('cVerif')]
+    public ?string $codigoVerificacao = null;
 
-        /**
-         * Data e hora de processamento.
-         */
-        #[MapInputName('dhProc')]
-        public ?string $dataProcessamento = null,
+    /**
+     * Data e hora de processamento.
+     */
+    #[MapFrom('dhProc')]
+    public ?string $dataProcessamento = null;
 
-        /**
-         * Ambiente gerador.
-         */
-        #[MapInputName('ambGer')]
-        public ?int $ambienteGerador = null,
+    /**
+     * Ambiente gerador.
+     */
+    #[MapFrom('ambGer')]
+    public ?int $ambienteGerador = null;
 
-        /**
-         * Versão do aplicativo.
-         */
-        #[MapInputName('verAplic')]
-        public ?string $versaoAplicativo = null,
+    /**
+     * Versão do aplicativo.
+     */
+    #[MapFrom('verAplic')]
+    public ?string $versaoAplicativo = null;
 
-        /**
-         * Processo de emissão.
-         */
-        #[MapInputName('procEmi')]
-        public ?int $processoEmissao = null,
+    /**
+     * Processo de emissão.
+     */
+    #[MapFrom('procEmi')]
+    public ?int $processoEmissao = null;
 
-        /**
-         * Local de emissão (Nome).
-         */
-        #[MapInputName('xLocEmi')]
-        public ?string $localEmissao = null,
+    /**
+     * Local de emissão (Nome).
+     */
+    #[MapFrom('xLocEmi')]
+    public ?string $localEmissao = null;
 
-        /**
-         * Local de prestação (Nome).
-         */
-        #[MapInputName('xLocPrestacao')]
-        public ?string $localPrestacao = null,
+    /**
+     * Local de prestação (Nome).
+     */
+    #[MapFrom('xLocPrestacao')]
+    public ?string $localPrestacao = null;
 
-        /**
-         * Código do local de incidência.
-         */
-        #[MapInputName('cLocIncid')]
-        public ?string $codigoLocalIncidencia = null,
+    /**
+     * Código do local de incidência.
+     */
+    #[MapFrom('cLocIncid')]
+    public ?string $codigoLocalIncidencia = null;
 
-        /**
-         * Local de incidência (Nome).
-         */
-        #[MapInputName('xLocIncid')]
-        public ?string $nomeLocalIncidencia = null,
+    /**
+     * Local de incidência (Nome).
+     */
+    #[MapFrom('xLocIncid')]
+    public ?string $nomeLocalIncidencia = null;
 
-        /**
-         * Descrição da tributação nacional.
-         */
-        #[MapInputName('xTribNac')]
-        public ?string $descricaoTributacaoNacional = null,
+    /**
+     * Descrição da tributação nacional.
+     */
+    #[MapFrom('xTribNac')]
+    public ?string $descricaoTributacaoNacional = null;
 
-        /**
-         * Descrição da tributação municipal.
-         */
-        #[MapInputName('xTribMun')]
-        public ?string $descricaoTributacaoMunicipal = null,
+    /**
+     * Descrição da tributação municipal.
+     */
+    #[MapFrom('xTribMun')]
+    public ?string $descricaoTributacaoMunicipal = null;
 
-        /**
-         * Descrição da NBS.
-         */
-        #[MapInputName('xNBS')]
-        public ?string $descricaoNbs = null,
+    /**
+     * Descrição da NBS.
+     */
+    #[MapFrom('xNBS')]
+    public ?string $descricaoNbs = null;
 
-        /**
-         * Tipo de Emissão.
-         */
-        #[MapInputName('tpEmis')]
-        public ?int $tipoEmissao = null,
+    /**
+     * Tipo de Emissão.
+     */
+    #[MapFrom('tpEmis')]
+    public ?int $tipoEmissao = null;
 
-        /**
-         * Código de status.
-         */
-        #[MapInputName('cStat')]
-        public ?int $codigoStatus = null,
+    /**
+     * Código de status.
+     */
+    #[MapFrom('cStat')]
+    public ?int $codigoStatus = null;
 
-        /**
-         * Outras Informações.
-         */
-        #[MapInputName('xOutInf')]
-        public ?string $outrasInformacoes = null,
+    /**
+     * Outras Informações.
+     */
+    #[MapFrom('xOutInf')]
+    public ?string $outrasInformacoes = null;
 
-        /**
-         * Dados da DPS.
-         */
-        #[MapInputName('DPS')]
-        public ?DpsData $dps = null,
+    /**
+     * Dados da DPS.
+     */
+    #[MapFrom('DPS')]
+    public ?DpsData $dps = null;
 
-        /**
-         * Dados do emitente.
-         */
-        #[MapInputName('emit')]
-        public ?EmitenteData $emitente = null,
+    /**
+     * Dados do emitente.
+     */
+    #[MapFrom('emit')]
+    public ?EmitenteData $emitente = null;
 
-        /**
-         * Valores da NFS-e.
-         */
-        #[MapInputName('valores')]
-        public ?ValoresNfseData $valores = null,
-    ) {}
+    /**
+     * Valores da NFS-e.
+     */
+    #[MapFrom('valores')]
+    public ?ValoresNfseData $valores = null;
 }

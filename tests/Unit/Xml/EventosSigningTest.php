@@ -12,26 +12,22 @@ use Nfse\Xml\EventosXmlBuilder;
 it('builds, signs and encodes an evento payload', function () {
     $ch = '12345678901234567890123456789012345678901234567890';
 
-    $inf = new InfPedRegData(
-        tipoAmbiente: 2,
-        versaoAplicativo: '1.0',
-        dataHoraEvento: '2025-01-01T12:00:00-03:00',
-        chaveNfse: $ch,
-        nPedRegEvento: 3
-    );
+    $cancel = new CancelamentoData([
+        'xDesc' => 'Cancelamento',
+        'cMotivo' => '1',
+        'xMotivo' => 'Teste',
+    ]);
 
-    $cancel = new CancelamentoData(descricao: 'Cancelamento', codigoMotivo: '1', motivo: 'Teste');
-    // attach cancellation to infPedReg
-    $inf = new InfPedRegData(
-        tipoAmbiente: 2,
-        versaoAplicativo: '1.0',
-        dataHoraEvento: '2025-01-01T12:00:00-03:00',
-        chaveNfse: $ch,
-        nPedRegEvento: 3,
-        e101101: $cancel
-    );
+    $inf = new InfPedRegData([
+        'tpAmb' => 2,
+        'verAplic' => '1.0',
+        'dhEvento' => '2025-01-01T12:00:00-03:00',
+        'chNFSe' => $ch,
+        'nPedRegEvento' => 3,
+        'e101101' => $cancel,
+    ]);
 
-    $pedido = new PedRegEventoData(infPedReg: $inf);
+    $pedido = new PedRegEventoData(['infPedReg' => $inf]);
 
     $xml = (new EventosXmlBuilder)->buildPedRegEvento($pedido);
     expect($xml)->toContain('<pedRegEvento');

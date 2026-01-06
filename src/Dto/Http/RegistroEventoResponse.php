@@ -2,14 +2,15 @@
 
 namespace Nfse\Dto\Http;
 
-use Spatie\LaravelData\Data;
+use Spatie\DataTransferObject\DataTransferObject;
 
-class RegistroEventoResponse extends Data
+class RegistroEventoResponse extends DataTransferObject
 {
-    public function __construct(
-        public ?int $tipoAmbiente = null,
-        public ?string $versaoAplicativo = null,
-        public ?string $dataHoraProcessamento = null,
-        public ?string $eventoXmlGZipB64 = null,
-    ) {}
+    public ?int $tipoAmbiente = null;
+
+    public ?string $versaoAplicativo = null;
+
+    public ?string $dataHoraProcessamento = null;
+
+    public ?string $eventoXmlGZipB64 = null;
 }

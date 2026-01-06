@@ -12,6 +12,7 @@ use Nfse\Http\NfseContext;
 use Nfse\Signer\Certificate;
 use Nfse\Signer\XmlSigner;
 use Nfse\Xml\DpsXmlBuilder;
+use Nfse\Xml\NfseXmlParser;
 
 class ContribuinteService
 {
@@ -56,8 +57,9 @@ class ContribuinteService
 
         $nfseXml = gzdecode(base64_decode($response->nfseXmlGZipB64));
 
-        // TODO: Implementar NfseXmlParser
-        throw new \Exception('Parser de XML ainda não implementado. XML Recebido: '.substr($nfseXml, 0, 100).'...');
+        $parser = new NfseXmlParser;
+
+        return $parser->parse($nfseXml);
     }
 
     public function consultar(string $chave): ?NfseData
@@ -74,8 +76,9 @@ class ContribuinteService
 
         $nfseXml = gzdecode(base64_decode($response->nfseXmlGZipB64));
 
-        // TODO: Implementar NfseXmlParser
-        throw new \Exception('Parser de XML ainda não implementado. XML Recebido: '.substr($nfseXml, 0, 100).'...');
+        $parser = new NfseXmlParser;
+
+        return $parser->parse($nfseXml);
     }
 
     public function consultarDps(string $idDps): \Nfse\Dto\Http\ConsultaDpsResponse

@@ -7,19 +7,22 @@ use Nfse\Xml\EventosXmlBuilder;
 
 it('constructs Id with zero padded nPedRegEvento and preserves large numbers', function () {
     $ch = str_repeat('9', 50);
-    $cancel = new CancelamentoData(descricao: 'x', codigoMotivo: '1', motivo: 'm');
+    $cancel = new CancelamentoData([
+        'xDesc' => 'x',
+        'cMotivo' => '1',
+        'xMotivo' => 'm',
+    ]);
 
-    $inf = new InfPedRegData(
-        tipoAmbiente: 2,
-        versaoAplicativo: '1.0',
-        dataHoraEvento: '2025-01-01T12:00:00-03:00',
-        chaveNfse: $ch,
-        nPedRegEvento: 123
-    );
+    $inf = new InfPedRegData([
+        'tpAmb' => 2,
+        'verAplic' => '1.0',
+        'dhEvento' => '2025-01-01T12:00:00-03:00',
+        'chNFSe' => $ch,
+        'nPedRegEvento' => 123,
+        'e101101' => $cancel,
+    ]);
 
-    $inf->e101101 = $cancel;
-
-    $pedido = new PedRegEventoData(infPedReg: $inf);
+    $pedido = new PedRegEventoData(['infPedReg' => $inf]);
     $xml = (new EventosXmlBuilder)->buildPedRegEvento($pedido);
 
     expect($xml)->toContain('nPedRegEvento>123</nPedRegEvento>');

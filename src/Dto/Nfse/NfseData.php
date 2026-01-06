@@ -2,25 +2,20 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-class NfseData extends Data
+class NfseData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Versão do leiaute.
-         */
-        #[MapInputName('versao')]
-        public ?string $versao,
+    /**
+     * Versão do leiaute.
+     */
+    #[MapFrom('versao')]
+    public ?string $versao = null;
 
-        /**
-         * Informações da NFS-e.
-         */
-        #[MapInputName('infNFSe')]
-        public ?InfNfseData $infNfse,
-    ) {}
+    /**
+     * Informações da NFS-e.
+     */
+    #[MapFrom('infNFSe')]
+    public ?InfNfseData $infNfse = null;
 }

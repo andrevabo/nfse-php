@@ -2,34 +2,26 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class ObraData extends Data
+class ObraData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Inscrição imobiliária fiscal da obra.
-         */
-        #[MapInputName('inscImobFisc')]
-        public ?string $inscricaoImobiliariaFiscal,
+    /**
+     * Inscrição imobiliária fiscal da obra.
+     */
+    #[MapFrom('inscImobFisc')]
+    public ?string $inscricaoImobiliariaFiscal = null;
 
-        /**
-         * Código da obra.
-         */
-        #[MapInputName('cObra')]
-        public ?string $codigoObra,
+    /**
+     * Código da obra.
+     */
+    #[MapFrom('cObra')]
+    public ?string $codigoObra = null;
 
-        /**
-         * Endereço da obra.
-         */
-        #[MapInputName('end')]
-        public ?EnderecoData $endereco,
-    ) {}
+    /**
+     * Endereço da obra.
+     */
+    #[MapFrom('end')]
+    public ?EnderecoData $endereco = null;
 }

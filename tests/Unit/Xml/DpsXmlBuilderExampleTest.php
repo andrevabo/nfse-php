@@ -2,120 +2,63 @@
 
 namespace Nfse\Tests\Unit\Xml;
 
-use Nfse\Dto\Nfse\CodigoServicoData;
 use Nfse\Dto\Nfse\DpsData;
-use Nfse\Dto\Nfse\EnderecoData;
-use Nfse\Dto\Nfse\InfDpsData;
-use Nfse\Dto\Nfse\LocalPrestacaoData;
-use Nfse\Dto\Nfse\PrestadorData;
-use Nfse\Dto\Nfse\RegimeTributarioData;
-use Nfse\Dto\Nfse\ServicoData;
-use Nfse\Dto\Nfse\TomadorData;
-use Nfse\Dto\Nfse\TributacaoData;
-use Nfse\Dto\Nfse\ValoresData;
-use Nfse\Dto\Nfse\ValorServicoPrestadoData;
 use Nfse\Xml\DpsXmlBuilder;
 
 it('can build xml matching ExemploPrestadorPessoaFisica', function () {
-    $infDps = new InfDpsData(
-        id: 'DPS231400310000667299238300001000000000000046',
-        tipoAmbiente: 1,
-        dataEmissao: '2025-12-15T11:11:09-03:00',
-        versaoAplicativo: 'Sistema NFS-e',
-        serie: '00001',
-        numeroDps: '46',
-        dataCompetencia: '2025-12-15',
-        tipoEmitente: 1,
-        codigoLocalEmissao: '2314003',
-        motivoEmissaoTomadorIntermediario: null,
-        chaveNfseRejeitada: null,
-        substituicao: null,
-        prestador: new PrestadorData(
-            cnpj: null,
-            cpf: '06672992383',
-            nif: null,
-            codigoNaoNif: null,
-            caepf: null,
-            inscricaoMunicipal: null,
-            nome: null, // Not in example DPS prest tag
-            endereco: null,
-            telefone: null,
-            email: 'naoinformado@gmail.com',
-            regimeTributario: new RegimeTributarioData(
-                opcaoSimplesNacional: 1,
-                regimeApuracaoTributosSn: null, // Not in example
-                regimeEspecialTributacao: 0
-            )
-        ),
-        tomador: new TomadorData(
-            cpf: null,
-            cnpj: '10237604000100',
-            nif: null,
-            codigoNaoNif: null,
-            caepf: null,
-            inscricaoMunicipal: null,
-            nome: 'FUNDO MUNICIPAL DE SAUDE - VARZEA ALEGRE',
-            endereco: new EnderecoData(
-                codigoMunicipio: '2314003',
-                cep: '63540000',
-                logradouro: 'RUA DEP LUIZ OTACILIO CORREIA',
-                numero: '-', // Example has "-" in nro tag? No, wait. "RUA DEP LUIZ OTACILIO CORREIA, 153" is xLgr?
-                // Example:
-                // <xLgr>RUA DEP LUIZ OTACILIO CORREIA, 153</xLgr>
-                // <nro>-</nro>
-                bairro: 'CENTRO',
-                complemento: null,
-                enderecoExterior: null
-            ),
-            telefone: null,
-            email: null
-        ),
-        intermediario: null,
-        servico: new ServicoData(
-            localPrestacao: new LocalPrestacaoData(
-                codigoLocalPrestacao: '2314003',
-                codigoPaisPrestacao: null
-            ),
-            codigoServico: new CodigoServicoData(
-                codigoTributacaoNacional: '040601',
-                codigoTributacaoMunicipal: null,
-                descricaoServico: '(VALOR EMPENHADO PARA ATENDER DESPESAS COM CREDENCIAMENTO DE PROFISSIONAIS ESPECIALIZADOS COMO  TECNICA DE ENFERMAGEM PARA COMPLEMENTAR A EQUIPE DE ATENÇÃO DOMICILIAR (EMAD) E A EQUIPE MULTIPROFISSIONAL  DE APOIO (EMAP), NO ÂMBITO DO SISTEMA ÚNICO DE SAÚDE (SUS), CONFORME TERMO DE REFERÊNCIA, A SEREM PRESTADOS  NESTA CIDADE, ATRAVÉS DA SECRETARIA MUNICIPAL DE SAÚDE DE VÁRZEA ALEGRE/CE,CONFORME PROCESSO DE Nº003-2024 E  CONTRATO DE Nº2024.03.06.1,) ',
-                codigoNbs: '123019100',
-                codigoInternoContribuinte: null
-            ),
-            comercioExterior: null,
-            obra: null,
-            atividadeEvento: null,
-            informacoesComplementares: null,
-            idDocumentoTecnico: null,
-            documentoReferencia: null,
-            descricaoInformacoesComplementares: null
-        ),
-        valores: new ValoresData(
-            valorServicoPrestado: new ValorServicoPrestadoData(
-                valorRecebido: null,
-                valorServico: 1850.00
-            ),
-            desconto: null,
-            deducaoReducao: null,
-            tributacao: new TributacaoData(
-                tributacaoIssqn: 1,
-                tipoImunidade: null,
-                tipoRetencaoIssqn: 2,
-                tipoSuspensao: null,
-                numeroProcessoSuspensao: null,
-                beneficioMunicipal: null,
-                cstPisCofins: null,
-                percentualTotalTributosSN: null,
-                indicadorTotalTributos: 0
-            )
-        )
-    );
-
-    $dpsData = new DpsData(
-        versao: '1.00',
-        infDps: $infDps
-    );
+    $dpsData = new DpsData([
+        '@versao' => '1.00',
+        'infDPS' => [
+            '@Id' => 'DPS231400310000667299238300001000000000000046',
+            'tpAmb' => 1,
+            'dhEmi' => '2025-12-15T11:11:09-03:00',
+            'verAplic' => 'Sistema NFS-e',
+            'serie' => '00001',
+            'nDPS' => '46',
+            'dCompet' => '2025-12-15',
+            'tpEmit' => 1,
+            'cLocEmi' => '2314003',
+            'prest' => [
+                'CPF' => '06672992383',
+                'email' => 'naoinformado@gmail.com',
+                'regTrib' => [
+                    'opSimpNac' => 1,
+                    'regEspTrib' => 0,
+                ],
+            ],
+            'toma' => [
+                'CNPJ' => '10237604000100',
+                'xNome' => 'FUNDO MUNICIPAL DE SAUDE - VARZEA ALEGRE',
+                'end' => [
+                    'endNac.cMun' => '2314003',
+                    'endNac.CEP' => '63540000',
+                    'xLgr' => 'RUA DEP LUIZ OTACILIO CORREIA',
+                    'nro' => '-',
+                    'xBairro' => 'CENTRO',
+                ],
+            ],
+            'serv' => [
+                'locPrest' => [
+                    'cLocPrestacao' => '2314003',
+                ],
+                'cServ' => [
+                    'cTribNac' => '040601',
+                    'xDescServ' => '(VALOR EMPENHADO PARA ATENDER DESPESAS COM CREDENCIAMENTO DE PROFISSIONAIS ESPECIALIZADOS COMO  TECNICA DE ENFERMAGEM PARA COMPLEMENTAR A EQUIPE DE ATENÇÃO DOMICILIAR (EMAD) E A EQUIPE MULTIPROFISSIONAL  DE APOIO (EMAP), NO ÂMBITO DO SISTEMA ÚNICO DE SAÚDE (SUS), CONFORME TERMO DE REFERÊNCIA, A SEREM PRESTADOS  NESTA CIDADE, ATRAVÉS DA SECRETARIA MUNICIPAL DE SAÚDE DE VÁRZEA ALEGRE/CE,CONFORME PROCESSO DE Nº003-2024 E  CONTRATO DE Nº2024.03.06.1,) ',
+                    'cNBS' => '123019100',
+                ],
+            ],
+            'valores' => [
+                'vServPrest' => [
+                    'vServ' => 1850.00,
+                ],
+                'trib' => [
+                    'tribMun.tribISSQN' => 1,
+                    'tribMun.tpRetISSQN' => 2,
+                    'totTrib.indTotTrib' => 0,
+                ],
+            ],
+        ],
+    ]);
 
     $builder = new DpsXmlBuilder;
     $xml = $builder->build($dpsData);
@@ -141,7 +84,7 @@ it('can build xml matching ExemploPrestadorPessoaFisica', function () {
         ->and($xml)->toContain('<xNome>FUNDO MUNICIPAL DE SAUDE - VARZEA ALEGRE</xNome>')
         ->and($xml)->toContain('<cMun>2314003</cMun>')
         ->and($xml)->toContain('<CEP>63540000</CEP>')
-        ->and($xml)->toContain('<xLgr>RUA DEP LUIZ OTACILIO CORREIA</xLgr>') // Note: example has comma and number in xLgr? "RUA DEP LUIZ OTACILIO CORREIA, 153". I put it in xLgr in DTO.
+        ->and($xml)->toContain('<xLgr>RUA DEP LUIZ OTACILIO CORREIA</xLgr>')
         ->and($xml)->toContain('<nro>-</nro>')
         ->and($xml)->toContain('<xBairro>CENTRO</xBairro>')
         // Servico

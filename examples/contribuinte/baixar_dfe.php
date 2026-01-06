@@ -4,7 +4,7 @@
 $nfse = require_once __DIR__.'/../bootstrap.php';
 
 try {
-    $nsu = 23;
+    $nsu = 1;
 
     echo "Baixando DF-e para o municipio (NSU: $nsu)...\n";
 

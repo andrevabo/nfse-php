@@ -2,15 +2,17 @@
 
 namespace Nfse\Dto\Http;
 
-use Spatie\LaravelData\Data;
+use Spatie\DataTransferObject\DataTransferObject;
 
-class ConsultaNfseResponse extends Data
+class ConsultaNfseResponse extends DataTransferObject
 {
-    public function __construct(
-        public ?int $tipoAmbiente = null,
-        public ?string $versaoAplicativo = null,
-        public ?string $dataHoraProcessamento = null,
-        public ?string $chaveAcesso = null,
-        public ?string $nfseXmlGZipB64 = null,
-    ) {}
+    public ?int $tipoAmbiente = null;
+
+    public ?string $versaoAplicativo = null;
+
+    public ?string $dataHoraProcessamento = null;
+
+    public ?string $chaveAcesso = null;
+
+    public ?string $nfseXmlGZipB64 = null;
 }

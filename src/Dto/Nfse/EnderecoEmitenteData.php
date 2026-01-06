@@ -2,58 +2,50 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class EnderecoEmitenteData extends Data
+class EnderecoEmitenteData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Logradouro.
-         */
-        #[MapInputName('xLgr')]
-        public ?string $logradouro,
+    /**
+     * Logradouro.
+     */
+    #[MapFrom('xLgr')]
+    public ?string $logradouro = null;
 
-        /**
-         * Número.
-         */
-        #[MapInputName('nro')]
-        public ?string $numero,
+    /**
+     * Número.
+     */
+    #[MapFrom('nro')]
+    public ?string $numero = null;
 
-        /**
-         * Complemento.
-         */
-        #[MapInputName('xCpl')]
-        public ?string $complemento,
+    /**
+     * Complemento.
+     */
+    #[MapFrom('xCpl')]
+    public ?string $complemento = null;
 
-        /**
-         * Bairro.
-         */
-        #[MapInputName('xBairro')]
-        public ?string $bairro,
+    /**
+     * Bairro.
+     */
+    #[MapFrom('xBairro')]
+    public ?string $bairro = null;
 
-        /**
-         * Código do município (IBGE).
-         */
-        #[MapInputName('cMun')]
-        public ?string $codigoMunicipio,
+    /**
+     * Código do município (IBGE).
+     */
+    #[MapFrom('cMun')]
+    public ?string $codigoMunicipio = null;
 
-        /**
-         * Sigla da UF.
-         */
-        #[MapInputName('UF')]
-        public ?string $uf,
+    /**
+     * Sigla da UF.
+     */
+    #[MapFrom('UF')]
+    public ?string $uf = null;
 
-        /**
-         * CEP.
-         */
-        #[MapInputName('CEP')]
-        public ?string $cep,
-    ) {}
+    /**
+     * CEP.
+     */
+    #[MapFrom('CEP')]
+    public ?string $cep = null;
 }

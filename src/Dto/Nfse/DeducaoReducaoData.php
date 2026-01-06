@@ -2,37 +2,30 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\DataCollectionOf;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Nfse\Support\DTO\ArrayCaster;
+use Spatie\DataTransferObject\Attributes\CastWith;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class DeducaoReducaoData extends Data
+class DeducaoReducaoData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Percentual de dedução/redução da base de cálculo.
-         */
-        #[MapInputName('pDR')]
-        public ?float $percentualDeducaoReducao,
+    /**
+     * Percentual de dedução/redução da base de cálculo.
+     */
+    #[MapFrom('pDR')]
+    public ?float $percentualDeducaoReducao = null;
 
-        /**
-         * Valor monetário de dedução/redução da base de cálculo.
-         */
-        #[MapInputName('vDR')]
-        public ?float $valorDeducaoReducao,
+    /**
+     * Valor monetário de dedução/redução da base de cálculo.
+     */
+    #[MapFrom('vDR')]
+    public ?float $valorDeducaoReducao = null;
 
-        /**
-         * Documentos comprobatórios da dedução/redução.
-         *
-         * @var DocumentoDeducaoData[]|null
-         */
-        #[MapInputName('documentos'), DataCollectionOf(DocumentoDeducaoData::class)]
-        public ?array $documentos = null,
-    ) {}
+    /**
+     * Documentos comprobatórios da dedução/redução.
+     *
+     * @var DocumentoDeducaoData[]|null
+     */
+    #[MapFrom('documentos'), CastWith(ArrayCaster::class, itemType: DocumentoDeducaoData::class)]
+    public ?array $documentos = null;
 }

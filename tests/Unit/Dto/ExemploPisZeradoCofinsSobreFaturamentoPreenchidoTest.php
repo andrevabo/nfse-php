@@ -2,23 +2,7 @@
 
 namespace Nfse\Tests\Unit\Dto;
 
-use Nfse\Dto\Nfse\CodigoServicoData;
-use Nfse\Dto\Nfse\DpsData;
-use Nfse\Dto\Nfse\EmitenteData;
-use Nfse\Dto\Nfse\EnderecoData;
-use Nfse\Dto\Nfse\EnderecoEmitenteData;
-use Nfse\Dto\Nfse\InfDpsData;
-use Nfse\Dto\Nfse\InfNfseData;
-use Nfse\Dto\Nfse\LocalPrestacaoData;
 use Nfse\Dto\Nfse\NfseData;
-use Nfse\Dto\Nfse\PrestadorData;
-use Nfse\Dto\Nfse\RegimeTributarioData;
-use Nfse\Dto\Nfse\ServicoData;
-use Nfse\Dto\Nfse\TomadorData;
-use Nfse\Dto\Nfse\TributacaoData;
-use Nfse\Dto\Nfse\ValoresData;
-use Nfse\Dto\Nfse\ValoresNfseData;
-use Nfse\Dto\Nfse\ValorServicoPrestadoData;
 use Nfse\Support\IdGenerator;
 use Nfse\Xml\NfseXmlBuilder;
 
@@ -26,162 +10,117 @@ it('can generate XML with all fields from ExemploPisZeradoCofinsSobreFaturamento
     $dpsId = IdGenerator::generateDpsId('11905971000105', '3304557', '333', '6');
 
     // Construct the DTO based on the XML example
-    $nfse = new NfseData(
-        versao: '1.01',
-        infNfse: new InfNfseData(
-            id: 'NFS33045572211905971000105000000000014625124504258429',
-            numeroNfse: '146',
-            numeroDfse: '60631',
-            codigoVerificacao: null, // Not present in the example XML snippet provided in the test file context, but usually present. The example shows <nDFSe>60631</nDFSe> but no <cVerif>.
-            dataProcessamento: '2025-12-30T19:01:35-03:00',
-            ambienteGerador: 2,
-            versaoAplicativo: 'SefinNac_Pre_1.4.0',
-            processoEmissao: 1,
-            localEmissao: 'Rio de Janeiro',
-            localPrestacao: 'Rio de Janeiro',
-            codigoLocalIncidencia: '3304557',
-            nomeLocalIncidencia: 'Rio de Janeiro',
-            descricaoTributacaoNacional: 'Análise e desenvolvimento de sistemas.',
-            descricaoTributacaoMunicipal: 'Análise de sistemas.',
-            descricaoNbs: 'Serviços de projeto, desenvolvimento e instalação de aplicativos e programas não personalizados (não customizados)',
-            tipoEmissao: 1,
-            codigoStatus: 100,
-            outrasInformacoes: null,
-            dps: new DpsData(
-                versao: '1.01',
-                infDps: new InfDpsData(
-                    id: $dpsId,
-                    tipoAmbiente: 2,
-                    dataEmissao: '2025-12-30T19:00:06-03:00',
-                    versaoAplicativo: 'MXM.RTC-1.00',
-                    serie: '333',
-                    numeroDps: '6',
-                    dataCompetencia: '2025-12-30',
-                    tipoEmitente: 1,
-                    codigoLocalEmissao: '3304557',
-                    motivoEmissaoTomadorIntermediario: null,
-                    chaveNfseRejeitada: null,
-                    substituicao: null,
-                    prestador: new PrestadorData(
-                        cnpj: '11905971000105',
-                        cpf: null,
-                        nif: null,
-                        codigoNaoNif: null,
-                        caepf: null,
-                        inscricaoMunicipal: null,
-                        nome: null,
-                        endereco: null,
-                        telefone: '3132332300',
-                        email: 'sau@mxm.com.br',
-                        regimeTributario: new RegimeTributarioData(
-                            opcaoSimplesNacional: 3,
-                            regimeApuracaoTributosSn: 3,
-                            regimeEspecialTributacao: 0
-                        )
-                    ),
-                    tomador: new TomadorData(
-                        cpf: null,
-                        cnpj: '39847728000199',
-                        nif: null,
-                        codigoNaoNif: null,
-                        caepf: null,
-                        inscricaoMunicipal: null,
-                        nome: 'MXM & JETTAX',
-                        endereco: new EnderecoData(
-                            codigoMunicipio: '3303302',
-                            cep: '24020077',
-                            logradouro: 'AV RIO BRANCO',
-                            numero: '123',
-                            bairro: 'CENTRO',
-                            complemento: null,
-                            enderecoExterior: null
-                        ),
-                        telefone: '2132332300',
-                        email: 'SAU@mxm.com.br'
-                    ),
-                    intermediario: null,
-                    servico: new ServicoData(
-                        localPrestacao: new LocalPrestacaoData(
-                            codigoLocalPrestacao: '3304557',
-                            codigoPaisPrestacao: null
-                        ),
-                        codigoServico: new CodigoServicoData(
-                            codigoTributacaoNacional: '010101',
-                            codigoTributacaoMunicipal: '001',
-                            descricaoServico: 'Analise e desenvolvimento de sistemas (MXM)',
-                            codigoNbs: '115021000',
-                            codigoInternoContribuinte: null
-                        ),
-                        comercioExterior: null,
-                        obra: null,
-                        atividadeEvento: null,
-                        informacoesComplementares: null,
-                        idDocumentoTecnico: null,
-                        documentoReferencia: null,
-                        descricaoInformacoesComplementares: null
-                    ),
-                    valores: new ValoresData(
-                        valorServicoPrestado: new ValorServicoPrestadoData(
-                            valorRecebido: null,
-                            valorServico: 10000.00
-                        ),
-                        desconto: null,
-                        deducaoReducao: null,
-                        tributacao: new TributacaoData(
-                            tributacaoIssqn: 1,
-                            tipoImunidade: null,
-                            tipoRetencaoIssqn: 1,
-                            tipoSuspensao: null,
-                            numeroProcessoSuspensao: null,
-                            beneficioMunicipal: null,
-                            cstPisCofins: '01',
-                            baseCalculoPisCofins: 10000.00,
-                            aliquotaPis: 0.00,
-                            aliquotaCofins: 7.60,
-                            valorPis: 0.00,
-                            valorCofins: 760.00,
-                            tipoRetencaoPisCofins: 2,
-                            valorRetidoIrrf: 150.00,
-                            valorRetidoCsll: 465.00,
-                            valorTotalTributosFederais: 760.00,
-                            valorTotalTributosEstaduais: 0.00,
-                            valorTotalTributosMunicipais: 500.00,
-                            percentualTotalTributosSN: null,
-                            indicadorTotalTributos: null
-                        )
-                    )
-                )
-            ),
-            emitente: new EmitenteData(
-                cnpj: '11905971000105',
-                cpf: null,
-                inscricaoMunicipal: null,
-                nome: 'GUIDI SISTEMAS E SERVICOS EM TECNOLOGIA DA INFORMACAO LTDA',
-                nomeFantasia: null,
-                endereco: new EnderecoEmitenteData(
-                    logradouro: 'GUANDU DO SAPE',
-                    numero: '01450',
-                    complemento: null,
-                    bairro: 'CAMPO GRANDE',
-                    codigoMunicipio: '3304557',
-                    uf: 'RJ',
-                    cep: '23095072'
-                ),
-                telefone: '2135933387',
-                email: 'VANDERSON@GUIDISISTEMAS.COM.BR'
-            ),
-            valores: new ValoresNfseData(
-                valorCalculadoDeducaoReducao: null,
-                tipoBeneficioMunicipal: null,
-                valorCalculadoBeneficioMunicipal: null,
-                baseCalculo: 10000.00,
-                aliquotaAplicada: 5.00,
-                valorIssqn: 500.00,
-                valorTotalRetido: 615.00,
-                valorLiquido: 9385.00
-            )
-        )
-    );
+    $nfse = new NfseData([
+        'versao' => '1.01',
+        'infNFSe' => [
+            'id' => 'NFS33045572211905971000105000000000014625124504258429',
+            'nNFSe' => '146',
+            'nDFe' => '60631',
+            'dhProc' => '2025-12-30T19:01:35-03:00',
+            'ambGer' => 2,
+            'verAplic' => 'SefinNac_Pre_1.4.0',
+            'procEmi' => 1,
+            'xLocEmi' => 'Rio de Janeiro',
+            'xLocPrestacao' => 'Rio de Janeiro',
+            'cLocIncid' => '3304557',
+            'xLocIncid' => 'Rio de Janeiro',
+            'xTribNac' => 'Análise e desenvolvimento de sistemas.',
+            'xTribMun' => 'Análise de sistemas.',
+            'xNBS' => 'Serviços de projeto, desenvolvimento e instalação de aplicativos e programas não personalizados (não customizados)',
+            'tpEmis' => 1,
+            'cStat' => 100,
+            'DPS' => [
+                '@versao' => '1.01',
+                'infDPS' => [
+                    '@Id' => $dpsId,
+                    'tpAmb' => 2,
+                    'dhEmi' => '2025-12-30T19:00:06-03:00',
+                    'verAplic' => 'MXM.RTC-1.00',
+                    'serie' => '333',
+                    'nDPS' => '6',
+                    'dCompet' => '2025-12-30',
+                    'tpEmit' => 1,
+                    'cLocEmi' => '3304557',
+                    'prest' => [
+                        'CNPJ' => '11905971000105',
+                        'fone' => '3132332300',
+                        'email' => 'sau@mxm.com.br',
+                        'regTrib' => [
+                            'opSimpNac' => 3,
+                            'regApTribSN' => 3,
+                            'regEspTrib' => 0,
+                        ],
+                    ],
+                    'toma' => [
+                        'CNPJ' => '39847728000199',
+                        'xNome' => 'MXM & JETTAX',
+                        'end' => [
+                            'endNac.cMun' => '3303302',
+                            'endNac.CEP' => '24020077',
+                            'xLgr' => 'AV RIO BRANCO',
+                            'nro' => '123',
+                            'xBairro' => 'CENTRO',
+                        ],
+                        'fone' => '2132332300',
+                        'email' => 'SAU@mxm.com.br',
+                    ],
+                    'serv' => [
+                        'locPrest' => [
+                            'cLocPrestacao' => '3304557',
+                        ],
+                        'cServ' => [
+                            'cTribNac' => '010101',
+                            'cTribMun' => '001',
+                            'xDescServ' => 'Analise e desenvolvimento de sistemas (MXM)',
+                            'cNBS' => '115021000',
+                        ],
+                    ],
+                    'valores' => [
+                        'vServPrest' => [
+                            'vServ' => 10000.00,
+                        ],
+                        'trib' => [
+                            'tribMun.tribISSQN' => 1,
+                            'tribMun.tpRetISSQN' => 1,
+                            'tribFed.piscofins.CST' => '01',
+                            'tribFed.piscofins.vBCPisCofins' => 10000.00,
+                            'tribFed.piscofins.pAliqPis' => 0.00,
+                            'tribFed.piscofins.pAliqCofins' => 7.60,
+                            'tribFed.piscofins.vPis' => 0.00,
+                            'tribFed.piscofins.vCofins' => 760.00,
+                            'tribFed.piscofins.tpRetPisCofins' => 2,
+                            'tribFed.vRetIRRF' => 150.00,
+                            'tribFed.vRetCSLL' => 465.00,
+                            'totTrib.vTotTrib.vTotTribFed' => 760.00,
+                            'totTrib.vTotTrib.vTotTribEst' => 0.00,
+                            'totTrib.vTotTrib.vTotTribMun' => 500.00,
+                        ],
+                    ],
+                ],
+            ],
+            'emit' => [
+                'CNPJ' => '11905971000105',
+                'xNome' => 'GUIDI SISTEMAS E SERVICOS EM TECNOLOGIA DA INFORMACAO LTDA',
+                'enderNac' => [
+                    'xLgr' => 'GUANDU DO SAPE',
+                    'nro' => '01450',
+                    'xBairro' => 'CAMPO GRANDE',
+                    'cMun' => '3304557',
+                    'UF' => 'RJ',
+                    'CEP' => '23095072',
+                ],
+                'fone' => '2135933387',
+                'email' => 'VANDERSON@GUIDISISTEMAS.COM.BR',
+            ],
+            'valores' => [
+                'vBC' => 10000.00,
+                'pAliqAplic' => 5.00,
+                'vISSQN' => 500.00,
+                'vTotalRet' => 615.00,
+                'vLiq' => 9385.00,
+            ],
+        ],
+    ]);
 
     $builder = new NfseXmlBuilder;
     $xml = $builder->build($nfse);

@@ -2,23 +2,30 @@
 
 namespace Nfse\Dto\Http;
 
-use Spatie\LaravelData\Data;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-class DistribuicaoDfeResponse extends Data
+class DistribuicaoDfeResponse extends DataTransferObject
 {
-    /**
-     * @param  MensagemProcessamentoDto[]  $alertas
-     * @param  MensagemProcessamentoDto[]  $erros
-     * @param  DistribuicaoNsuDto[]  $listaNsu
-     */
-    public function __construct(
-        public ?string $tipoAmbiente = null,
-        public ?string $versaoAplicativo = null,
-        public ?string $dataHoraProcessamento = null,
-        public ?int $ultimoNsu = null,
-        public ?int $maiorNsu = null,
-        public array $alertas = [],
-        public array $erros = [],
-        public array $listaNsu = [],
-    ) {}
+    #[MapFrom('tpAmb')]
+    public ?string $tipoAmbiente = null;
+
+    #[MapFrom('verAplic')]
+    public ?string $versaoAplicativo = null;
+
+    #[MapFrom('dhProc')]
+    public ?string $dataHoraProcessamento = null;
+
+    #[MapFrom('ultNSU')]
+    public ?int $ultimoNsu = null;
+
+    #[MapFrom('maiorNSU')]
+    public ?int $maiorNsu = null;
+
+    public array $alertas = [];
+
+    public array $erros = [];
+
+    #[MapFrom('lNSU')]
+    public array $listaNsu = [];
 }

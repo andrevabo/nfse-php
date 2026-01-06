@@ -2,64 +2,56 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class EmitenteData extends Data
+class EmitenteData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * CNPJ do emitente.
-         */
-        #[MapInputName('CNPJ')]
-        public ?string $cnpj = null,
+    /**
+     * CNPJ do emitente.
+     */
+    #[MapFrom('CNPJ')]
+    public ?string $cnpj = null;
 
-        /**
-         * CPF do emitente.
-         */
-        #[MapInputName('CPF')]
-        public ?string $cpf = null,
+    /**
+     * CPF do emitente.
+     */
+    #[MapFrom('CPF')]
+    public ?string $cpf = null;
 
-        /**
-         * Inscrição Municipal do emitente.
-         */
-        #[MapInputName('IM')]
-        public ?string $inscricaoMunicipal = null,
+    /**
+     * Inscrição Municipal do emitente.
+     */
+    #[MapFrom('IM')]
+    public ?string $inscricaoMunicipal = null;
 
-        /**
-         * Razão Social ou Nome do emitente.
-         */
-        #[MapInputName('xNome')]
-        public ?string $nome = null,
+    /**
+     * Razão Social ou Nome do emitente.
+     */
+    #[MapFrom('xNome')]
+    public ?string $nome = null;
 
-        /**
-         * Nome Fantasia do emitente.
-         */
-        #[MapInputName('xFant')]
-        public ?string $nomeFantasia = null,
+    /**
+     * Nome Fantasia do emitente.
+     */
+    #[MapFrom('xFant')]
+    public ?string $nomeFantasia = null;
 
-        /**
-         * Endereço do emitente.
-         */
-        #[MapInputName('enderNac')]
-        public ?EnderecoEmitenteData $endereco = null,
+    /**
+     * Endereço do emitente.
+     */
+    #[MapFrom('enderNac')]
+    public ?EnderecoEmitenteData $endereco = null;
 
-        /**
-         * Telefone do emitente.
-         */
-        #[MapInputName('fone')]
-        public ?string $telefone = null,
+    /**
+     * Telefone do emitente.
+     */
+    #[MapFrom('fone')]
+    public ?string $telefone = null;
 
-        /**
-         * Email do emitente.
-         */
-        #[MapInputName('email')]
-        public ?string $email = null,
-    ) {}
+    /**
+     * Email do emitente.
+     */
+    #[MapFrom('email')]
+    public ?string $email = null;
 }

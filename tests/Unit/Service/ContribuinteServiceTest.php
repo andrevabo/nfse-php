@@ -5,7 +5,6 @@ namespace Nfse\Tests\Unit\Service;
 use Nfse\Dto\Http\ConsultaNfseResponse;
 use Nfse\Dto\Http\EmissaoNfseResponse;
 use Nfse\Dto\Nfse\DpsData;
-use Nfse\Dto\Nfse\InfDpsData;
 use Nfse\Enums\TipoAmbiente;
 use Nfse\Http\Client\AdnClient;
 use Nfse\Http\Contracts\SefinNacionalInterface;
@@ -52,65 +51,100 @@ class ContribuinteServiceTest extends TestCase
     public function test_emitir_nfse_success()
     {
         $idDps = IdGenerator::generateDpsId('12345678000199', '3550308', '1', '1');
-        $dpsData = new DpsData(
-            versao: '1.00',
-            infDps: new InfDpsData(
-                id: $idDps,
-                tipoAmbiente: 2,
-                dataEmissao: '2023-10-27T10:00:00',
-                versaoAplicativo: '1.0',
-                serie: '1',
-                numeroDps: '1',
-                dataCompetencia: '2023-10-27',
-                tipoEmitente: 1,
-                codigoLocalEmissao: '3550308'
-            )
-        );
+        $dpsData = new DpsData([
+            '@versao' => '1.00',
+            'infDPS' => [
+                '@Id' => $idDps,
+                'tpAmb' => 2,
+                'dhEmi' => '2023-10-27T10:00:00',
+                'verAplic' => '1.0',
+                'serie' => '1',
+                'nDPS' => '1',
+                'dCompet' => '2023-10-27',
+                'tpEmit' => 1,
+                'cLocEmi' => '3550308',
+            ],
+        ]);
 
-        $responseDto = new EmissaoNfseResponse(
-            tipoAmbiente: 2,
-            versaoAplicativo: '1.0',
-            dataHoraProcessamento: '2023-10-27T10:00:00',
-            idDps: 'DPS123',
-            chaveAcesso: 'CHAVE123',
-            nfseXmlGZipB64: base64_encode(gzencode('<nfse>xml</nfse>'))
-        );
+        $xmlContent = '<?xml version="1.0" encoding="UTF-8"?>
+<NFSe xmlns="http://www.sped.fazenda.gov.br/nfse" versao="1.00">
+  <infNFSe Id="NFS123456" versao="1.00">
+    <nNFSe>100</nNFSe>
+    <DPS versao="1.00">
+        <infDPS Id="DPS123">
+            <tpAmb>2</tpAmb>
+            <dhEmi>2023-10-27T10:00:00</dhEmi>
+            <verAplic>1.0</verAplic>
+            <serie>1</serie>
+            <nDPS>1</nDPS>
+            <dCompet>2023-10-27</dCompet>
+            <tpEmit>1</tpEmit>
+            <cLocEmi>3550308</cLocEmi>
+        </infDPS>
+    </DPS>
+  </infNFSe>
+</NFSe>';
+        $responseDto = new EmissaoNfseResponse([
+            'tpAmb' => 2,
+            'verAplic' => '1.0',
+            'dhProc' => '2023-10-27T10:00:00',
+            'idDPS' => 'DPS123',
+            'chAcesso' => 'CHAVE123',
+            'nfseXmlGZipB64' => base64_encode(gzencode($xmlContent)),
+        ]);
 
         $this->sefinClientMock->expects($this->once())
             ->method('emitirNfse')
             ->willReturn($responseDto);
 
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Parser de XML ainda não implementado');
+        $result = $this->service->emitir($dpsData);
 
-        $this->service->emitir($dpsData);
+        $this->assertInstanceOf(\Nfse\Dto\Nfse\NfseData::class, $result);
+        $this->assertEquals('1.00', $result->versao);
+        $this->assertEquals('100', $result->infNfse->numeroNfse);
     }
 
     public function test_consultar_nfse_success()
     {
         $chave = '12345678901234567890123456789012345678901234567890';
-        $xmlContent = '<nfse>Dados da Nota</nfse>';
+        $xmlContent = '<?xml version="1.0" encoding="UTF-8"?>
+<NFSe xmlns="http://www.sped.fazenda.gov.br/nfse" versao="1.00">
+  <infNFSe Id="NFS123456" versao="1.00">
+    <nNFSe>100</nNFSe>
+    <DPS versao="1.00">
+        <infDPS Id="DPS123">
+            <tpAmb>2</tpAmb>
+            <dhEmi>2023-10-27T10:00:00</dhEmi>
+            <verAplic>1.0</verAplic>
+            <serie>1</serie>
+            <nDPS>1</nDPS>
+            <dCompet>2023-10-27</dCompet>
+            <tpEmit>1</tpEmit>
+            <cLocEmi>3550308</cLocEmi>
+        </infDPS>
+    </DPS>
+  </infNFSe>
+</NFSe>';
         $encodedXml = base64_encode(gzencode($xmlContent));
 
-        $responseDto = new ConsultaNfseResponse(
-            tipoAmbiente: 2,
-            versaoAplicativo: '1.0',
-            dataHoraProcessamento: '2023-10-27T10:00:00',
-            chaveAcesso: $chave,
-            nfseXmlGZipB64: $encodedXml
-        );
+        $responseDto = new ConsultaNfseResponse([
+            'tpAmb' => 2,
+            'verAplic' => '1.0',
+            'dhProc' => '2023-10-27T10:00:00',
+            'chAcesso' => $chave,
+            'nfseXmlGZipB64' => $encodedXml,
+        ]);
 
         $this->sefinClientMock->expects($this->once())
             ->method('consultarNfse')
             ->with($chave)
             ->willReturn($responseDto);
 
-        try {
-            $this->service->consultar($chave);
-        } catch (\Exception $e) {
-            $this->assertStringContainsString('Parser de XML ainda não implementado', $e->getMessage());
-            $this->assertStringContainsString('Dados da Nota', $e->getMessage());
-        }
+        $result = $this->service->consultar($chave);
+
+        $this->assertInstanceOf(\Nfse\Dto\Nfse\NfseData::class, $result);
+        $this->assertEquals('1.00', $result->versao);
+        $this->assertEquals('100', $result->infNfse->numeroNfse);
     }
 
     public function test_download_danfse_success()
@@ -131,13 +165,13 @@ class ContribuinteServiceTest extends TestCase
     public function test_consultar_dps_success()
     {
         $idDps = 'DPS123';
-        $responseDto = new \Nfse\Dto\Http\ConsultaDpsResponse(
-            tipoAmbiente: 2,
-            versaoAplicativo: '1.0',
-            dataHoraProcessamento: '2023-10-27T10:00:00',
-            idDps: $idDps,
-            chaveAcesso: 'CHAVE123'
-        );
+        $responseDto = new \Nfse\Dto\Http\ConsultaDpsResponse([
+            'tpAmb' => 2,
+            'verAplic' => '1.0',
+            'dhProc' => '2023-10-27T10:00:00',
+            'idDPS' => $idDps,
+            'chAcesso' => 'CHAVE123',
+        ]);
 
         $this->sefinClientMock->expects($this->once())
             ->method('consultarDps')
@@ -164,7 +198,7 @@ class ContribuinteServiceTest extends TestCase
 
     public function test_baixar_dfe_contribuinte()
     {
-        $responseDto = new \Nfse\Dto\Http\DistribuicaoDfeResponse(ultimoNsu: 100, listaNsu: []);
+        $responseDto = new \Nfse\Dto\Http\DistribuicaoDfeResponse(['ultNSU' => 100, 'lNSU' => []]);
         $this->adnClientMock->expects($this->once())
             ->method('baixarDfeContribuinte')
             ->with(100)
@@ -177,10 +211,10 @@ class ContribuinteServiceTest extends TestCase
 
     public function test_consultar_parametros_convenio()
     {
-        $response = new \Nfse\Dto\Http\ResultadoConsultaConfiguracoesConvenioResponse(
-            mensagem: 'Sucesso',
-            parametrosConvenio: new \Nfse\Dto\Http\ParametrosConfiguracaoConvenioDto(tipoConvenio: 1)
-        );
+        $response = new \Nfse\Dto\Http\ResultadoConsultaConfiguracoesConvenioResponse([
+            'mensagem' => 'Sucesso',
+            'parametrosConvenio' => new \Nfse\Dto\Http\ParametrosConfiguracaoConvenioDto(['tpConv' => 1]),
+        ]);
 
         $this->adnClientMock->expects($this->once())
             ->method('consultarParametrosConvenio')
@@ -195,10 +229,10 @@ class ContribuinteServiceTest extends TestCase
 
     public function test_consultar_aliquota()
     {
-        $response = new \Nfse\Dto\Http\ResultadoConsultaAliquotasResponse(
-            mensagem: 'Sucesso',
-            aliquotas: ['01.01.00.001' => [new \Nfse\Dto\Http\AliquotaDto(aliquota: 5.0)]]
-        );
+        $response = new \Nfse\Dto\Http\ResultadoConsultaAliquotasResponse([
+            'mensagem' => 'Sucesso',
+            'aliquotas' => ['01.01.00.001' => [new \Nfse\Dto\Http\AliquotaDto(['aliq' => 5.0])]],
+        ]);
 
         $this->adnClientMock->expects($this->once())
             ->method('consultarAliquota')
@@ -213,11 +247,11 @@ class ContribuinteServiceTest extends TestCase
 
     public function test_registrar_evento()
     {
-        $response = new \Nfse\Dto\Http\RegistroEventoResponse(
-            tipoAmbiente: 2,
-            versaoAplicativo: '1.0',
-            dataHoraProcessamento: '2023-10-27T10:00:00'
-        );
+        $response = new \Nfse\Dto\Http\RegistroEventoResponse([
+            'tpAmb' => 2,
+            'verAplic' => '1.0',
+            'dhProc' => '2023-10-27T10:00:00',
+        ]);
 
         $this->sefinClientMock->expects($this->once())
             ->method('registrarEvento')
@@ -231,11 +265,11 @@ class ContribuinteServiceTest extends TestCase
 
     public function test_consultar_evento()
     {
-        $response = new \Nfse\Dto\Http\RegistroEventoResponse(
-            tipoAmbiente: 2,
-            versaoAplicativo: '1.0',
-            dataHoraProcessamento: '2023-10-27T10:00:00'
-        );
+        $response = new \Nfse\Dto\Http\RegistroEventoResponse([
+            'tpAmb' => 2,
+            'verAplic' => '1.0',
+            'dhProc' => '2023-10-27T10:00:00',
+        ]);
 
         $this->sefinClientMock->expects($this->once())
             ->method('consultarEvento')
@@ -285,10 +319,10 @@ class ContribuinteServiceTest extends TestCase
 
     public function test_consultar_historico_aliquotas()
     {
-        $response = new \Nfse\Dto\Http\ResultadoConsultaAliquotasResponse(
-            mensagem: 'Sucesso',
-            aliquotas: []
-        );
+        $response = new \Nfse\Dto\Http\ResultadoConsultaAliquotasResponse([
+            'mensagem' => 'Sucesso',
+            'aliquotas' => [],
+        ]);
 
         $this->adnClientMock->expects($this->once())
             ->method('consultarHistoricoAliquotas')
@@ -339,27 +373,27 @@ class ContribuinteServiceTest extends TestCase
     public function test_emitir_nfse_com_erros()
     {
         $idDps = IdGenerator::generateDpsId('12345678000199', '3550308', '1', '1');
-        $dpsData = new DpsData(
-            versao: '1.00',
-            infDps: new InfDpsData(
-                id: $idDps,
-                tipoAmbiente: 2,
-                dataEmissao: '2023-10-27T10:00:00',
-                versaoAplicativo: '1.0',
-                serie: '1',
-                numeroDps: '1',
-                dataCompetencia: '2023-10-27',
-                tipoEmitente: 1,
-                codigoLocalEmissao: '3550308'
-            )
-        );
+        $dpsData = new DpsData([
+            '@versao' => '1.00',
+            'infDPS' => [
+                '@Id' => $idDps,
+                'tpAmb' => 2,
+                'dhEmi' => '2023-10-27T10:00:00',
+                'verAplic' => '1.0',
+                'serie' => '1',
+                'nDPS' => '1',
+                'dCompet' => '2023-10-27',
+                'tpEmit' => 1,
+                'cLocEmi' => '3550308',
+            ],
+        ]);
 
-        $responseDto = new EmissaoNfseResponse(
-            tipoAmbiente: 2,
-            versaoAplicativo: '1.0',
-            dataHoraProcessamento: '2023-10-27T10:00:00',
-            erros: [['codigo' => '1', 'descricao' => 'Erro teste']]
-        );
+        $responseDto = new EmissaoNfseResponse([
+            'tpAmb' => 2,
+            'verAplic' => '1.0',
+            'dhProc' => '2023-10-27T10:00:00',
+            'erros' => [['codigo' => '1', 'descricao' => 'Erro teste']],
+        ]);
 
         $this->sefinClientMock->expects($this->once())
             ->method('emitirNfse')
@@ -374,26 +408,26 @@ class ContribuinteServiceTest extends TestCase
     public function test_emitir_nfse_sem_xml()
     {
         $idDps = IdGenerator::generateDpsId('12345678000199', '3550308', '1', '1');
-        $dpsData = new DpsData(
-            versao: '1.00',
-            infDps: new InfDpsData(
-                id: $idDps,
-                tipoAmbiente: 2,
-                dataEmissao: '2023-10-27T10:00:00',
-                versaoAplicativo: '1.0',
-                serie: '1',
-                numeroDps: '1',
-                dataCompetencia: '2023-10-27',
-                tipoEmitente: 1,
-                codigoLocalEmissao: '3550308'
-            )
-        );
+        $dpsData = new DpsData([
+            '@versao' => '1.00',
+            'infDPS' => [
+                '@Id' => $idDps,
+                'tpAmb' => 2,
+                'dhEmi' => '2023-10-27T10:00:00',
+                'verAplic' => '1.0',
+                'serie' => '1',
+                'nDPS' => '1',
+                'dCompet' => '2023-10-27',
+                'tpEmit' => 1,
+                'cLocEmi' => '3550308',
+            ],
+        ]);
 
-        $responseDto = new EmissaoNfseResponse(
-            tipoAmbiente: 2,
-            versaoAplicativo: '1.0',
-            dataHoraProcessamento: '2023-10-27T10:00:00'
-        );
+        $responseDto = new EmissaoNfseResponse([
+            'tpAmb' => 2,
+            'verAplic' => '1.0',
+            'dhProc' => '2023-10-27T10:00:00',
+        ]);
 
         $this->sefinClientMock->expects($this->once())
             ->method('emitirNfse')
@@ -418,12 +452,12 @@ class ContribuinteServiceTest extends TestCase
 
     public function test_consultar_nfse_sem_xml()
     {
-        $responseDto = new ConsultaNfseResponse(
-            tipoAmbiente: 2,
-            versaoAplicativo: '1.0',
-            dataHoraProcessamento: '2023-10-27T10:00:00',
-            chaveAcesso: 'CHAVE123'
-        );
+        $responseDto = new ConsultaNfseResponse([
+            'tpAmb' => 2,
+            'verAplic' => '1.0',
+            'dhProc' => '2023-10-27T10:00:00',
+            'chAcesso' => 'CHAVE123',
+        ]);
 
         $this->sefinClientMock->expects($this->once())
             ->method('consultarNfse')

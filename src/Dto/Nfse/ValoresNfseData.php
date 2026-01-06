@@ -2,64 +2,56 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class ValoresNfseData extends Data
+class ValoresNfseData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Valor calculado de Dedução/Redução.
-         */
-        #[MapInputName('vCalcDR')]
-        public ?float $valorCalculadoDeducaoReducao,
+    /**
+     * Valor calculado de Dedução/Redução.
+     */
+    #[MapFrom('vCalcDR')]
+    public ?float $valorCalculadoDeducaoReducao = null;
 
-        /**
-         * Tipo de Benefício Municipal.
-         */
-        #[MapInputName('tpBM')]
-        public ?int $tipoBeneficioMunicipal,
+    /**
+     * Tipo de Benefício Municipal.
+     */
+    #[MapFrom('tpBM')]
+    public ?int $tipoBeneficioMunicipal = null;
 
-        /**
-         * Valor calculado de Benefício Municipal.
-         */
-        #[MapInputName('vCalcBM')]
-        public ?float $valorCalculadoBeneficioMunicipal,
+    /**
+     * Valor calculado de Benefício Municipal.
+     */
+    #[MapFrom('vCalcBM')]
+    public ?float $valorCalculadoBeneficioMunicipal = null;
 
-        /**
-         * Valor da Base de Cálculo.
-         */
-        #[MapInputName('vBC')]
-        public ?float $baseCalculo,
+    /**
+     * Valor da Base de Cálculo.
+     */
+    #[MapFrom('vBC')]
+    public ?float $baseCalculo = null;
 
-        /**
-         * Alíquota Aplicada.
-         */
-        #[MapInputName('pAliqAplic')]
-        public ?float $aliquotaAplicada,
+    /**
+     * Alíquota Aplicada.
+     */
+    #[MapFrom('pAliqAplic')]
+    public ?float $aliquotaAplicada = null;
 
-        /**
-         * Valor do ISSQN.
-         */
-        #[MapInputName('vISSQN')]
-        public ?float $valorIssqn,
+    /**
+     * Valor do ISSQN.
+     */
+    #[MapFrom('vISSQN')]
+    public ?float $valorIssqn = null;
 
-        /**
-         * Valor Total Retido.
-         */
-        #[MapInputName('vTotalRet')]
-        public ?float $valorTotalRetido,
+    /**
+     * Valor Total Retido.
+     */
+    #[MapFrom('vTotalRet')]
+    public ?float $valorTotalRetido = null;
 
-        /**
-         * Valor Líquido da NFS-e.
-         */
-        #[MapInputName('vLiq')]
-        public ?float $valorLiquido,
-    ) {}
+    /**
+     * Valor Líquido da NFS-e.
+     */
+    #[MapFrom('vLiq')]
+    public ?float $valorLiquido = null;
 }

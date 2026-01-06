@@ -2,15 +2,17 @@
 
 namespace Nfse\Dto\Http;
 
-use Spatie\LaravelData\Data;
+use Spatie\DataTransferObject\DataTransferObject;
 
-class MensagemProcessamentoDto extends Data
+class MensagemProcessamentoDto extends DataTransferObject
 {
-    public function __construct(
-        public ?string $mensagem = null,
-        public ?array $parametros = null,
-        public ?string $codigo = null,
-        public ?string $descricao = null,
-        public ?string $complemento = null,
-    ) {}
+    public ?string $mensagem = null;
+
+    public ?array $parametros = null;
+
+    public ?string $codigo = null;
+
+    public ?string $descricao = null;
+
+    public ?string $complemento = null;
 }

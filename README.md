@@ -47,10 +47,10 @@ Esta abordagem facilita a integração tanto para **empresas prestadoras de serv
 Exemplo básico de utilização dos DTOs:
 
 ```php
-use Nfse\Dto\DpsData;
+use Nfse\Dto\Nfse\DpsData;
 
 // Exemplo de instanciação (ajuste conforme sua necessidade)
-$dps = DpsData::from([
+$dps = new DpsData([
     '@versao' => '1.00',
     'infDPS' => [
         // ... dados da DPS
@@ -63,7 +63,7 @@ $dps = DpsData::from([
 Abaixo, um exemplo de como gerar o ID, criar o objeto DPS, gerar o XML e assiná-lo digitalmente.
 
 ```php
-use Nfse\Dto\DpsData;
+use Nfse\Dto\Nfse\DpsData;
 use Nfse\Xml\DpsXmlBuilder;
 use Nfse\Signer\Certificate;
 use Nfse\Signer\XmlSigner;
@@ -74,7 +74,7 @@ use Nfse\Support\IdGenerator;
 $id = IdGenerator::generateDpsId('12345678000199', '3550308', '1', '1001');
 
 // 2. Instanciar o DTO (você pode usar arrays ou objetos)
-$dps = DpsData::from([
+$dps = new DpsData([
     '@versao' => '1.00',
     'infDPS' => [
         '@Id' => $id,
@@ -96,7 +96,7 @@ $dps = DpsData::from([
         ],
         'serv' => [
             'locPrest' => [
-                'cLocPrest' => '3550308',
+                'cLocPrestacao' => '3550308',
             ],
             'cServ' => [
                 'cTribNac' => '1.01',
@@ -109,8 +109,8 @@ $dps = DpsData::from([
                 'vServ' => 1000.00,
             ],
             'trib' => [
-                'tribISSQN' => 1, // 1 - Operação tributável
-                'tpRetISSQN' => 1, // 1 - Não Retido
+                'tribMun.tribISSQN' => 1, // 1 - Operação tributável
+                'tribMun.tpRetISSQN' => 1, // 1 - Não Retido
             ],
         ],
     ]
@@ -169,7 +169,7 @@ Este projeto está em desenvolvimento ativo. Abaixo estão as fases planejadas:
 
 ### Fase 1: Estrutura de Dados (DTOs) ✅
 
--   [x] Implementar DTOs usando `spatie/laravel-data`.
+-   [x] Implementar DTOs usando `spatie/data-transfer-object`.
 -   [x] Mapear campos do Excel usando atributos.
 -   [x] Testes unitários de validação.
 

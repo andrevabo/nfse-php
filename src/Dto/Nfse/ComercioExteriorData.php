@@ -2,136 +2,128 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class ComercioExteriorData extends Data
+class ComercioExteriorData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Modo de prestação do serviço.
-         * 1 - Transfronteiriço
-         * 2 - Consumo no Brasil
-         * 3 - Presença Comercial no Exterior
-         * 4 - Movimento Temporário de Pessoas Físicas
-         */
-        #[MapInputName('mdPrestacao')]
-        public ?int $modoPrestacao,
+    /**
+     * Modo de prestação do serviço.
+     * 1 - Transfronteiriço
+     * 2 - Consumo no Brasil
+     * 3 - Presença Comercial no Exterior
+     * 4 - Movimento Temporário de Pessoas Físicas
+     */
+    #[MapFrom('mdPrestacao')]
+    public ?int $modoPrestacao = null;
 
-        /**
-         * Vínculo entre as partes no negócio.
-         * 1 - Sem vínculo
-         * 2 - Com vínculo
-         */
-        #[MapInputName('vincPrest')]
-        public ?int $vinculoPrestacao,
+    /**
+     * Vínculo entre as partes no negócio.
+     * 1 - Sem vínculo
+     * 2 - Com vínculo
+     */
+    #[MapFrom('vincPrest')]
+    public ?int $vinculoPrestacao = null;
 
-        /**
-         * Tipo de pessoa do exportador.
-         * 1 - Pessoa Jurídica
-         * 2 - Pessoa Física
-         */
-        #[MapInputName('tpPessoaExport')]
-        public ?int $tipoPessoaExportador,
+    /**
+     * Tipo de pessoa do exportador.
+     * 1 - Pessoa Jurídica
+     * 2 - Pessoa Física
+     */
+    #[MapFrom('tpPessoaExport')]
+    public ?int $tipoPessoaExportador = null;
 
-        /**
-         * NIF do exportador.
-         */
-        #[MapInputName('NIFExport')]
-        public ?string $nifExportador,
+    /**
+     * NIF do exportador.
+     */
+    #[MapFrom('NIFExport')]
+    public ?string $nifExportador = null;
 
-        /**
-         * Código do país do exportador.
-         */
-        #[MapInputName('cPaisExport')]
-        public ?string $codigoPaisExportador,
+    /**
+     * Código do país do exportador.
+     */
+    #[MapFrom('cPaisExport')]
+    public ?string $codigoPaisExportador = null;
 
-        /**
-         * Código do mecanismo de apoio/fomento.
-         */
-        #[MapInputName('cMecAFComex')]
-        public ?string $codigoMecanismoApoioFomento,
+    /**
+     * Código do mecanismo de apoio/fomento.
+     */
+    #[MapFrom('cMecAFComex')]
+    public ?string $codigoMecanismoApoioFomento = null;
 
-        /**
-         * Número do enquadramento.
-         */
-        #[MapInputName('nEnquad')]
-        public ?string $numeroEnquadramento,
+    /**
+     * Número do enquadramento.
+     */
+    #[MapFrom('nEnquad')]
+    public ?string $numeroEnquadramento = null;
 
-        /**
-         * Número do processo.
-         */
-        #[MapInputName('nProc')]
-        public ?string $numeroProcesso,
+    /**
+     * Número do processo.
+     */
+    #[MapFrom('nProc')]
+    public ?string $numeroProcesso = null;
 
-        /**
-         * Indicador de incentivo fiscal.
-         * 1 - Sim
-         * 2 - Não
-         */
-        #[MapInputName('indIncentivo')]
-        public ?int $indicadorIncentivo,
+    /**
+     * Indicador de incentivo fiscal.
+     * 1 - Sim
+     * 2 - Não
+     */
+    #[MapFrom('indIncentivo')]
+    public ?int $indicadorIncentivo = null;
 
-        /**
-         * Descrição do incentivo fiscal.
-         */
-        #[MapInputName('xDescIncentivo')]
-        public ?string $descricaoIncentivo,
+    /**
+     * Descrição do incentivo fiscal.
+     */
+    #[MapFrom('xDescIncentivo')]
+    public ?string $descricaoIncentivo = null;
 
-        /**
-         * Código da moeda da transação (ISO 4217).
-         */
-        #[MapInputName('tpMoeda')]
-        public ?string $tipoMoeda,
+    /**
+     * Código da moeda da transação (ISO 4217).
+     */
+    #[MapFrom('tpMoeda')]
+    public ?string $tipoMoeda = null;
 
-        /**
-         * Valor do serviço na moeda estrangeira.
-         */
-        #[MapInputName('vServMoeda')]
-        public ?float $valorServicoMoeda,
+    /**
+     * Valor do serviço na moeda estrangeira.
+     */
+    #[MapFrom('vServMoeda')]
+    public ?float $valorServicoMoeda = null;
 
-        /**
-         * Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo prestador.
-         */
-        #[MapInputName('mecAFComexP')]
-        public ?string $mecanismoApoioComexPrestador,
+    /**
+     * Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo prestador.
+     */
+    #[MapFrom('mecAFComexP')]
+    public ?string $mecanismoApoioComexPrestador = null;
 
-        /**
-         * Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador.
-         */
-        #[MapInputName('mecAFComexT')]
-        public ?string $mecanismoApoioComexTomador,
+    /**
+     * Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador.
+     */
+    #[MapFrom('mecAFComexT')]
+    public ?string $mecanismoApoioComexTomador = null;
 
-        /**
-         * Movimentação temporária de bens.
-         */
-        #[MapInputName('movTempBens')]
-        public ?string $movimentacaoTemporariaBens,
+    /**
+     * Movimentação temporária de bens.
+     */
+    #[MapFrom('movTempBens')]
+    public ?string $movimentacaoTemporariaBens = null;
 
-        /**
-         * Número da Declaração de Importação (DI/DSI/DA/DRI-E) averbada.
-         */
-        #[MapInputName('nDI')]
-        public ?string $numeroDeclaracaoImportacao,
+    /**
+     * Número da Declaração de Importação (DI/DSI/DA/DRI-E) averbada.
+     */
+    #[MapFrom('nDI')]
+    public ?string $numeroDeclaracaoImportacao = null;
 
-        /**
-         * Número do Registro de Exportação (RE) averbado.
-         */
-        #[MapInputName('nRE')]
-        public ?string $numeroRegistroExportacao,
+    /**
+     * Número do Registro de Exportação (RE) averbado.
+     */
+    #[MapFrom('nRE')]
+    public ?string $numeroRegistroExportacao = null;
 
-        /**
-         * Compartilhamento de dados com o MDIC.
-         * 1 - Sim
-         * 2 - Não
-         */
-        #[MapInputName('mdic')]
-        public ?string $mdic,
-    ) {}
+    /**
+     * Compartilhamento de dados com o MDIC.
+     * 1 - Sim
+     * 2 - Não
+     */
+    #[MapFrom('mdic')]
+    public ?string $mdic = null;
 }

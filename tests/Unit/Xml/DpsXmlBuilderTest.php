@@ -2,109 +2,98 @@
 
 namespace Nfse\Tests\Unit\Xml;
 
-use Nfse\Dto\Nfse\CodigoServicoData;
 use Nfse\Dto\Nfse\DpsData;
-use Nfse\Dto\Nfse\InfDpsData;
-use Nfse\Dto\Nfse\LocalPrestacaoData;
-use Nfse\Dto\Nfse\PrestadorData;
-use Nfse\Dto\Nfse\ServicoData;
-use Nfse\Dto\Nfse\TomadorData;
-use Nfse\Dto\Nfse\TributacaoData;
-use Nfse\Dto\Nfse\ValoresData;
-use Nfse\Dto\Nfse\ValorServicoPrestadoData;
 use Nfse\Support\IdGenerator;
 use Nfse\Xml\DpsXmlBuilder;
 
 it('can build xml from dps data', function () {
     $id = IdGenerator::generateDpsId('12345678000199', '3550308', '1', '1001');
 
-    $infDps = new InfDpsData(
-        id: $id,
-        tipoAmbiente: 2,
-        dataEmissao: '2023-10-27T10:00:00',
-        versaoAplicativo: '1.0',
-        serie: '1',
-        numeroDps: '1001',
-        dataCompetencia: '2023-10-27',
-        tipoEmitente: 1,
-        codigoLocalEmissao: '3550308',
-        motivoEmissaoTomadorIntermediario: '4',
-        chaveNfseRejeitada: '12345678901234567890123456789012345678901234',
-        substituicao: null,
-        prestador: new PrestadorData(
-            cnpj: '12345678000199',
-            cpf: null,
-            nif: null,
-            codigoNaoNif: null,
-            caepf: null,
-            inscricaoMunicipal: '12345',
-            nome: 'Prestador Exemplo Ltda',
-            endereco: null,
-            telefone: null,
-            email: null,
-            regimeTributario: null
-        ),
-        tomador: new TomadorData(
-            cpf: '11122233344',
-            cnpj: null,
-            nif: null,
-            codigoNaoNif: null,
-            caepf: null,
-            inscricaoMunicipal: null,
-            nome: 'Tomador Exemplo',
-            endereco: null,
-            telefone: null,
-            email: null
-        ),
-        intermediario: null,
-        servico: new ServicoData(
-            localPrestacao: new LocalPrestacaoData(
-                codigoLocalPrestacao: '3550308',
-                codigoPaisPrestacao: 'BR'
-            ),
-            codigoServico: new CodigoServicoData(
-                codigoTributacaoNacional: '1.01',
-                codigoTributacaoMunicipal: null,
-                descricaoServico: 'Analise de sistemas',
-                codigoNbs: null,
-                codigoInternoContribuinte: null
-            ),
-            comercioExterior: null,
-            obra: null,
-            atividadeEvento: null,
-            informacoesComplementares: null,
-            idDocumentoTecnico: null,
-            documentoReferencia: null,
-            descricaoInformacoesComplementares: null
-        ),
-        valores: new ValoresData(
-            valorServicoPrestado: new ValorServicoPrestadoData(
-                valorRecebido: 1000.00,
-                valorServico: 1000.00
-            ),
-            desconto: null,
-            deducaoReducao: null,
-            tributacao: new TributacaoData(
-                tributacaoIssqn: 1,
-                tipoImunidade: null,
-                tipoRetencaoIssqn: 1,
-                tipoSuspensao: 1,
-                numeroProcessoSuspensao: '123456',
-                beneficioMunicipal: new \Nfse\Dto\Nfse\BeneficioMunicipalData(
-                    percentualReducaoBcBm: 10.0,
-                    valorReducaoBcBm: 100.0
-                ),
-                cstPisCofins: null,
-                percentualTotalTributosSN: null,
-                indicadorTotalTributos: null
-            )
-        )
-    );
-
-    $dpsData = new DpsData(
-        versao: '1.0',
-        infDps: $infDps
-    );
+    $dpsData = new DpsData([
+        '@versao' => '1.0',
+        'infDPS' => [
+            '@Id' => $id,
+            'tpAmb' => 2,
+            'dhEmi' => '2023-10-27T10:00:00',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '1001',
+            'dCompet' => '2023-10-27',
+            'tpEmit' => 1,
+            'cLocEmi' => '3550308',
+            'cMotivoEmisTI' => '4',
+            'chNFSeRej' => '12345678901234567890123456789012345678901234',
+            'subst' => null,
+            'prest' => [
+                'CNPJ' => '12345678000199',
+                'CPF' => null,
+                'NIF' => null,
+                'cNaoNIF' => null,
+                'CAEPF' => null,
+                'IM' => '12345',
+                'xNome' => 'Prestador Exemplo Ltda',
+                'end' => null,
+                'fone' => null,
+                'email' => null,
+                'regTrib' => null,
+            ],
+            'toma' => [
+                'CPF' => '11122233344',
+                'CNPJ' => null,
+                'NIF' => null,
+                'cNaoNIF' => null,
+                'CAEPF' => null,
+                'IM' => null,
+                'xNome' => 'Tomador Exemplo',
+                'end' => null,
+                'fone' => null,
+                'email' => null,
+            ],
+            'interm' => null,
+            'serv' => [
+                'locPrest' => [
+                    'cLocPrestacao' => '3550308',
+                    'cPaisPrestacao' => 'BR',
+                ],
+                'cServ' => [
+                    'cTribNac' => '1.01',
+                    'cTribMun' => null,
+                    'xDescServ' => 'Analise de sistemas',
+                    'cNBS' => null,
+                    'cIntContrib' => null,
+                ],
+                'comExt' => null,
+                'obra' => null,
+                'atvEvento' => null,
+                'infoComplem' => null,
+                'idDocTec' => null,
+                'docRef' => null,
+                'xInfComp' => null,
+            ],
+            'valores' => [
+                'vServPrest' => [
+                    'vReceb' => 1000.00,
+                    'vServ' => 1000.00,
+                ],
+                'vDescCondIncond' => null,
+                'vDedRed' => null,
+                'trib' => [
+                    'tribMun.tribISSQN' => 1,
+                    'tribMun.tpImunidade' => null,
+                    'tribMun.tpRetISSQN' => 1,
+                    'tribMun.exigSusp.tpSusp' => 1,
+                    'tribMun.exigSusp.nProcesso' => '123456',
+                    'tribMun.BM' => [
+                        'pRedBCBM' => 10.0,
+                        'vRedBCBM' => 100.0,
+                    ],
+                    'tribFed.piscofins.CST' => null,
+                    'totTrib.pTotTribSN' => null,
+                    'totTrib.indTotTrib' => null,
+                ],
+            ],
+        ],
+    ]);
 
     $builder = new DpsXmlBuilder;
     $xml = $builder->build($dpsData);

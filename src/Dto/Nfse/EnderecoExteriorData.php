@@ -2,40 +2,32 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class EnderecoExteriorData extends Data
+class EnderecoExteriorData extends DataTransferObject
 {
-    public function __construct(
-        /**
-         * Código do país (ISO2).
-         */
-        #[MapInputName('cPais')]
-        public ?string $codigoPais,
+    /**
+     * Código do país (ISO2).
+     */
+    #[MapFrom('cPais')]
+    public ?string $codigoPais = null;
 
-        /**
-         * Código de endereçamento postal.
-         */
-        #[MapInputName('cEndPost')]
-        public ?string $codigoEnderecamentoPostal,
+    /**
+     * Código de endereçamento postal.
+     */
+    #[MapFrom('cEndPost')]
+    public ?string $codigoEnderecamentoPostal = null;
 
-        /**
-         * Nome da cidade.
-         */
-        #[MapInputName('xCidade')]
-        public ?string $cidade,
+    /**
+     * Nome da cidade.
+     */
+    #[MapFrom('xCidade')]
+    public ?string $cidade = null;
 
-        /**
-         * Estado, província ou região.
-         */
-        #[MapInputName('xEstProvReg')]
-        public ?string $estadoProvinciaRegiao,
-    ) {}
+    /**
+     * Estado, província ou região.
+     */
+    #[MapFrom('xEstProvReg')]
+    public ?string $estadoProvinciaRegiao = null;
 }

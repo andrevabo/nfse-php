@@ -4,8 +4,9 @@ namespace Nfse\Tests\Unit\Xml;
 
 use Nfse\Dto\Nfse\NfseData;
 use Nfse\Xml\NfseXmlBuilder;
+use Nfse\Xml\NfseXmlParser;
 
-it('serializes nfse data to xml correctly', function () {
+it('can parse nfse xml to data', function () {
     $nfse = new NfseData([
         'versao' => '1.00',
         'infNFSe' => [
@@ -36,9 +37,6 @@ it('serializes nfse data to xml correctly', function () {
                     'dCompet' => '2023-01-01',
                     'tpEmit' => 1,
                     'cLocEmi' => '1234567',
-                    'cMotivoEmisTI' => null,
-                    'chNFSeRej' => null,
-                    'subst' => null,
                     'prest' => null,
                     'toma' => null,
                     'interm' => null,
@@ -80,12 +78,13 @@ it('serializes nfse data to xml correctly', function () {
     $builder = new NfseXmlBuilder;
     $xml = $builder->build($nfse);
 
-    expect($xml)->toContain('<NFSe xmlns="http://www.sped.fazenda.gov.br/nfse">')
-        ->and($xml)->toContain('<infNFSe Id="NFS123456" versao="1.00">')
-        ->and($xml)->toContain('<nNFSe>100</nNFSe>')
-        ->and($xml)->toContain('<DPS')
-        ->and($xml)->toContain('versao="1.00">')
-        ->and($xml)->toContain('<infDPS Id="DPS123">')
-        ->and($xml)->toContain('<CNPJ>12345678000199</CNPJ>')
-        ->and($xml)->toContain('<vLiq>1757.50</vLiq>');
+    $parser = new NfseXmlParser;
+    $parsedNfse = $parser->parse($xml);
+
+    expect($parsedNfse)->toBeInstanceOf(NfseData::class)
+        ->and($parsedNfse->versao)->toBe('1.00')
+        ->and($parsedNfse->infNfse->id)->toBe('NFS123456')
+        ->and($parsedNfse->infNfse->numeroNfse)->toBe('100')
+        ->and($parsedNfse->infNfse->dps->infDps->id)->toBe('DPS123')
+        ->and($parsedNfse->infNfse->emitente->cnpj)->toBe('12345678000199');
 });

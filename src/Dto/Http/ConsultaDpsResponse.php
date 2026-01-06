@@ -2,15 +2,17 @@
 
 namespace Nfse\Dto\Http;
 
-use Spatie\LaravelData\Data;
+use Spatie\DataTransferObject\DataTransferObject;
 
-class ConsultaDpsResponse extends Data
+class ConsultaDpsResponse extends DataTransferObject
 {
-    public function __construct(
-        public ?int $tipoAmbiente = null,
-        public ?string $versaoAplicativo = null,
-        public ?string $dataHoraProcessamento = null,
-        public ?string $idDps = null,
-        public ?string $chaveAcesso = null,
-    ) {}
+    public ?int $tipoAmbiente = null;
+
+    public ?string $versaoAplicativo = null;
+
+    public ?string $dataHoraProcessamento = null;
+
+    public ?string $idDps = null;
+
+    public ?string $chaveAcesso = null;
 }

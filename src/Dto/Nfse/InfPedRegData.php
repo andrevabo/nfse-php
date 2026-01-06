@@ -2,44 +2,34 @@
 
 namespace Nfse\Dto\Nfse;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
 
-#[MapName(SnakeCaseMapper::class)]
-/**
- * @typescript
- */
-class InfPedRegData extends Data
+class InfPedRegData extends DataTransferObject
 {
-    public function __construct(
-        #[MapInputName('tpAmb')]
-        public int $tipoAmbiente,
+    #[MapFrom('tpAmb')]
+    public ?int $tipoAmbiente = null;
 
-        #[MapInputName('verAplic')]
-        public string $versaoAplicativo,
+    #[MapFrom('verAplic')]
+    public ?string $versaoAplicativo = null;
 
-        #[MapInputName('dhEvento')]
-        public string $dataHoraEvento,
+    #[MapFrom('dhEvento')]
+    public ?string $dataHoraEvento = null;
 
-        #[MapInputName('chNFSe')]
-        public string $chaveNfse,
+    #[MapFrom('chNFSe')]
+    public ?string $chaveNfse = null;
 
-        // Autor: escolha CNPJ ou CPF (opcionais)
-        #[MapInputName('CNPJAutor')]
-        public ?string $cnpjAutor = null,
+    #[MapFrom('CNPJAutor')]
+    public ?string $cnpjAutor = null;
 
-        #[MapInputName('CPFAutor')]
-        public ?string $cpfAutor = null,
+    #[MapFrom('CPFAutor')]
+    public ?string $cpfAutor = null;
 
-        #[MapInputName('nPedRegEvento')]
-        public int $nPedRegEvento = 1,
+    #[MapFrom('nPedRegEvento')]
+    public int $nPedRegEvento = 1;
 
-        // Tipo de evento (ex: '101101' para cancelamento)
-        public string $tipoEvento = '101101',
+    public string $tipoEvento = '101101';
 
-        #[MapInputName('e101101')]
-        public ?CancelamentoData $e101101 = null,
-    ) {}
+    #[MapFrom('e101101')]
+    public ?CancelamentoData $e101101 = null;
 }

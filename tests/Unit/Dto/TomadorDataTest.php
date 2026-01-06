@@ -1,32 +1,23 @@
 <?php
 
-use Nfse\Dto\Nfse\EnderecoData;
-use Nfse\Dto\Nfse\EnderecoExteriorData;
 use Nfse\Dto\Nfse\TomadorData;
 use Nfse\Support\CpfCnpjGenerator;
 
 it('can instantiate tomador as PF (Person)', function () {
     $cpf = CpfCnpjGenerator::generateCpf();
-    $tomador = new TomadorData(
-        cpf: $cpf,
-        cnpj: null,
-        nif: null,
-        codigoNaoNif: null,
-        caepf: null,
-        inscricaoMunicipal: null,
-        nome: 'João da Silva',
-        endereco: new EnderecoData(
-            codigoMunicipio: '3550308',
-            cep: '01001000',
-            logradouro: 'Praça da Sé',
-            numero: '1',
-            bairro: 'Sé',
-            complemento: null,
-            enderecoExterior: null
-        ),
-        telefone: '11999999999',
-        email: 'joao@email.com'
-    );
+    $tomador = new TomadorData([
+        'CPF' => $cpf,
+        'xNome' => 'João da Silva',
+        'end' => [
+            'endNac.cMun' => '3550308',
+            'endNac.CEP' => '01001000',
+            'xLgr' => 'Praça da Sé',
+            'nro' => '1',
+            'xBairro' => 'Sé',
+        ],
+        'fone' => '11999999999',
+        'email' => 'joao@email.com',
+    ]);
 
     expect($tomador)->toBeInstanceOf(TomadorData::class);
     expect($tomador->cpf)->toBe($cpf);
@@ -35,26 +26,21 @@ it('can instantiate tomador as PF (Person)', function () {
 
 it('can instantiate tomador as PJ (Company)', function () {
     $cnpj = CpfCnpjGenerator::generateCnpj();
-    $tomador = new TomadorData(
-        cpf: null,
-        cnpj: $cnpj,
-        nif: null,
-        codigoNaoNif: null,
-        caepf: null,
-        inscricaoMunicipal: '123456',
-        nome: 'Empresa Legal Ltda',
-        endereco: new EnderecoData(
-            codigoMunicipio: '3550308',
-            cep: '01001000',
-            logradouro: 'Av Paulista',
-            numero: '1000',
-            bairro: 'Bela Vista',
-            complemento: 'Conj 101',
-            enderecoExterior: null
-        ),
-        telefone: '1133334444',
-        email: 'contato@empresa.com'
-    );
+    $tomador = new TomadorData([
+        'CNPJ' => $cnpj,
+        'IM' => '123456',
+        'xNome' => 'Empresa Legal Ltda',
+        'end' => [
+            'endNac.cMun' => '3550308',
+            'endNac.CEP' => '01001000',
+            'xLgr' => 'Av Paulista',
+            'nro' => '1000',
+            'xBairro' => 'Bela Vista',
+            'xCpl' => 'Conj 101',
+        ],
+        'fone' => '1133334444',
+        'email' => 'contato@empresa.com',
+    ]);
 
     expect($tomador)->toBeInstanceOf(TomadorData::class);
     expect($tomador->cnpj)->toBe($cnpj);
@@ -62,34 +48,25 @@ it('can instantiate tomador as PJ (Company)', function () {
 });
 
 it('can instantiate tomador as Foreigner (Estrangeiro)', function () {
-    $tomador = new TomadorData(
-        cpf: null,
-        cnpj: null,
-        nif: '123456789',
-        codigoNaoNif: null,
-        caepf: null,
-        inscricaoMunicipal: null,
-        nome: 'John Doe',
-        endereco: new EnderecoData(
-            codigoMunicipio: null,
-            cep: null,
-            logradouro: '5th Avenue',
-            numero: '100',
-            bairro: 'Manhattan',
-            complemento: null,
-            enderecoExterior: new EnderecoExteriorData(
-                codigoPais: 'US',
-                codigoEnderecamentoPostal: '10001',
-                cidade: 'New York',
-                estadoProvinciaRegiao: 'NY'
-            )
-        ),
-        telefone: '15551234567',
-        email: 'john.doe@email.com'
-    );
+    $tomador = new TomadorData([
+        'NIF' => '123456789',
+        'xNome' => 'John Doe',
+        'end' => [
+            'xLgr' => '5th Avenue',
+            'nro' => '100',
+            'xBairro' => 'Manhattan',
+            'endExt' => [
+                'cPais' => 'US',
+                'cCEP' => '10001',
+                'xCid' => 'New York',
+                'xEst' => 'NY',
+            ],
+        ],
+        'fone' => '15551234567',
+        'email' => 'john.doe@email.com',
+    ]);
 
     expect($tomador)->toBeInstanceOf(TomadorData::class);
     expect($tomador->nif)->toBe('123456789');
-    expect($tomador->endereco->enderecoExterior)->toBeInstanceOf(EnderecoExteriorData::class);
     expect($tomador->endereco->enderecoExterior->codigoPais)->toBe('US');
 });

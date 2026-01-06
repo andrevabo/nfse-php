@@ -2,10 +2,11 @@
 
 namespace Nfse\Dto\Http;
 
-class ResultadoConsultaConfiguracoesConvenioResponse
+use Spatie\DataTransferObject\DataTransferObject;
+
+class ResultadoConsultaConfiguracoesConvenioResponse extends DataTransferObject
 {
-    public function __construct(
-        public ?string $mensagem = null,
-        public ?ParametrosConfiguracaoConvenioDto $parametrosConvenio = null,
-    ) {}
+    public ?string $mensagem = null;
+
+    public ?ParametrosConfiguracaoConvenioDto $parametrosConvenio = null;
 }

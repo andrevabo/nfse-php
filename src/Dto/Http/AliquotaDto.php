@@ -2,12 +2,17 @@
 
 namespace Nfse\Dto\Http;
 
-class AliquotaDto
+use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\DataTransferObject;
+
+class AliquotaDto extends DataTransferObject
 {
-    public function __construct(
-        public ?string $incidencia = null,
-        public ?float $aliquota = null,
-        public ?string $dataInicio = null,
-        public ?string $dataFim = null,
-    ) {}
+    #[MapFrom('incid')]
+    public ?string $incidencia = null;
+
+    #[MapFrom('aliq')]
+    public ?float $aliquota = null;
+
+    #[MapFrom('tpRet')]
+    public ?int $tipoRetencao = null;
 }
