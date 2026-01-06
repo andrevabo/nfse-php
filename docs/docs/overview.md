@@ -49,7 +49,7 @@ A integração com sistemas fiscais como a NFS-e Nacional envolve centenas de ca
 O fluxo típico de uso da biblioteca segue estes passos:
 
 1.  **Entrada de Dados**: Receba dados de um formulário, API ou banco de dados.
-2.  **Instanciação**: Crie um DTO usando `from()` ou `validateAndCreate()`.
+2.  **Instanciação**: Crie um DTO usando `new DpsData($array)` ou argumentos nomeados.
 3.  **Validação**: A biblioteca valida automaticamente os tipos e restrições básicas.
 4.  **Assinatura**: Assine o XML gerado usando seu certificado digital.
 5.  **Transmissão**: Utilize o `NfseClient` para enviar o documento para o governo.

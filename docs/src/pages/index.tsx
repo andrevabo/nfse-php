@@ -116,7 +116,7 @@ $dadosDoFormulario = [
 
 try {
     // 2. Validar e criar o DTO
-    $dps = DpsData::validateAndCreate($dadosDoFormulario);
+    $dps = new DpsData($dadosDoFormulario);
 
     // 3. Gerar o XML
     $builder = new DpsXmlBuilder();

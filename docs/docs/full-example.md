@@ -122,5 +122,5 @@ try {
 
 1.  **Mapeamento**: O array usou nomes técnicos como `tpAmb` e a estrutura `@attributes` para atributos XML. O DTO mapeou isso automaticamente para propriedades como `$tipoAmbiente` e `$dataEmissao`.
 2.  **Validação**: Se o `vServ` fosse uma string ou estivesse ausente, uma `ValidationException` seria lançada.
-3.  **Tipagem**: Após o `validateAndCreate`, a variável `$dps` é um objeto fortemente tipado, eliminando erros de digitação de chaves de array.
+3.  **Tipagem**: Após a instanciação, a variável `$dps` é um objeto fortemente tipado, eliminando erros de digitação de chaves de array.
 4.  **Conformidade**: O XML gerado segue rigorosamente o esquema da NFS-e Nacional, pronto para ser assinado e enviado.
