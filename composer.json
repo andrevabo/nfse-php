@@ -55,6 +55,22 @@
             "phpstan/extension-installer": true
         }
     },
+    "archive": {
+        "exclude": [
+            "/docs",
+            "/references",
+            "/tests",
+            "/examples",
+            "/.github",
+            "/docs/static",
+            "*.pdf",
+            "*.xlsx",
+            "*.jpg",
+            "*.png",
+            "*.ico",
+            "*.pfx"
+        ]
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
