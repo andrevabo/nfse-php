@@ -6,6 +6,7 @@ use Spatie\DataTransferObject\Caster;
 
 class EnumCaster implements Caster
 {
+    /** @phpstan-ignore constructor.unusedParameter */
     public function __construct(
         array $types,
         private string $enumType,

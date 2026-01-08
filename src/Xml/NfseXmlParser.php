@@ -25,7 +25,7 @@ class NfseXmlParser
         $simpleXml = simplexml_load_string(
             $xml,
             'SimpleXMLElement',
-            LIBXML_NOCDATA | LIBXML_NOBLANKS
+            LIBXML_NOCDATA | LIBXML_NOBLANKS | LIBXML_RECOVER
         );
 
         if ($simpleXml === false) {
