@@ -278,14 +278,6 @@ class DpsXmlBuilder
             $tribMun = $this->dom->createElement('tribMun');
             $this->appendElement($tribMun, 'tribISSQN', $data->tributacao->tributacaoIssqn);
             $this->appendElement($tribMun, 'tpImunidade', $data->tributacao->tipoImunidade);
-            $this->appendElement($tribMun, 'tpRetISSQN', $data->tributacao->tipoRetencaoIssqn);
-            $this->appendElement(
-                $tribMun,
-                'pAliq',
-                $data->tributacao->aliquota !== null
-                    ? number_format($data->tributacao->aliquota, 2, '.', '')
-                    : null
-            );
 
             if ($data->tributacao->tipoSuspensao) {
                 $exigSusp = $this->dom->createElement('exigSusp');
@@ -300,6 +292,15 @@ class DpsXmlBuilder
                 $this->appendElement($bm, 'vRedBCBM', $data->tributacao->beneficioMunicipal->valorReducaoBcBm !== null ? number_format($data->tributacao->beneficioMunicipal->valorReducaoBcBm, 2, '.', '') : null);
                 $tribMun->appendChild($bm);
             }
+
+            $this->appendElement($tribMun, 'tpRetISSQN', $data->tributacao->tipoRetencaoIssqn);
+            $this->appendElement(
+                $tribMun,
+                'pAliq',
+                $data->tributacao->aliquota !== null
+                    ? number_format($data->tributacao->aliquota, 2, '.', '')
+                    : null
+            );
 
             $trib->appendChild($tribMun);
 
