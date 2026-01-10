@@ -4,7 +4,6 @@ namespace Nfse\Tests\Unit\Dto;
 
 use Nfse\Dto\Nfse\InfDpsData;
 
-// Note: spatie/data-transfer-object doesn't have built-in validation like spatie/laravel-data
 // These tests are now handled by the DpsValidator class instead
 
 it('can instantiate InfDpsData with valid data', function () {

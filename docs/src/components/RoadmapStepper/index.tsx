@@ -12,7 +12,7 @@ const steps: Step[] = [
     {
         title: "Fase 1: Estrutura de Dados (DTOs) ✅",
         description:
-            "DTOs tipados com spatie/laravel-data, mapeamento de campos, validações robustas e enums nativos PHP 8.1+.",
+            "DTOs tipados com mapeamento de campos, validações robustas e enums nativos PHP 8.1+.",
         status: "completed",
     },
     {

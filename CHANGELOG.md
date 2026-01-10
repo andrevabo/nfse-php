@@ -86,7 +86,7 @@ Esta é a primeira versão pública do SDK NFS-e Nacional PHP. O pacote oferece 
 
 #### 📦 DTOs (Data Transfer Objects)
 
--   DTOs completos para DPS, NFS-e e Eventos usando `spatie/laravel-data`
+-   DTOs completos para DPS, NFS-e e Eventos
 -   Validação automática de campos obrigatórios
 -   Mapeamento de nomes de campos conforme especificação oficial
 -   Suporte a todos os tipos de operação: emissão, cancelamento, substituição
@@ -140,7 +140,6 @@ Esta é a primeira versão pública do SDK NFS-e Nacional PHP. O pacote oferece 
 -   `illuminate/support` ^12.0
 -   `illuminate/validation` ^12.0
 -   `illuminate/translation` ^12.0
--   `spatie/laravel-data` ^4.11
 
 ### 🔗 Links
 

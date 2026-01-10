@@ -186,7 +186,6 @@ A primeira versão pública do SDK mais moderno e completo para integração com
 ## ✨ Destaques
 
 -   **SDK Completo**: Integração com SEFIN Nacional, ADN e CNC
--   **DTOs Tipados**: Estruturas de dados completas com `spatie/laravel-data`
 -   **Assinatura A1**: Suporte nativo a certificados PKCS#12/PFX
 -   **139 Testes**: Cobertura extensiva com Pest
 -   **Documentação**: Site completo em [nfse-php.netlify.app](https://nfse-php.netlify.app)

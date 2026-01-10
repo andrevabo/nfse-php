@@ -121,7 +121,7 @@ $dps = new DpsData([
         'toma' => [
             'CPF' => '11122233344',
             'xNome' => 'Tomador Exemplo',
-            
+
         ],
         'serv' => [
             'locPrest' => [
@@ -251,8 +251,6 @@ Por favor, veja [CONTRIBUTING](CONTRIBUTING.md) para detalhes.
 ## Security
 
 Se você descobrir alguma vulnerabilidade de segurança, por favor, envie um e-mail para o mantenedor em vez de usar o rastreador de problemas.
-
-## 💖 Sponsors
 
 Este projeto é mantido de forma independente e só é possível graças à parceria técnica com empresas e municípios parceiros. Por questões de _compliance_ e confidencialidade, esses parceiros não podem ser citados nominalmente, mas seu apoio foi fundamental para chegarmos até aqui.
 

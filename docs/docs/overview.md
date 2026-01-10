@@ -108,7 +108,6 @@ $result = $validator->validate($dps);
 
 ## 🔗 Referências
 
--   **[Spatie Data Transfer Object](https://github.com/spatie/data-transfer-object)** - Biblioteca base dos DTOs
 -   **[Manual NFSe Nacional](https://www.gov.br/nfse/)** - Documentação oficial do governo
 -   **[Schemas XSD](https://github.com/nfse-nacional/nfse-php/tree/main/references/schemas)** - Schemas oficiais da NFSe
 -   **[GitHub do Projeto](https://github.com/nfse-nacional/nfse-php)** - Código-fonte e issues

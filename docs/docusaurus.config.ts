@@ -170,10 +170,6 @@ const config: Config = {
                             href: "https://www.gov.br/nfse/",
                         },
                         {
-                            label: "Spatie Laravel Data",
-                            href: "https://spatie.be/docs/laravel-data",
-                        },
-                        {
                             label: "Licença MIT",
                             href: "https://github.com/nfse-nacional/nfse-php/blob/main/LICENSE",
                         },

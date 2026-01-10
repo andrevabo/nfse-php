@@ -23,7 +23,7 @@ const FeatureList: FeatureItem[] = [
         title: "DTOs Tipados e Validados",
         description: (
             <>
-                Utiliza <code>spatie/laravel-data</code> para garantir que seus
+                Utiliza <code>Tipagem forte</code> para garantir que seus
                 dados estejam sempre corretos antes mesmo de gerar o XML.
             </>
         ),
