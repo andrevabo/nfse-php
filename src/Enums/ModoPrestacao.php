@@ -10,6 +10,11 @@ namespace Nfse\Enums;
 enum ModoPrestacao: string
 {
     /**
+     * Desconhecido ou Não Aplicável
+     */
+    case Desconhecido = '0';
+
+    /**
      * Transfronteiriço
      */
     case Transfronteirico = '1';
@@ -39,6 +44,7 @@ enum ModoPrestacao: string
             self::ConsumoNoExterior => 'Consumo no Exterior',
             self::PresencaComercialNoExterior => 'Presença Comercial no Exterior',
             self::MovimentoTemporarioPessoasFisicas => 'Movimento Temporário de Pessoas Físicas',
+            self::Desconhecido => 'Desconhecido ou Não Aplicável',
         };
     }
 

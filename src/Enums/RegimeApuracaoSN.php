@@ -20,6 +20,11 @@ enum RegimeApuracaoSN: string
     case Normal = '2';
 
     /**
+     * Regime de apuração dos tributos pelo SN (MEI)
+     */
+    case MicroempreendedorIndividual = '3';
+
+    /**
      * Get description for the enum case
      */
     public function getDescription(): string
@@ -27,6 +32,7 @@ enum RegimeApuracaoSN: string
         return match ($this) {
             self::SimplesNacional => 'Regime de apuração dos tributos federais e municipal pelo SN',
             self::Normal => 'Regime de apuração dos tributos federais pelo SN e municipal pelo regime normal (ISSQN)',
+            self::MicroempreendedorIndividual => 'Regime de apuração dos tributos pelo SN (MEI)',
         };
     }
 

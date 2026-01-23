@@ -32,6 +32,11 @@ enum TipoImunidade: int
      */
     case LivrosJornaisPeriodicos = 4;
 
+    /**
+     * Fonogramas e videofonogramas musicais (CF88, Art 150, VI, e)
+     */
+    case FonogramasVideofonogramas = 5;
+
     public function getDescription(): string
     {
         return match ($this) {
@@ -40,11 +45,9 @@ enum TipoImunidade: int
             self::Templos => 'Templos de qualquer culto (CF88, Art 150, VI, b)',
             self::PartidosSindicatosInstituicoes => 'Patrimônio, renda ou serviços dos partidos políticos, inclusive suas fundações, das entidades sindicais dos trabalhadores, das instituições de educação e de assistência social, sem fins lucrativos, atendidos os requisitos da lei (CF88, Art 150, VI, c)',
             self::LivrosJornaisPeriodicos => 'Livros, jornais, periódicos e o papel destinado a sua impressão (CF88, Art 150, VI, d)',
-            self::CINCO => 'Livros, jornais, periódicos e o papel destinado a sua impressão (CF88, Art 150, VI, d)',
+            self::FonogramasVideofonogramas => 'Fonogramas e videofonogramas musicais produzidos no Brasil (CF88, Art 150, VI, e)',
         };
     }
-
-    case CINCO = 5;
 
     public function label(): string
     {
