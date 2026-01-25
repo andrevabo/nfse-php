@@ -25,6 +25,11 @@ enum MotivoSubstituicao: string
     case Outros = '99';
 
     /**
+     * Erro no Preenchimento
+     */
+    case ErroPreenchimento = '05';
+
+    /**
      * Get description for the enum case
      */
     public function getDescription(): string
@@ -32,6 +37,7 @@ enum MotivoSubstituicao: string
         return match ($this) {
             self::DesenquadramentoSimplesNacional => 'Desenquadramento de NFS-e do Simples Nacional',
             self::EnquadramentoSimplesNacional => 'Enquadramento de NFS-e no Simples Nacional',
+            self::ErroPreenchimento => 'Erro no Preenchimento',
             self::Outros => 'Outros',
         };
     }
