@@ -93,6 +93,12 @@ class DpsXmlBuilder
         if ($data->valores) {
             $this->buildValores($parent, $data->valores, $data->prestador);
         }
+
+        if ($data->ibscbs) {
+            $ibscbs = $this->dom->createElement('IBSCBS');
+            $this->appendElement($ibscbs, 'indZFMALC', $data->ibscbs->indicadorZfmAlc);
+            $parent->appendChild($ibscbs);
+        }
     }
 
     private function buildPrestador(DOMElement $parent, PrestadorData $data): void
