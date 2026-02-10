@@ -28,6 +28,6 @@ class EnumCaster implements Caster
             $value = (int) $value;
         }
 
-        return $this->enumType::from($value);
+        return $this->enumType::tryFrom($value);
     }
 }

@@ -149,8 +149,9 @@ describe('TipoSuspensao', function () {
 
 describe('TipoRetencaoPisCofins', function () {
     it('has correct values', function () {
-        expect(\Nfse\Enums\TipoRetencaoPisCofins::NaoRetido->value)->toBe(1)
-            ->and(\Nfse\Enums\TipoRetencaoPisCofins::Retido->value)->toBe(2);
+        expect(\Nfse\Enums\TipoRetencaoPisCofins::PisCofinsNaoRetido->value)->toBe(2)
+            ->and(\Nfse\Enums\TipoRetencaoPisCofins::PisCofinsRetido->value)->toBe(1)
+            ->and(\Nfse\Enums\TipoRetencaoPisCofins::NaoRetidos->value)->toBe(0);
     });
 });
 
