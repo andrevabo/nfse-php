@@ -70,23 +70,13 @@ class SefinClient implements SefinNacionalInterface
 
             return $decoded;
         } catch (GuzzleException $e) {
+            // Try to extract error response body
             $errorBody = '';
             if ($e instanceof \GuzzleHttp\Exception\RequestException && $e->getResponse()) {
-                $response = $e->getResponse();
-                $errorBody = $response->getBody()->getContents();
-
-                if ($response->getStatusCode() === 400) {
-                    $decoded = json_decode($errorBody, true);
-                    if (is_array($decoded)) {
-                        return $decoded;
-                    }
-                }
+                $errorBody = $e->getResponse()->getBody()->getContents();
             }
 
-            throw NfseApiException::requestError(
-                $e->getMessage() . ($errorBody ? "\nResposta: " . $errorBody : ''),
-                $e->getCode()
-            );
+            throw NfseApiException::requestError($e->getMessage().($errorBody ? "\nResposta: ".$errorBody : ''), $e->getCode());
         }
     }
 
