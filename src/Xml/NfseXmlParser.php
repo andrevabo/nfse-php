@@ -9,6 +9,8 @@ class NfseXmlParser
 {
     public function parse(string $xml): NfseData
     {
+        $rawXml = $xml;
+
         // 1. Fix Encoding
         if (! mb_check_encoding($xml, 'UTF-8')) {
             $xml = mb_convert_encoding($xml, 'UTF-8', 'ISO-8859-1');
@@ -51,7 +53,10 @@ class NfseXmlParser
         // 4. Sanitize Array (Fix [] -> null)
         $parsedDoc = $this->sanitizeArray($parsedDoc);
 
-        return new NfseData($parsedDoc);
+        $nfseData = new NfseData($parsedDoc);
+        $nfseData->nfseXml = $rawXml;
+
+        return $nfseData;
     }
 
     private function sanitizeArray($data)
