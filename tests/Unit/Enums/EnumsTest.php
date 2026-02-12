@@ -3,6 +3,7 @@
 namespace Nfse\Tests\Unit\Enums;
 
 use Nfse\Enums\EmitenteDPS;
+use Nfse\Enums\MovimentacaoTemporariaBens;
 use Nfse\Enums\ProcessoEmissao;
 use Nfse\Enums\TipoAmbiente;
 
@@ -159,5 +160,45 @@ describe('IndicadorTotalTributos', function () {
     it('has correct values', function () {
         expect(\Nfse\Enums\IndicadorTotalTributos::Nenhum->value)->toBe(0)
             ->and(\Nfse\Enums\IndicadorTotalTributos::Lei12741->value)->toBe(1);
+    });
+});
+
+describe('MovimentacaoTemporariaBens', function () {
+    it('has correct values', function () {
+        expect(MovimentacaoTemporariaBens::Nenhum->value)->toBe('0')
+            ->and(MovimentacaoTemporariaBens::Nao->value)->toBe('1')
+            ->and(MovimentacaoTemporariaBens::SimImportacao->value)->toBe('2')
+            ->and(MovimentacaoTemporariaBens::SimExportacao->value)->toBe('3');
+    });
+
+    it('can create from value', function () {
+        expect(MovimentacaoTemporariaBens::from('0'))->toBe(MovimentacaoTemporariaBens::Nenhum)
+            ->and(MovimentacaoTemporariaBens::from('1'))->toBe(MovimentacaoTemporariaBens::Nao)
+            ->and(MovimentacaoTemporariaBens::from('2'))->toBe(MovimentacaoTemporariaBens::SimImportacao)
+            ->and(MovimentacaoTemporariaBens::from('3'))->toBe(MovimentacaoTemporariaBens::SimExportacao);
+
+        expect(MovimentacaoTemporariaBens::tryFrom('0'))->toBe(MovimentacaoTemporariaBens::Nenhum)
+            ->and(MovimentacaoTemporariaBens::tryFrom('99'))->toBeNull();
+    });
+
+    it('returns all cases', function () {
+        $cases = MovimentacaoTemporariaBens::cases();
+
+        expect($cases)->toHaveCount(4)
+            ->and($cases[0])->toBe(MovimentacaoTemporariaBens::Nenhum)
+            ->and($cases[1])->toBe(MovimentacaoTemporariaBens::Nao)
+            ->and($cases[2])->toBe(MovimentacaoTemporariaBens::SimImportacao)
+            ->and($cases[3])->toBe(MovimentacaoTemporariaBens::SimExportacao);
+    });
+
+    it('returns correct descriptions', function () {
+        expect(MovimentacaoTemporariaBens::Nenhum->getDescription())->toBe('Nenhum')
+            ->and(MovimentacaoTemporariaBens::Nao->getDescription())->toBe('Não')
+            ->and(MovimentacaoTemporariaBens::SimImportacao->getDescription())->toBe('Sim (Importação)')
+            ->and(MovimentacaoTemporariaBens::SimExportacao->getDescription())->toBe('Sim (Exportação)');
+
+        expect(MovimentacaoTemporariaBens::Nenhum->label())->toBe('Nenhum')
+            ->and(MovimentacaoTemporariaBens::Nao->label())->toBe('Não');
+
     });
 });
