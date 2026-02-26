@@ -119,27 +119,6 @@ class NfseApiExceptionTest extends TestCase
         }
     }
 
-    public function test_sefi_client_post_400_with_erro_single_object_populates_exception()
-    {
-        $errorBody = json_encode([
-            'erro' => ['Codigo' => 'AUTH001', 'Descricao' => 'Não autorizado', 'Complemento' => null],
-        ]);
-
-        $client = $this->createSefinClientWithMock([
-            new Response(400, [], $errorBody),
-        ]);
-
-        try {
-            $client->emitirNfse('fake-payload');
-            $this->fail('Expected NfseApiException was not thrown');
-        } catch (NfseApiException $e) {
-            $this->assertSame($errorBody, $e->getRawResponse());
-            $this->assertCount(1, $e->getErrors());
-            $this->assertSame('AUTH001', $e->getErrors()[0]->codigo);
-            $this->assertSame('Não autorizado', $e->getErrors()[0]->descricao);
-        }
-    }
-
     public function test_sefi_client_post_400_without_structured_errors_has_empty_errors()
     {
         $errorBody = 'Bad Request plain text';

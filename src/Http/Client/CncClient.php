@@ -62,7 +62,7 @@ class CncClient
 
             return $decoded;
         } catch (GuzzleException $e) {
-            $this->handleException($e, $decoded);
+            $this->handleException($e);
         }
     }
 
@@ -81,7 +81,7 @@ class CncClient
 
             return $decoded;
         } catch (GuzzleException $e) {
-            $this->handleException($e, $decoded);
+            $this->handleException($e);
         }
     }
 
@@ -126,7 +126,7 @@ class CncClient
      * @return mixed
      * @throws NfseApiException
      */
-    private function handleException(\Exception|GuzzleException $e, array $decoded)
+    private function handleException(\Exception|GuzzleException $e)
     {
         $errorBody = '';
         if ($e instanceof \GuzzleHttp\Exception\RequestException && $e->hasResponse()) {
