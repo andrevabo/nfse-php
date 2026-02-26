@@ -364,6 +364,13 @@ class DpsXmlBuilder
                 $this->appendElement($vTotTrib, 'vTotTribEst', $data->tributacao->valorTotalTributosEstaduais !== null ? number_format($data->tributacao->valorTotalTributosEstaduais, 2, '.', '') : null);
                 $this->appendElement($vTotTrib, 'vTotTribMun', $data->tributacao->valorTotalTributosMunicipais !== null ? number_format($data->tributacao->valorTotalTributosMunicipais, 2, '.', '') : null);
                 $totTrib->appendChild($vTotTrib);
+            } elseif ($data->tributacao->percentualTotalTributosFederais !== null || $data->tributacao->percentualTotalTributosEstaduais !== null || $data->tributacao->percentualTotalTributosMunicipais !== null) {
+                $totTrib = $this->dom->createElement('totTrib');
+                $pTotTrib = $this->dom->createElement('pTotTrib');
+                $this->appendElement($pTotTrib, 'pTotTribFed', $data->tributacao->percentualTotalTributosFederais !== null ? number_format($data->tributacao->percentualTotalTributosFederais, 2, '.', '') : null);
+                $this->appendElement($pTotTrib, 'pTotTribEst', $data->tributacao->percentualTotalTributosEstaduais !== null ? number_format($data->tributacao->percentualTotalTributosEstaduais, 2, '.', '') : null);
+                $this->appendElement($pTotTrib, 'pTotTribMun', $data->tributacao->percentualTotalTributosMunicipais !== null ? number_format($data->tributacao->percentualTotalTributosMunicipais, 2, '.', '') : null);
+                $totTrib->appendChild($pTotTrib);
             } elseif (! $isSimplesNacional) {
                 $totTrib = $this->dom->createElement('totTrib');
                 $indTotTrib = $data->tributacao->indicadorTotalTributos ?? '0';

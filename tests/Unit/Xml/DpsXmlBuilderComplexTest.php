@@ -192,3 +192,39 @@ it('can build xml with percentualTotalTributosSN', function () {
 
     expect($xml)->toContain('<pTotTribSN>5.00</pTotTribSN>');
 });
+
+it('can build xml with percentualTotalTributos Fed Est Mun', function () {
+    $dpsData = new DpsData([
+        '@versao' => '1.0',
+        'infDPS' => [
+            '@Id' => 'DPS123',
+            'tpAmb' => 2,
+            'dhEmi' => '2023-10-27T10:00:00',
+            'verAplic' => '1.0',
+            'serie' => '1',
+            'nDPS' => '1',
+            'dCompet' => '2023-10-27',
+            'tpEmit' => 1,
+            'cLocEmi' => '3550308',
+            'valores' => [
+                'vServPrest' => [
+                    'vServ' => 100.0,
+                    'vReceb' => 100.0,
+                ],
+                'trib' => [
+                    'tribMun.tribISSQN' => 1,
+                    'totTrib.pTotTrib.pTotTribFed' => 10.50,
+                    'totTrib.pTotTrib.pTotTribEst' => 5.00,
+                    'totTrib.pTotTrib.pTotTribMun' => 2.00,
+                ],
+            ],
+        ],
+    ]);
+
+    $builder = new DpsXmlBuilder;
+    $xml = $builder->build($dpsData);
+
+    expect($xml)->toContain('<pTotTribFed>10.50</pTotTribFed>')
+        ->and($xml)->toContain('<pTotTribEst>5.00</pTotTribEst>')
+        ->and($xml)->toContain('<pTotTribMun>2.00</pTotTribMun>');
+});

@@ -154,6 +154,24 @@ class TributacaoData extends Dto
     public ?float $percentualTotalTributosSN = null;
 
     /**
+     * Percentual total aproximado dos tributos federais.
+     */
+    #[MapFrom('totTrib.pTotTrib.pTotTribFed')]
+    public ?float $percentualTotalTributosFederais = null;
+
+    /**
+     * Percentual total aproximado dos tributos estaduais.
+     */
+    #[MapFrom('totTrib.pTotTrib.pTotTribEst')]
+    public ?float $percentualTotalTributosEstaduais = null;
+
+    /**
+     * Percentual total aproximado dos tributos municipais.
+     */
+    #[MapFrom('totTrib.pTotTrib.pTotTribMun')]
+    public ?float $percentualTotalTributosMunicipais = null;
+
+    /**
      * Indicador de informação de valor total de tributos.
      * 0 - Nenhum
      */
